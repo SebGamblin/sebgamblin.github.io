@@ -732,8 +732,13 @@ section,
 .resume .resume-item {
   padding: 0 0 20px 20px;
   margin-top: -2px;
-  border-left: 2px solid var(--accent-color);
+  /*border-left: 2px solid var(--accent-color);*/
   position: relative;
+
+}
+
+.resume .resume-item p { 
+
 }
 
 .resume .resume-item h4 {
@@ -759,7 +764,13 @@ section,
 
 .resume .resume-item ul li {
   padding-bottom: 10px;
+  padding-left: 1em;
 }
+
+.resume .resume-item ul li::marker {
+  color : var(--accent-color);
+}
+
 
 .resume .resume-item:last-child {
   padding-bottom: 0;
