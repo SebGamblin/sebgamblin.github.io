@@ -1273,3 +1273,42 @@ section,
 .starter-section {
   /* Add your styles here */
 }
+
+
+.icon-orcid {
+  background-image: url("assets/img/icons/orcid.png");
+  background-position: center center;
+}
+
+[class^="icon-custom-"],
+[class*=" icon-custom-"] {
+  background-image: url("https://app.10000ft.com/images/compSpritesButtonsIcons.png?8");
+}
+
+.icon-custom-logo { background-position : -530px -700px; width : 142px; height : 158px;  }
+.icon-custom-intheoffice { background-position: -395px -60px; width: 24px; height: 24px  } 
+
+.myicon {
+  background: url('../img/icons/orcid.png');
+  height: 20px;
+  width: 20px;
+  display: block;
+  /* Other styles here */
+}
+
+.icon-orcid{
+  background-image : url('../img/icons/orcid.png');
+  background-size: cover;
+  display: inline-block;
+  height: 15px;
+  width: 15px;
+}
+
+
+.icon-dblp{
+  background-image : url('../img/icons/dblp.png');
+  background-size: cover;
+  display: inline-block;
+  height: 15px;
+  width: 15px;
+}
