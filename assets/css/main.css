@@ -771,6 +771,10 @@ section,
   color : var(--accent-color);
 }
 
+.resume ul li::marker {
+  color : var(--accent-color);
+}
+
 
 .resume .resume-item:last-child {
   padding-bottom: 0;
@@ -785,8 +789,10 @@ section,
   left: -9px;
   top: 0;
   background: var(--background-color);
-  border: 2px solid var(--accent-color);
+border: 2px solid var(--accent-color);
 }
+
+
 
 /*--------------------------------------------------------------
 # Portfolio Section
@@ -1301,4 +1307,32 @@ section,
   display: inline-block;
   height: 15px;
   width: 15px;
+}
+
+
+.myicon{
+  background-size: cover;
+  display: inline-block;
+  height:30px;
+  width: 30px;
+  vertical-align:middle;
+  margin-right:10px;
+  margin-left:10px;
+}
+
+
+.unicaen{
+  background-image : url('../img/unicaen.png');
+}
+
+.hal{
+  background-image : url('../img/hal.png');
+}
+
+.theses{
+  background-image : url('../img/theses.png');
+}
+
+.greyc{
+  background-image : url('../img/greyc.png');
 }
