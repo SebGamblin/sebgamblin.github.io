@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    
+    <link rel="stylesheet" href="prism.css" data-noprefix />
+    
+    <script src="script.js"></script>
+    
+	
+     <title>TP HTML/CSS Interactif - Rendus Isolés</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        
+   
+        /* Ajout de styles de base pour le TP */
+        .instructions {
+            margin-bottom: 2em;
+        }
+
+        .code-step {
+            border: 1px solid #ccc;
+            padding: 1em;
+            margin: 1em 0;
+            background-color: #f9f9f9;
+        }
+
+        pre {
+            background-color: #eee;
+            padding: 1em;
+            overflow: auto;
+        }
+        
+        
+       .frame {
+		   border: 1px solid #ccc;
+            padding: 1em;
+            margin: 1em 0;
+		  }
+
+      .language-css, .language-markup {
+        padding: 0 !important;
+      }
+
+      code {
+        font-size: 1.25em;
+        color: darkmagenta;
+      }
+    </style>
+       
+</head>
+<body>
+
+    
+    
+    <h1>TP : Créer un Menu déroulant en HTML/CSS</h1>
+    <div class="instructions">
+		<p>Nous allons créer un menu déroulant horizontal en pur HTML5 et CSS3 (sans javascript). 
+		Voici le résultat final souhaité :</p>
+		
+	 <div id="final" class="frame"></div> <script>loadSection("page1.html", "css6.css", "final")</script>
+	
+    </div>
+    
+    Pour un soucis pédagogique:
+    <ul>
+      <li>des boîtes <code>border: 1px solid color;</code> seront ajoutées visuellement aux exemples.</li>
+      <li>le css ne sera pas répété totalement, et certains selecteurs pourront être répétés.</li>
+    </ul> 
+    
+    <section class="code-step">
+		
+		<h2>Étape : créer la structure HTML de base</h2>
+		
+        <p>Code HTML de base :
+        ici nous allons simplement définir un menu, grâce à la balise <code>nav</code>, 
+        qui contiendra une liste non ordonnée (<code>ul</code>), qui contiendra des titres (non cliquables).
+        Pour modéliser les sous-menus, nous allons utiliser aussi des listes, qui contiendront des liens.
+        </p>
+        
+        
+        <!-- <pre class="language-markup" id="pagehtml"></pre><script>loadFileIntoSection("pagehtml", "page1.html")</script>
+         
+        <pre id="basiccss"></pre><script>loadFileIntoSection("basiccss", "css1.css")</script> -->
+         
+	</section>
+	
+	Rendu visuel initial:
+	
+	 <div id="initial" class="frame"></div> <script>loadSection("page1.html", "css0.css", "initial")</script>
+	
+  
+  Solution :
+
+  <pre class="language-markup">
+		<code class="language-markup"> &lt;nav&gt;
+    &lt;ul class=&quot;dropdownmenu&quot;&gt;
+        &lt;li&gt;&lt;a href=&quot;#&quot;&gt;Menu 1&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href=&quot;#&quot;&gt;Menu 2&lt;/a&gt;
+            &lt;ul&gt;
+                &lt;li&gt;&lt;a href=&quot;#&quot;&gt;Sous-Menu 2.1&lt;/a&gt;&lt;/li&gt;
+                &lt;li&gt;&lt;a href=&quot;#&quot;&gt;Sous-Menu 2.2&lt;/a&gt;&lt;/li&gt;
+                &lt;li&gt;&lt;a href=&quot;#&quot;&gt;Sous-Menu 2.3&lt;/a&gt;&lt;/li&gt;
+                &lt;li&gt;&lt;a href=&quot;#&quot;&gt;Sous-Menu 2.4&lt;/a&gt;&lt;/li&gt;
+            &lt;/ul&gt;
+        &lt;/li&gt;
+        &lt;li&gt;&lt;a href=&quot;#&quot;&gt;Menu 3&lt;/a&gt;
+            &lt;ul&gt;
+                &lt;li&gt;&lt;a href=&quot;#&quot;&gt;Sous-Menu 3.1&lt;/a&gt;&lt;/li&gt;
+                &lt;li&gt;&lt;a href=&quot;#&quot;&gt;Sous-Menu 3.2&lt;/a&gt;&lt;/li&gt;
+                &lt;li&gt;&lt;a href=&quot;#&quot;&gt;Sous-Menu 3.3&lt;/a&gt;&lt;/li&gt;
+            &lt;/ul&gt;
+        &lt;/li&gt;
+        &lt;li&gt;&lt;a href=&quot;#&quot;&gt;Menu 4&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+&lt;/nav&gt;</code>
+	</pre>
+
+
+  <section class="code-step">
+		
+		<h2>Étape : gestion des liens</h2>
+
+    Cette étape n'est pas essentielle maintenant, néanmoins elle posera de bonnes balises pour l'affichage des liens.
+
+
+  Rendu visuel:
+  <div id="grid_link" class="frame"></div> <script>loadSection("page1.html", "css1.css", "grid_link")</script>
+
+
+  </section>
+   <section class="code-step">
+		
+		<h2>Étape : affichage horizontal</h2>
+
+    <p>Nous allons maintenant faire en sorte que les titres s'alignent horizontalement. Plusieurs méthodes sont possibles ici. 
+      Il est en effet possible d'utiliser par exemple la propriété CSS <code>display: inline-block;</code>. 
+      Néanmoins, nous allons préférer une gestion automatique de la taille des élements. 
+      Pour cela, il est possible d'utiliser <code>flex</code> ou <code>grid</code>. 
+      Nous allons utiliser <code>grid</code>. 
+      Utilisez <code>grid-template-columns</code> pour afficher 4 colonnes de tailles identiques.
+      Profitez-en pour:
+      <ul>
+        <li>supprimer les puces des listes des <code>nav ul</code></li>
+        <li>supprimer toutes les marges des <code>nav ul</code></li>
+        <li>center le texte de tous les élements dans le menu déroulant <code>dropdownmenu</code></li>
+        <li>transformez les élements liens <code>a</code> en <code>block</code> (simplifie la gestion de sa boîte.</li>
+      </ul> 
+
+    </p>
+
+    Rendu visuel:
+    <div id="grid" class="frame"></div> <script>loadSection("page1.html", "css2.css", "grid")</script>
+
+    Solution:
+    <pre class="language-css">
+      <code class="language-css">.dropdownmenu {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    text-align: center;
+}
+
+nav ul {
+    list-style-type: none;
+    margin: 0px;
+    padding: 0px;
+}
+
+  nav ul ul {
+    border: 1 solid black;
+}</code></pre>
+		
+  </section>
+
+
+  <section class="code-step">
+		
+		<h2>Étape : Faire disparaître et apparaître les menus</h2>
+
+    <p>Pour faire disparaître des éléments HTML, il suffit de donner la valeur <code>none</code>
+      à la propriété <code>display</code>. 
+      Pour le faire réapparaître, utiliser la pseudo-class <code>:hover</code> pour modifier ;
+      la valeur de <code>display</code> à <code>block</code>.- 
+      
+      Attention à bien choisir votre sélecteur CSS : 
+      <ul>
+        <li>vous souhaitez que l'ul inférieur soit non visible;</li>
+        <li>quand votre souris passe sur un li, le ul inférieur doit apparaître.</li>
+      </ul>
+
+    </p>
+
+    Rendu visuel:
+    <div id="display" class="frame"></div> <script>loadSection("page1.html", "css3.css", "display")</script>
+
+    Solution:
+    <pre class="language-css">
+<code class="language-css">nav ul ul {
+    display: none;
+}
+nav li:hover ul {
+    display: block;
+}</code></pre>
+
+Vous pouvez constater que les éléments de la page se déplacent quand vous passez sur les élements.
+Pour éviter cela ajoutez ceci à votre CSS: 
+
+<pre class="language-css">
+<code class="language-css">nav ul ul {
+    position: absolute; /* Sort le sous-menu du flux normal */
+    top: 100%; /* Positionne le sous-menu en dessous de l'élément parent */
+    left: 0;
+    z-index: 1000; /* Assure que le sous-menu est devant le reste */
+}</code></pre>
+
+   Faites en sorte d'avoir une largeur de 100% pour le ul inférieur :
+
+   <div id="display2" class="frame"></div> <script>loadSection("page1.html", "css3_1.css", "display2")</script>
+		
+  </section>
+
+  <section class="code-step">
+		
+		<h2>Étape : un peu de couleur</h2>
+
+    <p>Ajoutez le CSS de votre choix pour rendre le menu plus agréable</p>
+
+    <div id="display3" class="frame"></div> <script>loadSection("page1.html", "css4.css", "display3")</script>
+
+
+    <p>Ajoutez le CSS pour avoir une transition au niveau de la taille</p>
+
+    <div id="displaytransi" class="frame"></div> <script>loadSection("page1.html", "css5.css", "displaytransi")</script>
+		
+	<p>Ajoutez le CSS pour avoir une transition au niveau de la taille</p>
+
+    <div id="displaytransi2" class="frame"></div> <script>loadSection("page1.html", "css6.css", "displaytransi2")</script>
+		
+  </section>
+
+    
+    <div class="title"> Prism.js example </div>
+		<p class="text"> Javascript: </p>
+		<pre class="language-js">
+		<code class="language-js">
+		  function example(a, b) {
+			 console.log("example!);
+		  }
+		</code>
+		</pre>
+		<p class="text"> CSS: </p>
+		<pre class="language-css">
+		<code class="language-css">
+		  .example {
+			 color: #fff;
+		  }
+		</code>
+		</pre>
+		<p class="text"> HTML: </p>
+		<pre class="language-markup">
+		<code class="language-markup">
+		  &#60;p&#62; Example &#60;/p&#62;
+		  &#60;div&#62; Example two &#60;/div&#62;
+		</code>
+		</pre>
+    
+    <script src="prism.js"></script>
+    
+</body>
+</html>

@@ -1,0 +1,22 @@
+
+.dropdownmenu {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    text-align: center;
+ }
+
+nav ul {
+    list-style-type: none;
+    margin: 0px;
+    padding: 0px;
+ }
+
+
+.dropdownmenu a{
+    display: block;
+    text-decoration: none;
+    width: 100%;
+    margin: 0;
+    padding: 0.85em 0.25em 0.25em 0.25em;
+    height: 2em;
+}

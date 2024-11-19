@@ -1,0 +1,83 @@
+.dropdownmenu {
+	text-align: center;
+	display: grid;
+	grid-template-columns: 1fr 1fr 1fr 1fr;
+	padding: 0px;
+}
+
+.dropdownmenu li {
+    width: 100%;
+	position: relative;  /* pour être la «racine» du sous-menu en absolute */
+}
+
+.dropdownmenu ul {
+	max-height: 0;
+	overflow: hidden;
+	/* transition: width, border-radius;*/
+	position: absolute;
+	padding: 0;
+	margin: 0;
+	list-style: none;
+	width: 100%;  /* pour avoir la même largeur que la «racine» */
+}
+
+.dropdownmenu li:hover ul {
+	max-height: 50em;
+	transition: 1.5s;
+	border-radius: 0px 0px 25px 25px;
+}
+
+.dropdownmenu a{
+    display: block;
+    text-decoration: none;
+    width: 100%;
+    margin: 0;
+    padding: 0.85em 0.25em 0.25em 0.25em;
+    height: 2em;
+}
+
+.dropdownmenu li {
+	display: block;
+	margin: 0;
+	padding: 0;
+	font-size: inherit;
+	color: black;
+	text-decoration: none;
+	box-sizing: border-box;
+    width: 100%;
+}
+
+
+
+
+.dropdownmenu a{
+    display: block;
+    text-decoration: none;
+    margin: 0;
+    padding: 0.85em 0.25em 0.25em 0.25em;
+    height: 2em;
+}
+
+a {
+    color: white;
+}
+
+.dropdownmenu>li {
+    background-color: red;
+    font-weight: bold;
+    text-transform: capitalize;
+}
+
+.dropdownmenu ul {
+    border-radius: 0px 0px 25px 25px;
+}
+.dropdownmenu>li>ul {
+    background-color: orange;
+}
+
+.dropdownmenu>li>ul>li:hover {
+    background-color: lemonchiffon;
+}
+.dropdownmenu>li>ul>li:hover a{
+    color: red;
+}
