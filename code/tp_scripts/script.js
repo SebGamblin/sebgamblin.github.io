@@ -34,6 +34,16 @@ async function loadSection(pageUrl, cssUrl, id) {
 		.catch(err => console.error('Erreur de chargement de la page:', err));
 }
 
+async function loadSectionSansCSS(pageUrl, id) {
+    fetch(pageUrl)
+        .then(response => response.text())
+        .then(data => {
+            // Ajouter directement le contenu dans le DOM
+            document.getElementById(id).innerHTML = data;
+        })
+        .catch(err => console.error('Erreur de chargement de la page:', err));
+}
+
 async function loadFileIntoSection(id, fileUrl) {
 	try {
 		// Charger le contenu du fichier via fetch

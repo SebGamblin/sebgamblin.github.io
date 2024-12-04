@@ -73,3 +73,8 @@ a {
     max-height: 50em;
 }
 
+/* Sélectionne les <li> qui n'ont pas de sous-<ul> */
+li:has(ul) {
+    /* Vos styles ici */
+    background-color: coral !important;
+}

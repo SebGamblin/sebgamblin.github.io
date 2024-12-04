@@ -1,0 +1,49 @@
+body {
+    font-family: Arial, sans-serif;
+
+    padding: 2em;
+}
+
+
+/* Ajout de styles de base pour le TP */
+.instructions {
+    margin-bottom: 2em;
+}
+
+.code-step {
+    border: 1px solid #ccc;
+    padding: 1em;
+    margin: 1em 0;
+    background-color: #f9f9f9;
+}
+
+pre {
+    background-color: #eee;
+    padding: 1em;
+    overflow: auto;
+}
+
+
+.frame {
+   border: 1px solid #ccc;
+    padding: 1em;
+    margin: 1em 0;
+  }
+
+.language-css, .language-markup {
+padding: 0 !important;
+}
+
+code {
+font-size: 1.25em;
+color: darkmagenta;
+}
+
+.navbar-default .navbar-nav > li > a:hover, .navbar-default .navbar-nav > li > a:focus {
+    background-color: #FFFF00;
+    color: #FFC0CB;
+}
+
+.dropdown:hover .dropdown-menu {
+	display: block;
+}
