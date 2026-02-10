@@ -1336,3 +1336,8 @@ border: 2px solid var(--accent-color);
 .greyc{
   background-image : url('../img/greyc.png');
 }
+
+p {
+  text-align: justify;
+  text-justify: auto;
+}
