@@ -104,21 +104,31 @@ pre:hover .copy-btn{opacity:1}
 <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.8.0/build/highlight.min.js"></script>
 
 <script>
-function getMarkdown(){
-  var targets=[window.parent,window.top,window];
-  for(var i=0;i<targets.length;i++){
-    try{
-      var el=targets[i].document.getElementById('cours-md');
-      if(el) return (el.innerText||el.textContent||'').trim();
-    }catch(e){}
-  }
-  return null;
-}
-
-var md=getMarkdown();
-if(!md) document.getElementById('error-banner').style.display='block';
-
+// md sera rempli par postMessage depuis Moodle
+var md=null;
 var slideMode=false,revealInitialized=false;
+
+// Afficher l'écran d'attente tant que le markdown n'est pas reçu
+document.getElementById('error-banner').style.display='block';
+document.getElementById('error-banner').innerHTML=
+  '<span style="opacity:.5">⏳ En attente du contenu depuis Moodle…</span>';
+
+// Écoute le message postMessage envoyé par la page Moodle parente
+window.addEventListener('message', function(event) {
+  // Vérification basique du format du message
+  if (!event.data || event.data.type !== 'cours-md') return;
+
+  md = (event.data.content || '').trim();
+  document.getElementById('error-banner').style.display='none';
+
+  // Lancer le rendu une fois le markdown reçu
+  if(window.location.search.includes('print-pdf')){
+    document.getElementById('toolbar').style.display='none';
+    renderSlides();
+  } else {
+    renderDoc();
+  }
+});
 marked.setOptions({highlight:function(code,lang){return hljs.highlightAuto(code,lang?[lang]:undefined).value;}});
 
 var ICON_COPY='<svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>';
@@ -201,11 +211,12 @@ function toggleFullscreen(){
 function printDoc(){if(slideMode) switchMode();setTimeout(function(){window.print();},300);}
 function printSlides(){window.open(window.location.href.split('?')[0]+'?print-pdf','_blank');}
 
-if(window.location.search.includes('print-pdf')){
+// L'initialisation se fait dans le listener postMessage ci-dessus.
+// Ce bloc reste pour le cas où le fichier est ouvert directement
+// (hors Moodle, ex: test local ou ?print-pdf direct)
+if(window.location.search.includes('print-pdf') && !md){
   document.getElementById('toolbar').style.display='none';
-  renderSlides();
-}else{
-  renderDoc();
+  // Attendre le postMessage — rien à faire ici
 }
 </script>
 </body>
