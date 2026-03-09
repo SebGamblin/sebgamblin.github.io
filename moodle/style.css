@@ -71,3 +71,5 @@ pre:hover .copy-btn{opacity:1}
 img {
     max-width: 600px;
 }
+
+.hl-line{display:block;background:rgba(255,235,59,.35);border-left:3px solid #f1c40f;margin:0 -1.5rem;padding:0 1.5rem;margin-right:-1.5rem}
