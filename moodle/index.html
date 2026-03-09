@@ -1,8 +1,71 @@
 <div id="cours-md" style="display:none">
 # Mon cours
+
+  
 ---
 ## Slide 1
-...
+
+Le Lorem Ipsum est simplement du faux texte employé dans la composition et la mise en page avant impression. Le Lorem Ipsum est le faux texte standard de l'imprimerie depuis les années 1500, quand un imprimeur anonyme assembla ensemble des morceaux de texte pour réaliser un livre spécimen de polices de texte. Il n'a pas fait que survivre cinq siècles, mais s'est aussi adapté à la bureautique informatique, sans que son contenu n'en soit modifié. Il a été popularisé dans les années 1960 grâce à la vente de feuilles Letraset contenant des passages du Lorem Ipsum, et, plus récemment, par son inclusion dans des applications de mise en page de texte, comme Aldus PageMaker.
+
+---
+## Slide 2
+
+```mermaid
+  graph TD;
+      A-->B;
+      A-->C;
+      B-->D;
+      C-->D;
+```
+
+--- 
+## Slide 3
+
+```python
+
+function A_Star(start, goal):
+    // Initialize open and closed lists
+    openList = [start]          // Nodes to be evaluated
+    closedList = []            // Nodes already evaluated
+    
+    // Initialize node properties
+    start.g = 0                // Cost from start to start is 0
+    start.h = heuristic(start, goal)  // Estimate to goal
+    start.f = start.g + start.h       // Total estimated cost
+    start.parent = null              // For path reconstruction
+    while openList is not empty:
+        // Get node with lowest f value - implement using a priority queue
+       // for faster retrieval of the best node
+        current = node in openList with lowest f value
+        
+        // Check if we've reached the goal
+        if current = goal:
+            return reconstruct_path(current)
+            
+        // Move current node from open to closed list
+        remove current from openList
+        add current to closedList
+        
+        // Check all neighboring nodes
+        for each neighbor of current:
+            if neighbor in closedList:
+                continue  // Skip already evaluated nodes
+                
+            // Calculate tentative g score
+            tentative_g = current.g + distance(current, neighbor)
+            
+            if neighbor not in openList:
+                add neighbor to openList
+            else if tentative_g >= neighbor.g:
+                continue  // This path is not better
+                
+            // This path is the best so far
+            neighbor.parent = current
+            neighbor.g = tentative_g
+            neighbor.h = heuristic(neighbor, goal)
+            neighbor.f = neighbor.g + neighbor.h
+```
+  
 </div>
 
 <!-- src="https://sebgamblin.github.io/moodle/moteur.html" -->
