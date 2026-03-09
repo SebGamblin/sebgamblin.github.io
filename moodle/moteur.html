@@ -116,6 +116,7 @@ document.getElementById('error-banner').innerHTML=
 // Écoute le message postMessage envoyé par la page Moodle parente
 window.addEventListener('message', function(event) {
   // Vérification basique du format du message
+  // On accepte toute origine car Moodle peut modifier l'URL cible dans postMessage
   if (!event.data || event.data.type !== 'cours-md') return;
 
   md = (event.data.content || '').trim();
@@ -172,10 +173,25 @@ function addLangBadges(root){
 }
 
 function renderDoc(){
+  // Détruire Reveal proprement pour libérer tous ses styles globaux
+  if(revealInitialized){
+    try{ Reveal.destroy(); }catch(e){}
+    revealInitialized=false;
+  }
+
+  // Restaurer les styles que Reveal impose sur html/body
   document.documentElement.style.overflow='';
+  document.documentElement.style.height='';
   document.body.style.overflow='';
+  document.body.style.height='';
+  document.body.style.width='';
+
   document.getElementById('doc').style.display='block';
   document.querySelector('.reveal').style.display='none';
+
+  // Vider les slides pour éviter tout résidu DOM de Reveal
+  document.querySelector('.slides').innerHTML='';
+
   var docEl=document.getElementById('doc');
   docEl.innerHTML=marked.parse(md||'*Aucun contenu.*');
   transformMermaid(docEl);hljs.highlightAll();addLangBadges(docEl);addCopyButtons(docEl);
