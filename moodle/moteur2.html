@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Moteur cours ISEN</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;0,400;0,500;1,400&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js/dist/reveal.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.8.0/build/styles/github.min.css">
+<link rel="stylesheet" href="./style.css">
+
+
+</head>
+<body>
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+<script>mermaid.initialize({startOnLoad:false,theme:'base',themeVariables:{primaryColor:'#fadbd8',primaryBorderColor:'#c0392b',primaryTextColor:'#1a1a2e'}});</script>
+
+
+
+<div id="toolbar">
+  <button class="toolbar-btn" onclick="switchMode()" id="modeBtn">&#9654; Slides</button>
+  <button class="toolbar-btn" onclick="printDoc()">&#11015; PDF cours</button>
+  <!--<button class="toolbar-btn" onclick="printSlides()">&#11015; PDF slides</button> -->
+  <button class="toolbar-btn" onclick="toggleFullscreen()">&#9974; Plein écran</button>
+</div>
+
+<div id="error-banner">
+  ⚠️ Contenu introuvable. La page Moodle doit contenir
+  <code>&lt;div id="cours-md"&gt;...markdown...&lt;/div&gt;</code>.
+</div>
+
+<div id="doc"></div>
+<div class="reveal"><div class="slides"></div></div>
+
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/reveal.js/dist/reveal.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.8.0/build/highlight.min.js"></script>
+
+<script>
+// md sera rempli par postMessage depuis Moodle
+var md=null;
+var slideMode=false,revealInitialized=false;
+
+// Afficher l'écran d'attente tant que le markdown n'est pas reçu
+document.getElementById('error-banner').style.display='block';
+document.getElementById('error-banner').innerHTML=
+  '<span style="opacity:.5">⏳ En attente du contenu depuis Moodle…</span>';
+
+// Écoute le message postMessage envoyé par la page Moodle parente
+window.addEventListener('message', function(event) {
+  if (!event.data || event.data.type !== 'cours-md') return;
+
+  // Le contenu arrive déjà décodé depuis l'encodeur
+  md = (event.data.content || '').trim();
+  document.getElementById('error-banner').style.display='none';
+
+  // Lancer le rendu une fois le markdown reçu
+  if(window.location.search.includes('print-pdf')){
+    document.getElementById('toolbar').style.display='none';
+    renderSlides();
+  } else {
+    renderDoc();
+  }
+});
+marked.setOptions({highlight:function(code,lang){return hljs.highlightAuto(code,lang?[lang]:undefined).value;}});
+
+var ICON_COPY='<svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>';
+var ICON_OK='<svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>';
+
+function addCopyButtons(root){
+  root.querySelectorAll('pre').forEach(function(pre){
+    if(pre.querySelector('.copy-btn')) return;
+    var btn=document.createElement('button');
+    btn.className='copy-btn';
+    btn.innerHTML=ICON_COPY+'<span>Copier</span>';
+    btn.addEventListener('click',function(){
+      var text=(pre.querySelector('code')||pre).innerText;
+      var done=function(){
+        btn.innerHTML=ICON_OK+'<span>Copié !</span>';
+        btn.classList.add('copied');
+        setTimeout(function(){btn.innerHTML=ICON_COPY+'<span>Copier</span>';btn.classList.remove('copied');},2000);
+      };
+      if(navigator.clipboard){navigator.clipboard.writeText(text).then(done).catch(done);}else{done();}
+    });
+    pre.appendChild(btn);
+  });
+}
+
+function transformMermaid(root){
+  root.querySelectorAll('pre code.language-mermaid').forEach(function(el){
+    var div=document.createElement('div');
+    div.className='mermaid';
+    div.textContent=el.textContent;
+    el.closest('pre').replaceWith(div);
+  });
+  mermaid.run({nodes:root.querySelectorAll('.mermaid')});
+}
+
+function addLangBadges(root){
+  root.querySelectorAll('pre code[class*="language-"]').forEach(function(el){
+    var lang=Array.from(el.classList).find(function(c){return c.startsWith('language-');});
+    if(lang) lang=lang.replace('language-','');
+    if(lang&&lang!=='mermaid') el.closest('pre').setAttribute('data-lang',lang);
+  });
+}
+
+function renderMath(root){
+  if(typeof renderMathInElement === 'undefined') return;
+  renderMathInElement(root, {
+    delimiters: [
+      {left: '$$', right: '$$', display: true},   // bloc centré
+      {left: '$',  right: '$',  display: false},   // inline
+      {left: '\\[', right: '\\]', display: true},  // bloc alternatif
+      {left: '\\(', right: '\\)', display: false}  // inline alternatif
+    ],
+    throwOnError: false
+  });
+}
+
+function highlightLines(root){
+  // Cherche # [hl] (avec variantes d'espaces) dans le HTML du bloc de code
+  // et entoure la ligne entière d'un <span class="hl-line">
+  root.querySelectorAll('pre code').forEach(function(el){
+    if(!el.innerHTML.includes('[hl]')) return;
+    var lines = el.innerHTML.split('\n');
+    var result = lines.map(function(line){
+      if(line.includes('[hl]')){
+        // Supprimer le marqueur # [hl] (et ses variantes encodées)
+        var clean = line
+          .replace(/\s*#\s*\[hl\]/g, '')       // # [hl]
+          .replace(/\s*\/\/\s*\[hl\]/g, '')    // // [hl]
+          .replace(/\s*--\s*\[hl\]/g, '');     // -- [hl]
+        return '<span class="hl-line">' + clean + '</span>';
+      }
+      return line;
+    });
+    el.innerHTML = result.join('\n').replace(/\n(<\/span>)/g, '$1');
+  });
+}
+
+function renderDoc(){
+  // Détruire Reveal proprement pour libérer tous ses styles globaux
+  if(revealInitialized){
+    try{ Reveal.destroy(); }catch(e){}
+    revealInitialized=false;
+  }
+
+  // Restaurer les styles que Reveal impose sur html/body
+  document.documentElement.style.overflow='';
+  document.documentElement.style.height='';
+  document.body.style.overflow='';
+  document.body.style.height='';
+  document.body.style.width='';
+
+  document.getElementById('doc').style.display='block';
+  document.querySelector('.reveal').style.display='none';
+
+  // Vider les slides pour éviter tout résidu DOM de Reveal
+  document.querySelector('.slides').innerHTML='';
+
+  var docEl=document.getElementById('doc');
+  docEl.innerHTML=marked.parse(md||'*Aucun contenu.*');
+  transformMermaid(docEl);hljs.highlightAll();addLangBadges(docEl);highlightLines(docEl);renderMath(docEl);addCopyButtons(docEl);
+
+  // Envoyer la hauteur au parent après rendu (avec délai pour les images/mermaid)
+  setTimeout(sendHeight, 300);
+}
+
+function renderSlides(){
+  document.getElementById('doc').style.display='none';
+  document.querySelector('.reveal').style.display='block';
+  var container=document.querySelector('.slides');
+  container.innerHTML='';
+  (md||'').split(/^---$/m).forEach(function(s){
+    var section=document.createElement('section');
+    section.innerHTML=marked.parse(s);
+    container.appendChild(section);
+  });
+  transformMermaid(container);hljs.highlightAll();highlightLines(container);renderMath(container);addCopyButtons(container);
+  if(!revealInitialized){
+    Reveal.initialize({hash:false,slideNumber:true,transition:'slide',width:1100,height:700});
+    revealInitialized=true;
+  }else{Reveal.sync();Reveal.slide(0);}
+  // En mode slides, hauteur fixe
+  setTimeout(function(){ window.parent.postMessage({ type:'resize-iframe', height: window.innerHeight }, '*'); }, 400);
+}
+
+function sendHeight(){
+  var h = Math.max(
+    document.body.scrollHeight,
+    document.documentElement.scrollHeight
+  );
+  window.parent.postMessage({ type:'resize-iframe', height: h }, '*');
+}
+
+// Renvoi automatique si le contenu change de taille (images qui chargent, etc.)
+if(window.ResizeObserver){
+  new ResizeObserver(function(){ if(!slideMode) sendHeight(); })
+    .observe(document.body);
+}
+
+function switchMode(){
+  slideMode=!slideMode;
+  var btn=document.getElementById('modeBtn');
+  if(slideMode){renderSlides();btn.textContent='📄 Document';btn.classList.add('active');}
+  else{renderDoc();btn.textContent='▶ Slides';btn.classList.remove('active');}
+}
+function toggleFullscreen(){
+  if(!document.fullscreenElement) document.documentElement.requestFullscreen();
+  else document.exitFullscreen();
+}
+function printDoc(){if(slideMode) switchMode();setTimeout(function(){window.print();},300);}
+function printSlides(){window.open(window.location.href.split('?')[0]+'?print-pdf','_blank');}
+
+// L'initialisation se fait dans le listener postMessage ci-dessus.
+// Ce bloc reste pour le cas où le fichier est ouvert directement
+// (hors Moodle, ex: test local ou ?print-pdf direct)
+if(window.location.search.includes('print-pdf') && !md){
+  document.getElementById('toolbar').style.display='none';
+  // Attendre le postMessage — rien à faire ici
+}
+</script>
+</body>
+</html>
