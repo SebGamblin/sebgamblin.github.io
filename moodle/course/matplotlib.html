@@ -1,0 +1,277 @@
+<div id="cours-md" type="text/plain" style="display:none">
+
+# Visualisation de données avec Matplotlib
+
+Cours Python — ISEN CBIO1 Caen
+
+---
+
+## Introduction à Matplotlib
+
+$\frac{1}{2}$
+
+$$\frac{1}{3}$$
+
+**Matplotlib** est la bibliothèque de référence pour la visualisation de données en Python.
+
+- Permet de tracer des graphiques 2D (courbes, barres, histogrammes, camemberts…)
+- S'intègre parfaitement avec `numpy` et `pandas`
+- Très utilisée en science, ingénierie et data science
+
+<div class="thm">
+<h3>Documentation</h3>
+<p> <a href="https://matplotlib.org/stable/index.html">https://matplotlib.org/stable/index.html</a></p>
+</div>
+
+
+### Installation
+```bash
+pip install matplotlib
+```
+
+### Import standard
+```python
+import matplotlib.pyplot as plt
+import numpy as np
+```
+
+> Par convention, on importe toujours `matplotlib.pyplot` sous l'alias `plt`.
+
+---
+
+## Premier graphique — courbe simple
+```python
+import matplotlib.pyplot as plt
+
+x = [0, 1, 2, 3, 4, 5]
+y = [0, 1, 4, 9, 16, 25]
+
+plt.plot(x, y)
+plt.title("Ma première courbe")
+plt.xlabel("x")
+plt.ylabel("y = x²")
+plt.show()
+```
+---
+
+**Résultat attendu :**
+
+Une courbe croissante reliant les points (0,0), (1,1), (2,4), (3,9), (4,16), (5,25).
+
+<img src="/moodle/course/matplotlib/01_courbe_simple.png" width="80%">
+
+---
+
+
+## Courbes avec NumPy
+
+NumPy permet de générer facilement des tableaux de valeurs pour tracer des fonctions mathématiques continues.
+```python
+import matplotlib.pyplot as plt
+import numpy as np
+
+# 200 points entre 0 et 2π
+x = np.linspace(0, 2 * np.pi, 200)
+y = np.sin(x)
+
+plt.plot(x, y)
+plt.title("Fonction sinus")
+plt.xlabel("x (radians)")
+plt.ylabel("sin(x)")
+plt.grid(True)
+plt.show()
+```
+<div class="thm">
+<h3>Documentation</h3>
+<p> <a href="https://numpy.org/doc/stable/">https://numpy.org/doc/stable/</a></p>
+</div>
+
+
+---
+
+**Résultat attendu :**
+
+Une sinusoïde lisse entre 0 et 2π, avec une grille en arrière-plan.
+
+> `np.linspace(a, b, n)` génère `n` valeurs régulièrement espacées entre `a` et `b`.
+
+<img src="/moodle/course/matplotlib/02_sinus.png" width="600px">
+
+---
+
+## Personnalisation des courbes
+
+On peut modifier la couleur, le style de ligne et les marqueurs.
+```python
+import matplotlib.pyplot as plt
+import numpy as np
+
+x = np.linspace(0, 2 * np.pi, 50)
+
+plt.plot(x, np.sin(x), color='blue',   linestyle='-',  linewidth=2, label='sin(x)')
+plt.plot(x, np.cos(x), color='red',    linestyle='--', linewidth=2, label='cos(x)')
+plt.plot(x, np.tan(x), color='green',  linestyle=':',  linewidth=1, label='tan(x)',
+         marker='o', markersize=3)
+
+plt.ylim(-2, 2)          # Limiter l'axe y pour éviter les asymptotes de tan
+plt.title("sin, cos et tan")
+plt.legend()             # Afficher la légende
+plt.grid(True)
+plt.show()
+```
+
+**Options courantes :**
+
+| Paramètre | Exemples |
+|---|---|
+| `color` | `'blue'`, `'red'`, `'#c0392b'` |
+| `linestyle` | `'-'`, `'--'`, `':'`, `'-.'` |
+| `linewidth` | `1`, `2`, `3`… |
+| `marker` | `'o'`, `'s'`, `'^'`, `'x'` |
+| `markersize` | `3`, `5`, `10`… |
+
+---
+
+Résultat:
+
+<img src="/moodle/course/matplotlib/03_personnalisation.png"  width="80%">
+
+---
+
+## Limites et annotations
+```python
+import matplotlib.pyplot as plt
+import numpy as np
+
+x = np.linspace(0, 10, 300)
+y = np.exp(-x / 3) * np.cos(2 * x)
+
+plt.plot(x, y, color='purple', linewidth=2)
+
+# Limites des axes
+plt.xlim(0, 10) # [hl]
+plt.ylim(-1, 1) # [hl]
+
+# Annotation d'un point particulier
+plt.annotate( # [hl]
+    'maximum local',
+    xy=(0, 1),
+    xytext=(1.5, 0.8),
+    arrowprops=dict(arrowstyle='->', color='black')
+)
+
+plt.title("Oscillation amortie")
+plt.xlabel("Temps (s)")
+plt.ylabel("Amplitude")
+plt.grid(True, alpha=0.4)
+plt.show()
+```
+
+---
+
+**Résultat attendu :**
+
+Une courbe oscillante dont l'amplitude diminue avec le temps, avec une flèche pointant vers le maximum.
+
+<img src="/moodle/course/matplotlib/04_annotation.png"  width="80%">
+
+---
+
+
+## Nuage de points — `scatter`
+```python
+import matplotlib.pyplot as plt
+import numpy as np
+
+np.random.seed(0)
+n = 100
+
+# Groupe 1 : centré en (2, 2)
+x1 = np.random.normal(2, 0.8, n)
+y1 = np.random.normal(2, 0.8, n)
+
+# Groupe 2 : centré en (5, 5)
+x2 = np.random.normal(5, 0.8, n)
+y2 = np.random.normal(5, 0.8, n)
+
+plt.scatter(x1, y1, color='#c0392b', alpha=0.6, label='Groupe A', s=50) # [hl]
+plt.scatter(x2, y2, color='#2980b9', alpha=0.6, label='Groupe B', s=50) # [hl]
+
+plt.title("Nuage de points — deux groupes")
+plt.xlabel("Variable X")
+plt.ylabel("Variable Y")
+plt.legend()
+plt.grid(True, alpha=0.3)
+plt.show()
+```
+
+---
+
+**Résultat attendu :**
+
+Deux nuages de points distincts, rouge et bleu, clairement séparés sur le graphique.
+
+> Le paramètre `s` contrôle la taille des points, `alpha` leur transparence.
+
+<img src="/moodle/course/matplotlib/09_scatter.png"  width="80%">
+
+---
+
+## Sauvegarde d'une figure
+```python
+import matplotlib.pyplot as plt
+import numpy as np
+
+x = np.linspace(0, 2 * np.pi, 200)
+
+plt.figure(figsize=(8, 4))     # Taille en pouces
+plt.plot(x, np.sin(x), 'b-', linewidth=2)
+plt.title("Sinus")
+plt.tight_layout()
+
+# Sauvegarder avant plt.show() !
+plt.savefig("mon_graphique.png", dpi=150, bbox_inches='tight')
+plt.show()
+```
+
+<div class="thm">
+<h3>Attention</h3>
+<p><code>plt.savefig()</code> doit être appelé <strong>avant</strong> <code>plt.show()</code> — après <code>show()</code>, la figure est vidée.</p>
+</div>
+
+**Formats supportés :**
+
+| Format | Extension | Usage |
+|---|---|---|
+| PNG | `.png` | Web, documents |
+| PDF | `.pdf` | Publications, LaTeX |
+| SVG | `.svg` | Vectoriel, web |
+| JPEG | `.jpg` | Photos, web |
+
+---
+
+# Questions ?
+
+</div>
+
+<!-- src="https://sebgamblin.github.io/moodle/moteur.html" -->
+
+<iframe id="moteur-iframe" src="../moteur2.html" style="width:100%; height:600px; border:none; min-height:600px;" allowfullscreen="">
+</iframe>
+
+<script>
+// Envoi du markdown à l'iframe
+document.getElementById('moteur-iframe').addEventListener('load', function() {
+  var raw = document.getElementById('cours-md').innerHTML;
+  var txt = document.createElement('textarea');
+  txt.innerHTML = raw;
+  this.contentWindow.postMessage({ type: 'cours-md', content: txt.value }, '*');
+});
+
+// Redimensionnement automatique de l'iframe selon la hauteur du contenu
+window.addEventListener('message', function(e) {
+  if (!e.data || e.data.type !== 'resize-iframe') return;
+  var iframe = document.getElementById('moteur-iframe');
+  iframe.style.height = (e.data.height + 20) + 'px';
+});
+</script>
