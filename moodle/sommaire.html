@@ -1,0 +1,34 @@
+<div id="cours-md" type="text/plain" style="display:none">
+
+
+# Sommaire 
+
+--- 
+
+## Liste d'exemples de cours 
+
+- [matplotlib](./course/matplotlib.html)
+
+</div>
+
+<!-- src="https://sebgamblin.github.io/moodle/moteur.html" -->
+
+<iframe id="moteur-iframe" src="./moteur3.html" style="width:100%; height:600px; border:none; min-height:600px;" allowfullscreen="">
+</iframe>
+
+<script>
+// Envoi du markdown à l'iframe
+document.getElementById('moteur-iframe').addEventListener('load', function() {
+  var raw = document.getElementById('cours-md').innerHTML;
+  var txt = document.createElement('textarea');
+  txt.innerHTML = raw;
+  this.contentWindow.postMessage({ type: 'cours-md', content: txt.value }, '*');
+});
+
+// Redimensionnement automatique de l'iframe selon la hauteur du contenu
+window.addEventListener('message', function(e) {
+  if (!e.data || e.data.type !== 'resize-iframe') return;
+  var iframe = document.getElementById('moteur-iframe');
+  iframe.style.height = (e.data.height + 20) + 'px';
+});
+</script>
