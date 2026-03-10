@@ -27,8 +27,9 @@
     toolbar.id = 'moteur-toolbar';
     toolbar.innerHTML =
       '<button class="moteur-btn" id="moteur-mode-btn" onclick="window._moteur.switchMode()">&#9654; Slides</button>' +
+      '<button class="moteur-btn" onclick="window._moteur.printDoc()">&#11015; Imprimer</button>' +
       '<button class="moteur-btn" onclick="window._moteur.toggleFullscreen()">&#9974; Plein écran</button>';
-    // '<button class="moteur-btn" onclick="window._moteur.printDoc()">&#11015; Imprimer</button>' +
+
     var banner = document.createElement('div');
     banner.id = 'moteur-banner';
     banner.innerHTML = '<span style="opacity:.5">⏳ En attente du contenu…</span>';
@@ -244,8 +245,11 @@
   function switchMode() {
     slideMode = !slideMode;
     var btn = document.getElementById('moteur-mode-btn');
-    if (slideMode) { renderSlides(); btn.textContent = '📄 Document'; btn.classList.add('active'); }
-    else           { renderDoc();    btn.textContent = '▶ Slides';   btn.classList.remove('active'); }
+    // Toujours passer par loadAllLibs — Reveal peut ne pas encore être chargé
+    loadAllLibs(function () {
+      if (slideMode) { renderSlides(); btn.textContent = '📄 Document'; btn.classList.add('active'); }
+      else           { renderDoc();    btn.textContent = '▶ Slides';    btn.classList.remove('active'); }
+    });
   }
   function toggleFullscreen() {
     if (!document.fullscreenElement) document.documentElement.requestFullscreen();
@@ -273,7 +277,7 @@
     });
 
     // Redimensionnement auto
-    if (window.ResizeObserver && false) {
+    if (window.ResizeObserver) {
       // on observe document.documentElement plutôt que body
       // pour ne pas déclencher sur les changements causés par l'iframe elle-même
       new ResizeObserver(function (entries) {
