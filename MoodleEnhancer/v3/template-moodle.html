@@ -1,0 +1,83 @@
+<!-- 1. Le markdown du cours — Moodle ne l'affiche pas (display:none) -->
+<div id="cours-md" style="display:none">
+
+# Titre du cours
+
+Sous-titre — ISEN CBIO1
+
+---
+
+## Introduction
+
+Contenu de la section...
+
+- Point A
+- Point B
+
+---
+
+## Exemple de code
+
+```python
+def hello():
+    print("Bonjour !") # [hl]
+```
+---
+
+## Formules mathématiques
+
+Formule inline : $E = mc^2$
+
+Bloc centré :
+
+$$\int_0^{+\infty} e^{-x^2} dx = \frac{\sqrt{\pi}}{2}$$
+
+---
+
+## Tableau
+
+| Colonne A | Colonne B | Colonne C |
+|-----------|-----------|-----------|
+| Valeur 1  | Valeur 2  | Valeur 3  |
+| Valeur 4  | Valeur 5  | Valeur 6  |
+
+
+---
+
+## Questions ?
+
+</div>
+
+<!-- 2. L'iframe qui charge le moteur depuis GitHub Pages -->
+<!-- src="https://VOTRE-PSEUDO.github.io/cours-isen/" -->
+
+<iframe
+  id="moteur-iframe"
+  src="."
+  style="width:100%; height:600px; border:none;"
+  allowfullscreen>
+</iframe>
+
+<!-- 3. Script d'envoi du markdown + redimensionnement auto -->
+<script>
+(function() {
+  var iframe = document.getElementById('moteur-iframe');
+
+  // Envoie le markdown à l'iframe une fois chargée
+  iframe.addEventListener('load', function() {
+    var raw = document.getElementById('cours-md').innerHTML;
+    var txt = document.createElement('textarea');
+    txt.innerHTML = raw;
+    iframe.contentWindow.postMessage(
+      { type: 'cours-md', content: txt.value },
+      '.'  // ← même URL que le src
+    );
+  });
+
+  // Redimensionne l'iframe selon la hauteur du contenu
+  window.addEventListener('message', function(e) {
+    if (!e.data || e.data.type !== 'resize-iframe') return;
+    iframe.style.height = (e.data.height + 20) + 'px';
+  });
+})();
+</script>
