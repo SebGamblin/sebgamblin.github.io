@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TP Pygame</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div id="cours-md" style="display:none">
+# TP Pygame
+
+Nous allons maintenant exploiter les calculs physiques du modèle mathématique et les rendre dynamique grâce au module python [Pygame](https://www.pygame.org/wiki/tutorials).
+Pour plus de détails, voici quelques explications du fonctionnement en détail : [tutoriel pygame](tuto_pygame.md)
+
+
+Modifiez votre `main.py` afin d'apporter les modifications suivantes. Voici les points importants à retenir, Pygame permet de:
+
+- mettre à jour une fenêtre graphique dans une *boucle événementielle* qui capte les actions de l'utilisateur 
+- mettre à jour l'affichage. Ici, la fonction `draw_arrow` affiche simplement une flèche.
+
+
+```python
+import pygame
+import math
+import physics
+
+
+def draw_arrow(surface: pygame.Surface, x: float, y: float, angle: float) -> None:
+    """
+    Affiche une flèche triangulaire orientée selon l'angle donné.
+    """
+    L, W = 40, 20
+    px = x + L * math.cos(angle); py = y + L * math.sin(angle)
+    lx = x + W * math.cos(angle + 2.5); ly = y + W * math.sin(angle + 2.5)
+    rx = x + W * math.cos(angle - 2.5); ry = y + W * math.sin(angle - 2.5)
+    pygame.draw.polygon(surface, (255, 220, 0), [(px, py), (lx, ly), (rx, ry)])
+
+
+def main():
+    pygame.init()
+    WIDTH, HEIGHT = 900, 600                             # Dimensions souhaitées de la fenêtre, en pixels
+    screen = pygame.display.set_mode((WIDTH, HEIGHT))    # Initialisation de la fenêtre
+    pygame.display.set_caption("Simulation inertielle")  # Titre de la page 
+    clock = pygame.time.Clock()                          # Horloge du jeu : permet la mise à jour et l'utilisation de dt
+
+    # --- ETAT INITIAL
+    x, y = WIDTH / 4, HEIGHT / 4   # Position initiale 
+    vx, vy = 150.0, 150.0          # Vitesse initiale
+    angle_control = math.pi / 4  # Direction : à droite 
+
+    running = True               # Condition d'arrêt de la boucle événementielle
+    while running:
+        # delta‑temps réel entre deux frames (en secondes), basé sur un framerate max de 60 FPS
+        dt_seconds = clock.tick(60) / 1000.0  
+
+        # --- RECUPERATION DES ÉVÉNEMENTS
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                running = False
+
+        # --- CONTRÔLE UTILISATEUR
+        keys = pygame.key.get_pressed() # Récupération des touches utilisées
+        if keys[pygame.K_LEFT]:         # L'utilisateur appuie sur <- : rotation à gauche
+            angle_control -= physics.TURN_SPEED * dt_seconds
+        if keys[pygame.K_RIGHT]:        # L'utilisateur appuie sur -> : rotation à droite
+            angle_control += physics.TURN_SPEED * dt_seconds
+
+        # --- MODÈLE PHYSIQUE : 
+        x, y, vx, vy, angle_velocity = physics.update_physics(
+            x, y, vx, vy, angle_control, bool(keys[pygame.K_UP]), dt_seconds
+        )
+
+        # --- VUE : ANGLE AFFICHÉ
+        angle_displayed = physics.lerp_angle(
+            angle_control, angle_velocity, physics.ANGLE_BLEND
+        )
+
+        # --- RENDU
+        screen.fill((30, 30, 30))                  # Affichage de la couleur de fond
+        draw_arrow(screen, x, y, angle_displayed)  # Appel d'une fonction dédiée crée
+        pygame.display.flip()                      # Mise à jour de l'affichage
+
+    pygame.quit()
+
+
+if __name__ == "__main__":
+    main()
+```
+</div>
+
+<script id="moteur-nav" type="application/json">
+{
+  "title": "Sommaire",
+  "chapters": [
+    { "label": "Introduction", "href": "index.html" },
+    { "label": "Présentation",   "href": "presentation.html" },
+    { "label": "Mathématiques",   "href": "mathématiques.html" },
+    { "label": "TP : modèle mathématique",   "href": "tp_maths.html" },
+    { "label": "TP : pygame",   "href": "tp_pygame.html" },
+    { "label": "Pour aller plus loin",   "href": "plus_loin.html" },
+    {"label" : "Suppléments",
+        "children": [
+            { "label": "Rappels et conseils",   "href": "Rappels.html" },
+            { "label": "Tuto pygame",   "href": "tuto_pygame.html" }
+        ]
+    }
+  ]
+}
+</script>
+
+<script src="moteur.js"></script>
+</body>
+</html>

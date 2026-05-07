@@ -1,0 +1,126 @@
+
+<!DOCTYPE html>
+
+
+
+<script id="moteur-nav" type="application/json">
+{
+  "title": "Sommaire",
+  "chapters": [
+    { "label": "Introduction", "href": "introduction.html" },
+    { "label": "Présentation",   "href": "presentation.html" },
+    { "label": "Mathématiques",   "href": "mathématiques.html" },
+    { "label": "TP : modèle mathématique",   "href": "tp_maths.html" },
+    { "label": "TP : pygame",   "href": "tp_pygame.html" },
+    { "label": "Pour aller plus loin",   "href": "plus_loin.html" },
+    {"label" : "Suppléments",
+        "children": [
+            { "label": "Rappels et conseils",   "href": "Rappels.html" },
+            { "label": "Tuto pygame",   "href": "tuto_pygame.html" }
+        ]
+    }
+  ]
+}
+</script>
+
+<div id="cours-md" style="display:none">
+
+
+# Les objets mathématiques
+
+---
+
+Nous modélisons un objet se déplaçant dans un plan (2D).
+
+Les grandeurs fondamentales sont :
+
+| Grandeur     | Symbole          | Unité physique | Unité adoptée (jeu) |
+| ------------ | ---------------- | -------------- | ------------------- |
+| Position     | **p = (x, y)**   | mètres (m)     | pixels              |
+| Vitesse      | **v = (vx, vy)** | m/s            | px/s                |
+| Accélération | **a = (ax, ay)** | m/s²           | px/s²               |
+| Angle        | **θ**            | radians        | radians             |
+
+
+Par soucis de simplification, nous allons considérer que **1 pixel = 1 mètre**.
+Cela permet d’éviter quelques conversions superflues.
+
+---
+
+## Les équations du mouvement
+
+
+## 2.1. Vitesse
+
+La vitesse est modifiée par l'accélération :
+
+$$\vec{v}_{t+\Delta t} = \vec{v}_t + \vec{a} \cdot \Delta t$$
+
+---
+
+## 2.2. Position
+
+La nouvelle position est :
+
+$$
+\vec{p}_{t+\Delta t} = \vec{p}_t + \vec{v} \cdot \Delta t
+$$
+
+---
+
+## 2.3. Frottement (glissement)
+
+Une modélisation simple consiste à appliquer un coefficient \\(f\\), avec :
+
+*   \\(f = 1\\) → pas de frottements
+*   \\(0 < f < 1\\) → vitesse décroissante
+
+
+$$
+\vec{v}_{t+\Delta t} = f \cdot \vec{v}_t 
+$$
+
+---
+
+## 2.4. Angle de la vitesse
+
+À partir de la vitesse :
+
+$$
+\theta_{\text{vitesse}} = \operatorname{atan2}(v_y, v_x)
+$$
+
+---
+
+## 2.5. Interpolation angulaire
+
+L’interpolation angulaire consiste ensuite à avancer progressivement de
+\\( \theta_a \\) vers \\( \theta_b \\) en appliquant un coefficient.
+
+
+- \\( \theta_a \\) : angle actuel  (par exemple l’orientation contrôlée par l’utilisateur)
+
+- \\( \theta_b \\) : angle cible   (par exemple l’angle correspondant à la direction réelle de la vitesse)
+
+- \\( \Delta \\) : différence angulaire minimale (c’est‑à‑dire la plus petite rotation permettant d’aller de \\( \theta_a \\) à \\( \theta_b \\), ici  \\(\left[ \left((\theta_b - \theta_a + \pi) \bmod 2\pi \right) - \pi \right] \\) )
+
+- \\( t \\) : coefficient d’interpolation, avec  \\( t \in [0,1] \\)
+  où \\( t = 0 \\) signifie “pas de changement”,  et \\( t = 1 \\) signifie “angle cible entièrement atteint”.
+
+
+Ainsi, même si \\( \theta_a \\) est proche de \\( +\pi \\) et que  \\( \theta_b \\) est proche de \\( -\pi \\), la rotation interpolée poursuit le **petit arc du cercle**, évitant tout “saut” brutal entre \\( +\pi \\) et \\( -\pi \\).
+
+Nous avons donc : 
+
+
+$$\theta(t) = \theta_a + \left[ \left((\theta_b - \theta_a + \pi) \bmod 2\pi \right) - \pi \right] \cdot t $$
+
+
+</div>
+
+
+
+
+<link rel="stylesheet" href="../style.css">
+<script src="../moteur.js"></script>
+

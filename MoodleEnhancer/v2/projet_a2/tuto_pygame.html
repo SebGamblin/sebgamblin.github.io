@@ -1,0 +1,239 @@
+
+<script id="moteur-nav" type="application/json">
+{
+  "title": "Sommaire",
+  "chapters": [
+    { "label": "Introduction", "href": "introduction.html" },
+    { "label": "Présentation",   "href": "presentation.html" },
+    { "label": "Mathématiques",   "href": "mathématiques.html" },
+    { "label": "TP : modèle mathématique",   "href": "tp_maths.html" },
+    { "label": "TP : pygame",   "href": "tp_pygame.html" },
+    { "label": "Pour aller plus loin",   "href": "plus_loin.html" },
+    {"label" : "Suppléments",
+        "children": [
+            { "label": "Rappels et conseils",   "href": "Rappels.html" },
+            { "label": "Tuto pygame",   "href": "tuto_pygame.html" }
+        ]
+    }
+  ]
+}
+</script>
+
+<div id="cours-md" style="display:none">
+
+
+<img src="https://jeux.developpez.com/tutoriels/Pygame/images/pygame_logo.gif" alt="Pygame logo" style="width:300px;display:block;margin:auto;"/>
+
+
+# Introduction à Pygame
+
+***Pygame*** est une bibliothèque Python conçue pour créer des jeux vidéo et des applications multimédias en 2D. Elle repose sur **SDL** (Simple DirectMedia Layer), une bibliothèque C qui fournit des fonctionnalités pour gérer les graphismes, le son et les entrées utilisateur de manière efficace et multiplateforme. Grâce à Pygame, il est possible de créer des animations, des interactions et des jeux complets sans avoir à se soucier des détails complexes de la gestion du matériel.
+
+<div class="callout primary-callout">
+La programmation dans Pygame repose sur le principe de <i>programmation événementielle</i> : au lieu d’exécuter le programme de manière linéaire, le code réagit à des événements générés par l’utilisateur ou le système, tels que les mouvements de souris, les pressions sur le clavier, ou la fermeture de la fenêtre. Le programme attend ces événements et exécute des actions spécifiques en réponse, ce qui permet de créer des interfaces interactives et dynamiques.
+</div>
+
+Ainsi, Pygame est une bibliothèque Python qui permet de créer facilement des jeux 2D et des applications multimédias. Elle fournit des outils pour gérer :
+
+* L’affichage graphique
+* Les événements utilisateur (clavier, souris, joystick)
+* Le son et la musique
+* Les collisions et animations
+
+C’est idéal pour apprendre à programmer tout en créant des jeux interactifs.
+
+---
+
+<div class="callout callout-primary">
+Comme toute librairie informatique dans n'importe quel langage, n'hésitez pas à aller voir la
+<a href="https://www.pygame.org/docs/">  Documentation </a>.
+Son design graphique est atypique, mais de nombreuses informations vous y seront utiles !
+
+</div>
+
+---
+
+# Installation
+
+Pour installer Pygame, utilisez **pip** :
+
+```bash
+pip install pygame
+```
+
+Assurez-vous d’avoir Python installé (version 3.6 ou supérieure recommandée).
+
+---
+
+
+#  Fonctionnement de base d’un programme Pygame
+
+Pygame fonctionne selon une **boucle principale**, aussi appelée **boucle de jeu**, qui se répète continuellement tant que le jeu est actif. Cette boucle suit généralement ces étapes :
+
+* **Initialisation** : prépare Pygame et crée la fenêtre de jeu.
+* **Boucle de jeu** : le cœur du programme qui tourne tant que le jeu est actif.
+    * **Événements** : le programme réagit aux actions de l’utilisateur.
+    * **Mise à jour des objets** : tous les objets sont recalculés pour la prochaine frame.
+    * **Détection de collisions** : vérifie si des objets se touchent ou touchent les bords.
+    * **Dessiner et rafraîchir** : l’écran est redessiné avec les nouvelles positions et couleurs.
+* **Fin du programme** : la boucle se termine et Pygame se ferme proprement.
+
+Les collisions sont un exemple classique de mise à jour : lorsqu’un objet touche un bord ou un autre objet, le programme modifie sa trajectoire ou déclenche un événement spécifique.
+
+
+## Schéma explicatif de la boucle événementielle Pygame
+
+<div class="mermaid" style="width:80%;display:block;margin:auto;">
+flowchart TD
+    A["Début du programme"] --> B["Initialisation Pygame"]
+    B --> C{"Boucle de jeu active ?"}
+    C -->|Oui| D["Récupérer les événements utilisateur"]
+    D --> G["Mettre à jour les objets"]
+    G --> I["Dessiner les objets"]
+    I --> J["Rafraîchir l'affichage"]
+    J --> C
+    C -->|"Non"| K["Quitter Pygame et libérer les ressources"]
+</div>
+
+---
+
+# Exemple complet
+
+<div class="callout primary-callout">
+Voici un exemple simple de boucle pygame, permettant d'afficher des cercles colorés aléatoire indéfiniment. 
+</div>
+
+```python
+import pygame
+import sys
+import random
+
+
+if __name__ == "__main__":
+    pygame.init() # Initialisation de la fenêtre
+
+    screen = pygame.display.set_mode((640, 480)) # Fenêtre
+    screen.fill((255, 255, 255)) # dessin de fond : RGB du blanc
+
+    clock = pygame.time.Clock()
+
+    while True:
+        # Gestion des événements
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+
+        # Dessin
+        # screen.fill((255, 255, 255)) # RGB du blanc, efface tout, si besoin
+
+        pygame.draw.circle(screen, (
+            random.randint(0, 255), 
+            random.randint(0, 255),
+            random.randint(0, 255)), # Couleur RGB aléatoire
+            (random.randint(20, 620), random.randint(20, 460)), # Coordonnée aléatoire
+            random.randint(10, 20)) # Taille aléatoire
+
+        pygame.display.flip()
+
+        clock.tick(2) # 2 par seconde
+
+```
+
+---
+
+#  Explications
+
+* **`pygame.init()`** : prépare Pygame pour l’utilisation.
+* **`pygame.display.set_mode()`** : crée une fenêtre de jeu.
+* **`pygame.event.get()`** : récupère les actions de l’utilisateur (clavier, souris, fermeture).
+* **`screen.fill()`** : remplit la fenêtre avec une couleur de fond.
+* **`pygame.draw.circle()`** : dessine un cercle sur l’écran.
+* **`pygame.display.flip()`** : met à jour l’affichage.
+* **`clock.tick(2)`** : limite la boucle à 2 images par seconde pour que le jeu soit fluide (60 *fps* préconisé en général).
+
+# Information supplémentaires 
+
+## Événements récupérables
+
+Pygame fonctionne en **programmation événementielle**, ce qui signifie que le programme réagit aux actions de l’utilisateur ou du système. Tous les événements sont récupérés via la fonction :
+
+```python
+for event in pygame.event.get():
+    # traitement des événements
+```
+
+### Exemples d’événements courants :
+
+| Événement                | Description                         |
+| ------------------------ | ----------------------------------- |
+| `pygame.QUIT`            | L’utilisateur ferme la fenêtre.     |
+| `pygame.KEYDOWN`         | Une touche du clavier est enfoncée. |
+| `pygame.KEYUP`           | Une touche du clavier est relâchée. |
+| `pygame.MOUSEBUTTONDOWN` | Un bouton de la souris est cliqué.  |
+| `pygame.MOUSEBUTTONUP`   | Un bouton de la souris est relâché. |
+| `pygame.MOUSEMOTION`     | La souris est déplacée.             |
+| `pygame.JOYAXISMOTION`   | Mouvement d’un joystick.            |
+| `pygame.JOYBUTTONDOWN`   | Un bouton de joystick est enfoncé.  |
+| `pygame.JOYBUTTONUP`     | Un bouton de joystick est relâché.  |
+
+> On peut tester l’événement et réagir, par exemple :
+
+```python
+if event.type == pygame.KEYDOWN:
+    if event.key == pygame.K_SPACE:
+        print("Touche espace enfoncée !")
+```
+
+Voici la documentation pour récupérer la liste des touches existantes : [https://www.pygame.org/docs/ref/key.html](https://www.pygame.org/docs/ref/key.html)
+
+---
+
+## Éléments affichables
+
+Dans Pygame, on peut **dessiner différents éléments graphiques** sur la fenêtre :
+
+### Formes géométriques
+
+| Fonction                                             | Description                                   |
+| ---------------------------------------------------- | --------------------------------------------- |
+| `pygame.draw.rect(screen, color, rect)`              | Dessine un rectangle.                         |
+| `pygame.draw.circle(screen, color, center, radius)`  | Dessine un cercle.                            |
+| `pygame.draw.ellipse(screen, color, rect)`           | Dessine une ellipse.                          |
+| `pygame.draw.line(screen, color, start, end, width)` | Dessine une ligne.                            |
+| `pygame.draw.polygon(screen, color, pointlist)`      | Dessine un polygone avec une liste de points. |
+
+<br>
+
+### Textes
+
+* On peut afficher du texte avec `pygame.font.Font` :
+
+```python
+font = pygame.font.Font(None, 36)  # Taille du texte
+text_surface = font.render("Bonjour", True, pygame.Color("black"))
+screen.blit(text_surface, (50, 50))
+```
+
+### Images
+
+* On peut charger et afficher des images :
+
+```python
+image = pygame.image.load("image.png")
+screen.blit(image, (100, 100))
+```
+
+> `blit()` permet de coller une surface (texte, image, etc.) sur l’écran.
+
+
+
+
+
+</div>
+
+
+
+
+<link rel="stylesheet" href="../style.css">
+<script src="../moteur.js"></script>

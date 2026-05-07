@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Todo List</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<h1>Gestionnaire de tâches</h1>
+
+<div class="controls">
+    <input
+        type="text"
+        id="taskInput"
+        placeholder="Entrer une tâche"
+    >
+
+    <button id="addBtn">Ajouter</button>
+    <button id="clearBtn">Tout supprimer</button>
+</div>
+
+<ul id="taskList"></ul>
+
+<div class="stats">
+    <p>Tâches totales : <span id="taskCount">0</span></p>
+    <p>Tâches terminées : <span id="doneCount">0</span></p>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,219 @@
+
+body { 
+    font-family: "Segoe UI", Arial, sans-serif;
+    background-color: #f5f7fa;
+    color: #333;
+    margin: 0;
+    padding: 0;
+}
+
+/* Centrage global */
+body > * {
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+
+/**************************************************
+ * TITRE
+ **************************************************/
+
+h1 {
+    text-align: center;
+    margin-top: 40px;
+    font-weight: 600;
+    color: #222;
+}
+
+
+/**************************************************
+ * BLOCS (effet carte)
+ **************************************************/
+
+.controls,
+ul,
+.stats {
+    background-color: white;
+    padding: 16px 20px;
+    border-radius: 6px;
+    margin-top: 20px;
+}
+
+
+/**************************************************
+ * ZONE DE CONTRÔLES
+ **************************************************/
+
+.controls {
+    display: flex;
+    gap: 8px;
+}
+
+
+/* Champ texte */
+input[type="text"] {
+    flex: 1;
+    padding: 8px 10px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+}
+
+input[type="text"]:focus {
+    outline: none;
+    border-color: #007acc;
+}
+
+
+/* Boutons génériques */
+button {
+    background-color: #007acc;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 8px 12px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+button:hover {
+    background-color: #005fa3;
+}
+
+button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+
+/**************************************************
+ * LISTE DE TÂCHES
+ **************************************************/
+
+ul {
+    list-style: none;
+    padding: 0;
+}
+
+li {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 1px solid #eee;
+    cursor: pointer;
+}
+
+/* Le texte prend toute la place et est centré */
+li span {
+    flex: 1;
+    text-align: center;
+}
+
+li:last-child {
+    border-bottom: none;
+}
+
+li:hover {
+    background-color: #f9f9f9;
+}
+
+
+/**************************************************
+ * TÂCHE TERMINÉE
+ **************************************************/
+
+li.done {
+    text-decoration: line-through;
+    color: #999;
+}
+
+
+/**************************************************
+ * BOUTON DE SUPPRESSION (❌)
+ **************************************************/
+
+li button {
+    background-color: #ff4d4d;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 4px 8px;
+    font-size: 12px;
+    cursor: pointer;
+    margin-left: 10px;
+}
+
+li button:hover {
+    background-color: #cc0000;
+}
+
+
+/**************************************************
+ * STATISTIQUES
+ **************************************************/
+
+.stats {
+    display: flex;
+    justify-content: space-between;
+    font-size: 14px;
+    color: #555;
+}
+
+
+#taskInput, #addBtn, #clearBtn, #taskList, #taskCount, #doneCount{
+    border: 1px solid black;
+    padding: 0.5em;
+}
+
+
+
+.ui-label {
+    position: absolute;
+    transform: translate(-50%, -100%);
+    background-color: #333;
+    color: white;
+    padding: 6px 10px;
+    border-radius: 4px;
+    font-size: 12px;
+    white-space: nowrap;
+    z-index: 9999;
+    pointer-events: none;
+}
+
+/* Nom de l'id */
+.ui-label .label-id {
+    color: #ff5252;
+    font-weight: bold;
+    margin-right: 6px;
+}
+
+/* Description */
+.ui-label .label-text {
+    color: #fff;
+}
+
+
+
+/* Flèche vers le bas */
+.ui-label::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border-width: 6px;
+    border-style: solid;
+    border-color: #333 transparent transparent transparent;
+}
+
+/* Variante : tooltip en dessous */
+.ui-label.bottom {
+    transform: translate(-50%, 0);
+}
+
+/* Flèche vers le haut quand en dessous */
+.ui-label.bottom::after {
+    top: -12px;
+    border-color: transparent transparent #333 transparent;
+}

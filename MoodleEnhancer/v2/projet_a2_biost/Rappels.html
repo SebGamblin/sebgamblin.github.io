@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rappels</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div id="cours-md" style="display:none">
+# Rappels 
+
+## Quelques bonnes pratiques en programmation
+
+
+Ton projet doit contenir au minimum :
+
+```text
+    physics.py            # vos fonctions mathématiques
+    physics_tests.py      # tous les tests avec asserts
+    main.py               # programme principal (modèle + visualisation)
+```
+
+## Importer correctement `physics.py`
+
+Dans `physics_tests.py` :
+
+```python
+import math
+from physics import normalize_vector, limit_speed, angle_from_velocity, lerp_angle
+```
+
+Tu peux aussi importer tout le module :
+
+```python
+import physics
+
+physics.normalize_vector(3, 4)
+```
+
+Ou importer toutes les fonctions du module (déconseillé par souci de performance): 
+
+
+```python
+from physics import *
+
+normalize_vector(3, 4)
+```
+
+## Le programme principal
+
+A chaque fois qu'un programme python est chargé, toutes les instructions sont exécutées.
+Pour éviter cela, un programme principal est inclus dans une condition : `if __name__ == "__main__":` qui signifie simplement : "Si je suis dans le programme principal exécuté, alors, exécute les instructions suivantes".
+
+
+<div class="example-block"> 
+
+Exemple de `module.py`
+```python
+def helloWorld():
+    print("Hello World")
+
+if __name__ == "__main__":
+    helloWorld()
+
+```
+
+
+Exemple `main.py`
+
+```python
+import module
+
+if __name__ == "__main__":
+    module.helloWorld()
+
+```
+
+Ici, nous pouvons exécuter les deux codes séparement. L'import du premier dans le second empêchera une exécution non souhaitée de la procédure `helloWorld` en exécutant `main`.
+
+</div>
+
+
+## Assertions
+
+Un `assert` est une **instruction de vérification automatique**.  Elle vérifie qu’une condition est vraie.
+
+
+<div class="example-block"> Exemple
+
+```python
+assert 2 + 2 == 4   # OK, rien ne se passe
+assert 2 + 2 == 5   # ERREUR → AssertionError
+```
+
+</div>
+
+
+**Pourquoi on les utilise ?**
+
+- pour tester automatiquement les fonctions  
+- pour repérer les erreurs rapidement  
+-  pour vérifier qu’une formule renvoie les bons résultats (tout le temps, même après modification) 
+
+
+Un `assert` :
+
+-   ne produit **aucune sortie** s’il réussit
+-   **stoppe le programme** s’il échoue
+-   affiche ce qui était faux
+
+***
+
+
+## Installation de modules
+
+
+Attention, tu n'aura peut-être pas tous les modules d'installés pour faire le tp. `math` l'est par défaut, mais ce n'est pas le cas de `matplotlib`. En fonction de ton environnement de développement, il faudra utiliser `pip` (*pip installs packages*), avec la commande `pip install matplotlib`.
+</div>
+
+<script id="moteur-nav" type="application/json">
+{
+  "title": "Sommaire",
+  "chapters": [
+    { "label": "Introduction", "href": "index.html" },
+    { "label": "Présentation",   "href": "presentation.html" },
+    { "label": "Mathématiques",   "href": "mathématiques.html" },
+    { "label": "TP : modèle mathématique",   "href": "tp_maths.html" },
+    { "label": "TP : pygame",   "href": "tp_pygame.html" },
+    { "label": "Pour aller plus loin",   "href": "plus_loin.html" },
+    {"label" : "Suppléments",
+        "children": [
+            { "label": "Rappels et conseils",   "href": "Rappels.html" },
+            { "label": "Tuto pygame",   "href": "tuto_pygame.html" }
+        ]
+    }
+  ]
+}
+</script>
+
+<script src="moteur.js"></script>
+</body>
+</html>

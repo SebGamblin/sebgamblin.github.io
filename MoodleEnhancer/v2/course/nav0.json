@@ -1,0 +1,15 @@
+{
+  "title": "Cours Python ISEN",
+  "chapters": [
+    { "label": "Introduction",   "href": "intro.html" },
+    { "label": "Matplotlib",     "href": "matplotlib.html" },
+    { "label": "NumPy",          "href": "numpy.html" },
+    {
+      "label": "Avancé",
+      "children": [
+        { "label": "Pandas",     "href": "pandas.html" },
+        { "label": "Scikit",     "href": "scikit.html" }
+      ]
+    }
+  ]
+}

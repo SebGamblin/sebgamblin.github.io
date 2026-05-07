@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Visualisation de données avec Matplotlib</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div id="cours-md" style="display:none">
+# Visualisation de données avec Matplotlib
+
+Cours Python — ISEN CBIO1 Caen
+
+---
+
+## Introduction à Matplotlib
+
+**Matplotlib** est la bibliothèque de référence pour la visualisation de données en Python.
+
+- Permet de tracer des graphiques 2D (courbes, barres, histogrammes, camemberts…)
+- S'intègre parfaitement avec `numpy` et `pandas`
+- Très utilisée en science, ingénierie et data science
+
+<div class="thm">
+<h3>Documentation</h3>
+<p><a href="https://matplotlib.org/stable/index.html">https://matplotlib.org/stable/index.html</a></p>
+</div>
+
+### Installation
+```bash
+pip install matplotlib
+```
+
+### Import standard
+```python
+import matplotlib.pyplot as plt
+import numpy as np
+```
+
+> Par convention, on importe toujours `matplotlib.pyplot` sous l'alias `plt`.
+
+---
+
+## Premier graphique — courbe simple
+```python
+import matplotlib.pyplot as plt
+
+x = [0, 1, 2, 3, 4, 5]
+y = [0, 1, 4, 9, 16, 25]
+
+plt.plot(x, y)
+plt.title("Ma première courbe")
+plt.xlabel("x")
+plt.ylabel("y = x²")
+plt.show()
+```
+
+<img src="assets/01_courbe_simple.png"  class="img-center">
+
+---
+
+## Courbes avec NumPy
+
+NumPy permet de générer facilement des tableaux de valeurs pour tracer des fonctions mathématiques continues.
+
+```python
+import matplotlib.pyplot as plt
+import numpy as np
+
+x = np.linspace(0, 2 * np.pi, 200)
+y = np.sin(x)
+
+plt.plot(x, y)
+plt.title("Fonction sinus")
+plt.xlabel("x (radians)")
+plt.ylabel("sin(x)")
+plt.grid(True)
+plt.show()
+```
+
+<div class="thm">
+<h3>Documentation</h3>
+<p><a href="https://numpy.org/doc/stable/">https://numpy.org/doc/stable/</a></p>
+</div>
+
+> `np.linspace(a, b, n)` génère `n` valeurs régulièrement espacées entre `a` et `b`.
+
+<img src="assets/02_sinus.png"  class="img-center">
+
+---
+
+## Personnalisation des courbes
+
+```python
+import matplotlib.pyplot as plt
+import numpy as np
+
+x = np.linspace(0, 2 * np.pi, 50)
+
+plt.plot(x, np.sin(x), color='blue',   linestyle='-',  linewidth=2, label='sin(x)')
+plt.plot(x, np.cos(x), color='red',    linestyle='--', linewidth=2, label='cos(x)')
+plt.plot(x, np.tan(x), color='green',  linestyle=':',  linewidth=1, label='tan(x)',
+         marker='o', markersize=3)
+
+plt.ylim(-2, 2)
+plt.title("sin, cos et tan")
+plt.legend()
+plt.grid(True)
+plt.show()
+```
+
+| Paramètre | Exemples |
+|---|---|
+| `color` | `'blue'`, `'red'`, `'#c0392b'` |
+| `linestyle` | `'-'`, `'--'`, `':'`, `'-.'` |
+| `linewidth` | `1`, `2`, `3`… |
+| `marker` | `'o'`, `'s'`, `'^'`, `'x'` |
+| `markersize` | `3`, `5`, `10`… |
+
+<img src="assets/03_personnalisation.png"  class="img-center">
+
+---
+
+## Limites et annotations
+
+```python
+import matplotlib.pyplot as plt
+import numpy as np
+
+x = np.linspace(0, 10, 300)
+y = np.exp(-x / 3) * np.cos(2 * x)
+
+plt.plot(x, y, color='purple', linewidth=2)
+plt.xlim(0, 10) # [hl]
+plt.ylim(-1, 1) # [hl]
+plt.annotate( # [hl]
+    'maximum local',
+    xy=(0, 1),
+    xytext=(1.5, 0.8),
+    arrowprops=dict(arrowstyle='->', color='black')
+)
+plt.title("Oscillation amortie")
+plt.xlabel("Temps (s)")
+plt.ylabel("Amplitude")
+plt.grid(True, alpha=0.4)
+plt.show()
+```
+
+<img src="assets/04_annotation.png"  class="img-center">
+
+---
+
+## Nuage de points — `scatter`
+
+```python
+import matplotlib.pyplot as plt
+import numpy as np
+
+np.random.seed(0)
+n = 100
+x1 = np.random.normal(2, 0.8, n)
+y1 = np.random.normal(2, 0.8, n)
+x2 = np.random.normal(5, 0.8, n)
+y2 = np.random.normal(5, 0.8, n)
+
+plt.scatter(x1, y1, color='#c0392b', alpha=0.6, label='Groupe A', s=50) # [hl]
+plt.scatter(x2, y2, color='#2980b9', alpha=0.6, label='Groupe B', s=50) # [hl]
+plt.title("Nuage de points — deux groupes")
+plt.legend()
+plt.grid(True, alpha=0.3)
+plt.show()
+```
+
+> Le paramètre `s` contrôle la taille des points, `alpha` leur transparence.
+
+<img src="assets/09_scatter.png"  class="img-center">
+
+---
+
+## Sauvegarde d'une figure
+
+```python
+import matplotlib.pyplot as plt
+import numpy as np
+
+x = np.linspace(0, 2 * np.pi, 200)
+plt.figure(figsize=(8, 4))
+plt.plot(x, np.sin(x), 'b-', linewidth=2)
+plt.title("Sinus")
+plt.tight_layout()
+plt.savefig("mon_graphique.png", dpi=150, bbox_inches='tight')
+plt.show()
+```
+
+<div class="thm">
+<h3>Attention</h3>
+<p><code>plt.savefig()</code> doit être appelé <strong>avant</strong> <code>plt.show()</code> — après <code>show()</code>, la figure est vidée.</p>
+</div>
+
+| Format | Extension | Usage |
+|---|---|---|
+| PNG | `.png` | Web, documents |
+| PDF | `.pdf` | Publications, LaTeX |
+| SVG | `.svg` | Vectoriel, web |
+| JPEG | `.jpg` | Photos, web |
+
+---
+
+# Questions ?
+</div>
+
+<script id="moteur-nav" type="application/json">
+{
+  "title": "Cours Python ISEN",
+  "chapters": [
+    { "label": "Introduction", "href": "index.html" },
+    { "label": "Matplotlib",   "href": "matplotlib.html" }
+  ]
+}
+</script>
+
+<script src="moteur.js"></script>
+</body>
+</html>
