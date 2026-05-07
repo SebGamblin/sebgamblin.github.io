@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pour aller plus loin</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div id="cours-md" style="display:none">
+# Pour aller plus loin
+
+## 
+
+Maintenant vous avez tous les élements en main pour dévlopper vos propres fonctionnalités, qu'elles soient au niveau du moteur physique, ou de l'affichage graphique.
+
+
+Exemples:
+
+- Pouvoir gérer un monde torique;
+- Affiche les valeurs mathématiques sur l'interface;
+- Affiche les saisies utilisateur;
+- Gère des collisions;
+- Gère un score avec le temps;
+- Et plus encore ... !
+
+
+## Exemple de rendu 
+
+Ce rendu est purement indicatif, vous pouvez faire un tout autre jeu à partir du tutoriel initial !
+
+
+<video controls width="720" preload="metadata" poster="assets/img/poster.jpg">
+  <source src="./assets/Média1.mp4" type="video/mp4">
+  Votre navigateur ne supporte pas la vidéo HTML5.
+  <a href="assets/Média1.mp4">Télécharger la vidéo</a>
+</video>
+</div>
+
+<script id="moteur-nav" type="application/json">
+{
+  "title": "Sommaire",
+  "chapters": [
+    { "label": "Introduction", "href": "index.html" },
+    { "label": "Présentation",   "href": "presentation.html" },
+    { "label": "Mathématiques",   "href": "mathématiques.html" },
+    { "label": "TP : modèle mathématique",   "href": "tp_maths.html" },
+    { "label": "TP : pygame",   "href": "tp_pygame.html" },
+    { "label": "Pour aller plus loin",   "href": "plus_loin.html" },
+    {"label" : "Suppléments",
+        "children": [
+            { "label": "Rappels et conseils",   "href": "Rappels.html" },
+            { "label": "Tuto pygame",   "href": "tuto_pygame.html" }
+        ]
+    }
+  ]
+}
+</script>
+
+<script src="moteur.js"></script>
+</body>
+</html>

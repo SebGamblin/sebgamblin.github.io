@@ -1,0 +1,145 @@
+
+<div id="cours-md" type="text/plain" style="display:none">
+
+# Projet R&D – Coordination Multi-Robots en Environnement 2D
+
+---
+
+## 🎯 Objectif général
+
+Concevoir et évaluer une **architecture logicielle réutilisable** pour la
+coordination de plusieurs robots mobiles en environnement 2D, intégrant :
+
+- l’allocation distribuée de tâches (approches *consensus-based*)
+- la planification de trajectoires multi-agents
+- une implémentation dans un simulateur léger et compatible ROS
+
+Le projet combine **revue bibliographique**, **conception algorithmique**
+et **mise en pratique expérimentale**.
+
+---
+
+## 🧪 Cadre scientifique et technique
+
+- **Domaine** : systèmes multi-agents, robotique mobile
+- **Paradigme** : décision distribuée et coopération
+- **Technologies** :
+  - ROS / ROS2
+  - simulateur 2D léger (*Flatland, STDR, ou équivalent*)
+  - cartes et robots simplifiés (différentiel, capteurs 2D)
+
+---
+
+## 🤖 Problématiques abordées
+
+- Comment répartir dynamiquement des tâches entre plusieurs robots sans
+contrôleur central ?
+- Comment garantir des déplacements sans collision dans un espace partagé ?
+- Quels compromis entre performance, robustesse et complexité algorithmique ?
+
+---
+
+## 🧠 Approches étudiées
+
+### Allocation de tâches
+- Auctions distribuées
+- Algorithmes de consensus (ex. CBBA simplifié)
+- Comparaison centralisé vs distribué
+
+### Planification de trajectoires
+- A* ou Dijkstra individuel
+- Résolution de conflits (priorités, réservations temporelles)
+- Introduction aux méthodes MAPF
+
+---
+
+## 🏗️ Architecture logicielle attendue
+
+- Nodes ROS modulaires :
+  - génération des tâches
+  - allocation / consensus
+  - planification locale
+  - supervision expérimentale
+- Interfaces claires via topics, services ou actions
+- Paramétrage externe (YAML / launch files)
+
+👉 **Objectif clé : découplage fort entre algorithmes, simulation et scénarios**
+
+---
+
+## ♻️ Réutilisabilité et pérennité du code
+
+Le programme développé devra être :
+
+- **générique**  
+  (indépendant du nombre de robots et de tâches)
+- **configurable**  
+  (cartes, heuristiques, règles d’allocation)
+- **extensible**  
+  (remplacement ou ajout d’algorithmes)
+- **réutilisable** dans d’autres contextes :
+  - nouveaux simulateurs 2D/3D
+  - prototypage réel
+  - futurs projets de recherche ou d’enseignement
+
+---
+
+## 📊 Évaluation et expérimentation
+
+- Scénarios reproductibles
+- Métriques possibles :
+  - temps total de mission
+  - charge par robot
+  - nombre de conflits / blocages
+  - scalabilité
+- Analyse critique des résultats au regard de la littérature
+
+---
+
+## 📦 Livrables
+
+- Code ROS documenté et structuré
+- Rapport R&D (bibliographie + analyse expérimentale)
+- Démonstration simulée
+- Guide de réutilisation du framework développé
+
+---
+
+## 🎓 Compétences mobilisées
+
+- Algorithmique distribuée
+- Lecture et analyse d’articles scientifiques
+- Conception d’architectures robotiques
+- Expérimentation et analyse de performances
+
+---
+
+## ✅ Résumé
+
+> Ce projet vise à produire non seulement une **preuve de concept**,  
+> mais un **socle logiciel réutilisable**, aligné avec les pratiques
+> de la recherche en robotique multi-agents.
+
+</div>
+
+<!-- src="https://sebgamblin.github.io/moodle/moteur.html" -->
+
+<iframe id="moteur-iframe" src="./moteur3.html" style="width:100%; border:none; min-height:600px;" allowfullscreen="">
+</iframe>
+
+<script>
+// Envoi du markdown à l'iframe
+document.getElementById('moteur-iframe').addEventListener('load', function() {
+  var raw = document.getElementById('cours-md').innerHTML;
+  var txt = document.createElement('textarea');
+  txt.innerHTML = raw;
+  this.contentWindow.postMessage({ type: 'cours-md', content: txt.value }, '*');
+});
+
+// Redimensionnement automatique de l'iframe selon la hauteur du contenu
+window.addEventListener('message', function(e) {
+  if (!e.data || e.data.type !== 'resize-iframe') return;
+  var iframe = document.getElementById('moteur-iframe');
+  iframe.style.height = (e.data.height + 20) + 'px';
+});
+</script>

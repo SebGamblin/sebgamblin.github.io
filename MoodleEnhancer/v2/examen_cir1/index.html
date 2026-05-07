@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cours ISEN</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div id="cours-md" style="display:none">
+
+
+
+# Évaluation – Web Front-End
+**CIR1 – S2**  
+📅 Date : 13/05/26  - 
+⏱ Durée : 1h15  
+Caen  
+
+---
+
+## Consignes générales
+
+### Au début de l'épreuve
+- Lire **l'intégralité du sujet** avant de commencer.
+- Créer un projet sous l'éditeur de votre choix, portant **votre nom de famille**.
+- Télécharger les documents fournis et importez les dans votre projet:
+
+<div style="text-align: center;">
+    <a href="files/examen_cir1_js.zip" download>
+        📥 Télécharger index.html et style.css
+    </a>
+</div>
+
+<div class="callout callout-danger">
+    Une page HTML complète ainsi qu'un fichier CSS sont fournis.  
+    <b>Vous ne devez pas les modifier</b>. 
+    Votre travail consiste exclusivement à <b>écrire le code JavaScript</b> attendu.
+</div>
+
+### Pendant l'épreuve
+- Le **Wi-Fi doit être coupé**.
+- Les cours, TP (énoncés et corrections) et supports personnels sont autorisés.
+
+### À la fin de l'épreuve
+- Créer une archive `nom.zip` contenant **l'intégralité du projet**.
+- Réactiver le Wi‑Fi et déposer l'archive sur Moodle.
+
+
+<div class="callout callout-danger">
+⚠️ Le non‑respect des consignes entraînera la note 0.
+</div>
+
+---
+
+## Contexte
+
+Vous devez réaliser le **comportement dynamique** d'une application simple de gestion de tâches (*Todo List*).
+
+Voici une capture de la page initiale : 
+
+<div style="text-align: center;">
+    <img src="data/init.png"/>
+</div>
+
+Et une capture de la page avec tâches :
+
+<div style="text-align: center;">
+    <img src="data/todo.png"/>
+</div>
+
+
+
+---
+
+## 1. Présentation des éléments HTML (à ne pas modifier)
+
+La page HTML fournie contient les éléments suivants :
+
+| id | Rôle |
+|----|------|
+| `taskInput` | Champ de saisie d'une tâche |
+| `addBtn` | Bouton d'ajout d'une tâche |
+| `clearBtn` | Bouton de suppression de toutes les tâches |
+| `taskList` | Liste `<ul>` contenant les tâches |
+| `taskCount` | Affiche le nombre total de tâches |
+| `doneCount` | Affiche le nombre de tâches terminées |
+
+Voici leurs positionnements dans la page : 
+
+<div style="text-align: center;">
+    <img src="data/ids.png"/>
+</div>
+
+---
+
+## 2. Travail demandé – JavaScript
+
+
+> ### **Question 1** (1pt)
+> 1. Créer le fichier JavaScript de l'application.
+> 2. S'assurer qu'il est bien chargé par la page HTML.
+> 3. Déclarer les variables nécessaires pour :
+>   - accéder aux éléments HTML
+>   - stocker les tâches dans un tableau `tasks`(tableau JavaScript)
+
+---
+
+> ### Question 2 : Ajout d'une tâche (3 pts)
+> 
+> Écrire une fonction `addTask` permettant d'ajouter une tâche lorsque l'utilisateur clique sur le bouton  **Ajouter**.
+> Comportement attendu :
+>  - récupérer le texte saisi dans le champ `taskInput`
+>  - si le champ est vide, ne rien faire
+>  - ajouter la tâche à votre liste `tasks`
+>  - crée un élement `<li>` dans `#taskList` 
+>  - vider le champ de saisie après l'ajout
+>  - mettre à jour le compteur de tâches (appel de `updateCounters()`, question 4)
+
+
+---
+
+> ### Question 3 : Marquer une tâche comme terminée (3 pts)
+> En modifiant le contenu de addTask, faites en sorte que lorsque l'on clique sur une tâche affichée :
+> - la tâche est marquée comme terminée (ajout de la classe `done` au `li`)
+> - un second clic permet de revenir à l'état non terminé
+
+
+---
+
+
+> ## Question 4 :  Mise à jour des compteurs (3 pts)
+> Mettre à jour dynamiquement :
+> - le nombre total de tâches (dans `taskCount`)
+> - le nombre de tâches terminées (dans `doneCount`)
+> Les compteurs doivent être corrects :
+> - après un ajout
+> - après un clic sur une tâche
+> - après une suppression
+
+
+---
+
+> ### Question 5 : Suppression globale (2 pts)
+> Lorsque l'utilisateur clique sur le bouton **Tout supprimer** :
+> - toutes les tâches doivent être supprimées
+> - la liste affichée doit être vidée
+> - les compteurs doivent être remis à zéro
+
+
+---
+
+> ### Question 6 : Raccourci clavier (2 pts)
+> Ajouter un gestionnaire permettant :
+> - d'ajouter une tâche en appuyant sur la touche **Entrée**
+> - le faire seulement lorsque le curseur est dans le champ de saisie
+
+
+---
+
+
+## Question bonus : Suppression d'une tâche (3 pts)
+
+> Ajouter, pour chaque tâche :
+> 
+> - un bouton de suppression (❌)
+> - un clic sur ce bouton supprime uniquement la tâche concernée
+> - les compteurs sont mis à jour correctement
+
+*Bonus :* le clic sur le bouton de suppression ne doit pas
+marquer la tâche comme terminée.
+
+
+---
+
+## 4. Qualité du code (3 pts)
+
+Seront évalués :
+- lisibilité du code
+- nommage des variables et fonctions
+- structure générale
+- absence de code inutile ou dupliqué
+
+Seront fortement appréciés : 
+- Tous commentaires utiles et indiquants les questions 
+
+---
+
+## Barème récapitulatif
+
+| Partie | Points |
+|------|--------|
+| Initialisation | 1 |
+| Ajout d'une tâche | 3 |
+| Tâche terminée | 3 |
+| Compteurs | 3 |
+| Suppression globale | 2 |
+| Raccourci clavier | 2 |
+| Suppression individuelle | 3 |
+| Qualité du code | 3 |
+| **Total** | **20 pts** |
+
+---
+
+
+# Bon courage !
+
+
+
+
+<script src="moteur.js"></script>
+</body>
+</html>
+
+
