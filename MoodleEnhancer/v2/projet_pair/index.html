@@ -1,0 +1,237 @@
+
+<div id="cours-md" style="display:none">
+
+
+# PAIR 2025-2026 : Projet d’Application et d’Intégration de la Recherche
+
+---
+
+## Allocation de tâches multi-robots  
+
+### Algorithmes légers sur simulateurs avec ROS2
+
+
+**Responsable :** Sébastien Gamblin
+
+**Type :** Projet R&D 
+
+**Équipe :** Trinôme - M2 Domaine Professionel : Développement Logiciel
+
+---
+
+
+## Contexte & Motivation
+
+La robotique en essaim (*swarm robotics*) pose un problème fondamental :
+
+> **Comment coordonner plusieurs robots autonomes pour accomplir des tâches collectives, sans coordinateur central, avec des ressources matérielles limitées ?**
+
+Applications concrètes :
+- 🏭 Logistique autonome en entrepôt
+- 🚒 Intervention en milieu dangereux
+- 🌾 Agriculture robotisée distribuée
+- 🛰️ Exploration planétaire multi-agents
+
+---
+
+
+## Problématique scientifique
+
+Le **Consensus-Based Bundle Algorithm (CBBA)** [Choi et al., 2009] est un algorithme *décentralisé* d'**allocation de tâches** *multi-agents* fondé sur la théorie des enchères.
+
+**Verrou scientifique :** la plupart des implémentations existantes sont :
+- Simulées en Python/MATLAB, non déployées sur matériel réel
+- Monolithiques, difficiles à étendre à de nouveaux types de tâches
+- Absentes de l'écosystème ROS2 (middlewre standard de la robotique)
+
+**Question de recherche :**
+> *Dans quelle mesure est-il possible d'implémenter CBBA de manière légère, modulaire et extensible sous ROS2 sur un simulateur 2D à ressources contraintes ?*
+
+---
+
+
+## But
+
+
+
+**Les 3 piliers du projet :**
+
+1. **État de l'art** — Comprendre CBBA et ses variantes (CBAA, GRAPE, etc.)
+2. **Développement** — Nœuds ROS2 modulaires et simulation légère
+    - Etat de l'art des outils disponibles et utilisables
+3. **Expérimentation** — Benchmarks de performance, convergence, passage à l'échelle
+
+---
+
+<!-- .slide: data-background-color="#0d1117" -->
+
+## Algorithme cible : CBBA
+
+**Consensus-Based Bundle Algorithm** — Choi, Brunet & How (2009)
+
+Principe en deux phases itérées :
+
+| Phase | Description |
+|-------|-------------|
+| **Bundle** | Chaque agent construit localement son panier de tâches par enchère greedy |
+| **Consensus** | Les agents échangent leurs listes de scores et résolvent les conflits |
+
+**Propriétés garanties :**
+- Convergence en temps fini
+- Optimalité à *k*-tâches par agent
+- Sans coordinateur central
+
+> Référence principale : Choi, H.-L., Brunet, L., & How, J. P. (2009). *Consensus-Based Decentralized Auctions for Robust Task Allocation*. **IEEE Transactions on Robotics**, 25(4), 912–926. [Lien](https://ieeexplore.ieee.org/abstract/document/5072249)
+
+---
+
+<!-- .slide: data-background-color="#0d1117" -->
+
+## Références scientifiques clés
+
+| Référence | Contribution |
+|-----------|-------------|
+| Choi et al., IEEE T-RO 2009 | CBBA original |
+| Johnson et al., ICRA 2017 | Extension hétérogène (GRAPE) |
+| Berer et al., IJRR 2021 | Robustesse aux défaillances |
+| Macarthur et al., AAMAS 2011 | CBAA simplifié (1 tâche/agent) |
+| Quigley et al., ICRA 2009 | ROS — architecture de base |
+| Macenski et al., Science Robotics 2022 | ROS2 — état de l'art middleware |
+
+ Springer, IEEE Xplore, arXiv
+
+
+A prévoir : il existe beaucoup d'extensions de l'algorithme !
+
+---
+
+<!-- .slide: data-background-color="#0d1117" -->
+
+## Architecture cible sous ROS2
+
+
+**Contraintes d'architecture :**
+- Un nœud ROS2 par agent = un processus isolé
+- Communication uniquement via topics ROS2 (pas de mémoire partagée)
+- Extensibilité : ajout d'un nouveau type de tâche sans modifier le core
+
+
+---
+
+<!-- .slide: data-background-color="#0d1117" -->
+
+## Livrables attendus
+
+### 🔬 Livrable scientifique (Axe A intégré)
+- **État de l'art** structuré : CBBA et variantes et implémentations ROS2 
+- Format article **IEEE double colonne** (4-6 pages) : [IEEE](https://fr.overleaf.com/latex/templates/ieee-conference-template/grfzhhncsfqn)
+
+### 💻 Livrable technique (Axe B)
+- **Package ROS2** public sur GitHub avec :
+  - Nœud `cbba_agent` paramétrable (YAML)
+  - Interface extensible pour de nouveaux types de tâches (`TaskPlugin`)
+  - `README` de déploiement 
+
+### 📊 Livrable expérimental
+- Benchmarks : convergence, nombre de messages échangés, CPU/RAM sur carte
+- Comparaison CBAA vs CBBA sur scénarios croissants (3→10 agents, 5→30 tâches)
+
+---
+
+
+
+
+## Rôles dans le trinôme
+
+Le projet est en trinôme. **Les rôles doivent être définis dès le début** et communiqués à l'encadrant. Les choix vous sont libres.
+
+
+⚠️ Les rôles ne signifient **pas** que chaque membre ne travaille que sur sa partie.  
+L'évaluation des compétences est **individualisée** : chaque étudiant doit maîtriser globalement l'ensemble du projet.
+
+---
+
+<!-- .slide: data-background-color="#0d1117" -->
+
+## Critères de notation
+
+### Grille d'évaluation (100 pts)
+
+| Critère | Points | Détail |
+|---------|--------|--------|
+| **Démarche scientifique** | 25 | Problématique, hypothèses, protocole, conclusion |
+| **Article IEEE** | 20 | Rigueur, état de l'art, présentation des résultats |
+| **Qualité du code ROS2** | 20 | Modularité, extensibilité, documentation |
+| **Résultats expérimentaux** | 15 | Métriques pertinentes, analyse critique |
+| **Soutenance orale** | 15 | Clarté, maîtrise technique, réponses au jury |
+| **Démo live** | 5 | Fonctionnement  |
+
+> 💡 **Point important :** *"Le succès seul du code est un bonus."*  C'est la **rigueur de la démarche** qui est évaluée au premier chef.
+
+---
+
+<!-- .slide: data-background-color="#0d1117" -->
+
+## Ce qui est attendu — et ce qui ne l'est pas
+
+### ✅ Attendu
+- Un CBBA qui **converge** sur des scénarios simples et documentés, avec cartes 2D et murs simples
+- Une architecture **extensible** : ajouter un type de tâche sans toucher au core (arrêt des communications, etc)
+- Un **déploiement reproductible** (README + script)
+- Une **analyse honnête** des limites : que se passe-t-il avec 10 agents ? avec des pertes réseau ?
+
+### ❌ Pas attendu
+- Un produit industriel complet
+- La résolution de tous les verrous ouverts de la littérature
+- Une implémentation parfaitement optimale
+
+### ⚠️ Rédhibitoire
+- Plagiat de code sans attribution claire (licence, citation)
+- Absence de tests / résultats non reproductibles
+- Article IEEE sans références primaires
+
+---
+
+
+## Soutenance — Format
+
+**Durée :** 20 min présentation + 10 min questions
+
+**Jury :** Encadrant + 1 expert invité (robotique ou systèmes distribués)
+
+**Structure attendue :**
+1. Problématique et contexte (3 min)
+2. État de l'art — CBBA et positionnement (4 min)
+3. Architecture ROS2 et choix techniques (4 min)
+4. Résultats expérimentaux (5 min)
+5. Discussion critique et perspectives (4 min)
+
+**Démo live :** exécution du package sur carte, visualisation de la convergence  
+
+
+---
+
+<!-- .slide: data-background-color="#0d1117" -->
+
+## Références bibliographiques
+
+1. Choi, H.-L., Brunet, L., & How, J. P. (2009). Consensus-Based Decentralized Auctions for Robust Task Allocation. *IEEE Transactions on Robotics*, 25(4), 912–926.
+2. Johnson, L. et al. (2017). Decentralized Task Allocation for Multi-Robot Systems. *ICRA 2017*.
+3. Macenski, S. et al. (2022). Robot Operating System 2: Design, architecture, and uses in the wild. *Science Robotics*, 7(66).
+4. Quigley, M. et al. (2009). ROS: an open-source Robot Operating System. *ICRA Workshop on Open Source Software*.
+5. Berer, T. et al. (2021). Robust Decentralized Task Allocation under Agent Failures. *IJRR*, 40(2–3).
+6. Macarthur, K. et al. (2011). CBAA: A lightweight auction algorithm for multi-robot task allocation. *AAMAS 2011*.
+
+
+---
+
+
+# Bonne chance ! 🤖
+
+
+</div>
+<!-- ↑ Fin du markdown -->
+<link rel="stylesheet" href="../style.css">
+<script src="../moteur.js"></script>
+</body>
+</html>

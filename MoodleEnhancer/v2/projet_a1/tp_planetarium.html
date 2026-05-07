@@ -147,23 +147,23 @@ def calcul_vitesse_perihelie(planete: dict) -> float:
 
 ## 5. Travail demandé
 
-### Étape 1 — Structure de données (1 pt)
+### Étape 1 — Structure de données
 
 - Stocker les données de chaque planète dans votre code python, de la manière la plus adaptée et simple d'utilisation.
 
-### Étape 2 — Vitesse à la périhélie (1 pt)
+### Étape 2 — Vitesse à la périhélie 
 
 - Implémenter `calcul_vitesse_perihelie(planete)` et vérifier la valeur obtenue pour la Terre (~29 800 m/s).
 
-### Étape 3 — Méthode d'Euler classique (3 pts)
+### Étape 3 — Méthode d'Euler classique 
 
 - Implémenter `methode_euler(perihelie, vitesse)` et afficher la trajectoire de la Terre. Vérifiez que la période est proche de 365 jours.
 
-### Étape 4 — Méthode d'Euler asymétrique (3 pts)
+### Étape 4 — Méthode d'Euler asymétrique 
 
 - Implémenter `methode_euler_asymetrique(perihelie, vitesse)` et comparer les deux trajectoires sur un même graphique. Observez la stabilité.
 
-### Étape 5 — Affichage matplotlib (3 pts)
+### Étape 5 — Affichage matplotlib 
 
 Afficher les 4 planètes (Mercure, Vénus, Terre, Mars) avec des couleurs différentes. Placer le Soleil au centre.
 
@@ -177,21 +177,14 @@ ax.set_aspect('equal')
 soleil = plt.Circle((0, 0), 1e10, color='yellow')
 ax.add_patch(soleil)
 
-couleurs = ["gray", "orange", "blue", "red"]
-noms     = ["Mercure", "Venus", "Terre", "Mars"]
-
-for i, data in enumerate(planetes):
-    resultats = methode_euler_asymetrique(data["perihelie"], data["vitesse-perihelie"])
-    X = [r[0][0] for r in resultats]
-    Y = [r[0][1] for r in resultats]
-    ax.plot(X, Y, color=couleurs[i], label=noms[i])
+# calculer et ajouter les X et Y
 
 plt.legend()
 plt.title("Système solaire — Euler asymétrique")
 plt.show()
 ```
 
-### Étape 6 — Conservation de l'énergie (3 pts)
+### Étape 6 — Conservation de l'énergie 
 
 Calculez à chaque pas l'énergie potentielle et cinétique du système Terre-Soleil :
 
