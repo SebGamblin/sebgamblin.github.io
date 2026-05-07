@@ -137,6 +137,8 @@ Avant d’écrire la boucle de calcul, on définit un ensemble de **constantes n
 L'intervale de temps peut être calculé via l'instruction : 
 
 ```python 
+import numpy as np
+
 X = np.linspace(interval_begin, interval_end, nb_step)
 ```
 
@@ -162,7 +164,7 @@ $$
 <div class="callout callout-info">
 
 ```python 
-import matplotlib as plt
+import matplotlib.pyplot as plt
 
 # Code ici
 
@@ -211,7 +213,7 @@ $$
 
 ---
 
-### Question 3 — Analyse de l’influence du pas (4 pts)
+### Question 3 — Analyse de l’influence du pas
 
 > Le calcul précédent est reproduit pour plusieurs valeurs du nombre de pas $N$ : `5, 10, 14, 18, 20`.
 > 
