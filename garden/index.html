@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Jardin — Carnet de Projet</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<!-- ── HEADER ── -->
+<header>
+  <h1>🌿 Jardin — <span>Carnet de Projet</span></h1>
+  <div class="header-actions">
+    <button class="btn btn-ghost" id="btn-help">❓ Aide</button>
+    <button class="btn btn-ghost" id="btn-import">📂 Importer</button>
+    <button class="btn btn-ghost" id="btn-export-pdf" title="Exporter un rapport PDF">📄 Rapport PDF</button>
+    <button class="btn btn-save"  id="btn-save">💾 Sauvegarder</button>
+  </div>
+</header>
+
+<!-- ── TOOLBAR ── -->
+<div id="toolbar">
+  <div class="tool-group">
+    <span class="tool-label">Outil</span>
+    <button class="btn btn-ghost active" id="btn-select" title="Sélectionner (S)">↖ Sélect. (s)</button>
+    <button class="btn btn-ghost" id="btn-draw" title="Polygone (D)">✏️ Polygone (d)</button>
+    <button class="btn btn-ghost" id="btn-circle" title="Cercle (C)">⭕ Cercle (c)</button>
+    <button class="btn btn-ghost" id="btn-line"   title="Ligne droite (L)">╱ Ligne (l)</button>
+    <button class="btn btn-ghost" id="btn-curve"  title="Courbe Bézier (B)">〜 Courbe (b)</button>
+    <button class="btn btn-ghost" id="btn-edit-vertices" style="display:none" title="Éditer les sommets">⬡ Sommets</button>
+  </div>
+  <div class="tool-group" id="thickness-group" style="display:none">
+    <span class="tool-label">Épaisseur</span>
+    <input type="range" id="line-thickness" min="1" max="30" value="4" style="width:80px;accent-color:var(--sage);vertical-align:middle">
+    <span id="thickness-display" style="font-size:0.8rem;font-weight:600;color:var(--sage-dark);min-width:28px">4 px</span>
+  </div>
+  <div class="tool-group">
+    <span class="tool-label">Couleur</span>
+    <div class="color-picker-row" id="color-picker">
+      <div class="color-dot selected" data-color="#7A9E7E" style="background:#7A9E7E" title="Végétation"></div>
+      <div class="color-dot" data-color="#C17F4A" style="background:#C17F4A" title="Chemin"></div>
+      <div class="color-dot" data-color="#8BAFC2" style="background:#8BAFC2" title="Eau"></div>
+      <div class="color-dot" data-color="#D4A5A5" style="background:#D4A5A5" title="Fleurs"></div>
+      <div class="color-dot" data-color="#B5A9D4" style="background:#B5A9D4" title="Structure"></div>
+      <div class="color-dot" data-color="#D4C87A" style="background:#D4C87A" title="Potager"></div>
+      <div class="color-dot" data-color="#8FB5A0" style="background:#8FB5A0" title="Haie"></div>
+      <div class="color-dot" data-color="#E8C99A" style="background:#E8C99A" title="Gravier"></div>
+    </div>
+  </div>
+  <div class="tool-group">
+    <button class="btn btn-danger" id="btn-delete-selected" style="display:none">🗑 Supprimer</button>
+    <button class="btn btn-ghost"  id="btn-edit-selected"   style="display:none">✏️ Modifier</button>
+  </div>
+  <div class="tool-group" style="margin-left:auto">
+    <button class="btn btn-ghost" id="btn-toggle-sidebar">⊟ Panneau</button>
+  </div>
+</div>
+
+<!-- ── MAIN ── -->
+<div id="main">
+  <div id="map"></div>
+
+  <div id="sidebar">
+    <div id="sidebar-header">
+      <h2>Zones du jardin</h2>
+      <p id="sidebar-subtitle">Aucune zone · 0 m²</p>
+    </div>
+    <div id="filter-bar">
+      <div class="filter-search-wrap">
+        <input type="text" id="filter-search" placeholder="Rechercher une zone…">
+      </div>
+      <div class="filter-chips" id="filter-categories"></div>
+      <div class="filter-chips" id="filter-tags"></div>
+      <button id="filter-clear">✕ Réinitialiser les filtres</button>
+    </div>
+    <div id="zones-list">
+      <div class="empty-state" id="empty-state">
+        <div class="icon">🌱</div>
+        <h3>Commencez à dessiner</h3>
+        <p>Cliquez sur la carte pour tracer vos premières zones.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── STATS BAR ── -->
+<div id="stats-bar">
+  <div class="stat-item"><div class="stat-dot"></div><span><span class="stat-val" id="stat-zones">0</span> zones</span></div>
+  <div class="stat-item"><div class="stat-dot" style="background:var(--terra-light)"></div><span>Surface : <span class="stat-val" id="stat-area">0 m²</span></span></div>
+  <div class="stat-item" style="margin-left:auto;font-size:0.68rem;opacity:0.6">D Polygone · C Cercle · L Ligne · B Courbe · S Sélect. · Suppr = effacer</div>
+</div>
+
+<!-- ── DRAW HINT ── -->
+<div id="draw-hint"
+  data-draw="✏️ Cliquez pour placer des points · Double-clic pour terminer · Échap pour annuler"
+  data-circle="⭕ Cliquez-glissez pour définir le rayon · Relâchez pour terminer · Échap pour annuler"
+  data-line="╱ Cliquez pour placer des points · Double-clic pour terminer · Échap pour annuler"
+  data-curve="〜 Cliquez pour placer des points de contrôle · Double-clic pour terminer · Échap pour annuler"
+  data-select=""
+>✏️ Cliquez pour placer des points · Double-clic pour terminer · Échap pour annuler</div>
+
+<!-- ── CONTEXT MENU ── -->
+<div id="ctx-menu">
+  <div class="ctx-item" id="ctx-edit">✏️ Modifier la fiche</div>
+  <div class="ctx-item" id="ctx-photo">📷 Ajouter une photo</div>
+  <div class="ctx-item" id="ctx-vis">👁 Masquer / Afficher</div>
+  <hr class="ctx-sep">
+  <div class="ctx-item danger" id="ctx-delete">🗑 Supprimer</div>
+</div>
+
+<!-- ── ZONE MODAL ── -->
+<div id="modal-overlay">
+  <div id="modal">
+    <div class="modal-header">
+      <h2 id="modal-title">Nouvelle zone</h2>
+      <div style="display:flex;align-items:center;gap:10px">
+        <span class="modal-area-badge" id="modal-area-badge">0 m²</span>
+        <button class="btn-close" id="modal-close">✕</button>
+      </div>
+    </div>
+    <div class="modal-body">
+      <div class="modal-cols">
+
+        <!-- Left: identity + slider + tags -->
+        <div class="modal-col-left">
+          <div class="form-group">
+            <label>Nom de la zone</label>
+            <input type="text" id="zone-name" placeholder="ex: Potager, Terrasse, Pergola…">
+          </div>
+          <div class="form-group">
+            <label>Catégorie</label>
+            <select id="zone-category">
+              <option value="">— Choisir —</option>
+              <option>🌿 Végétation</option>
+              <option>🌸 Fleurs &amp; Massifs</option>
+              <option>🥕 Potager</option>
+              <option>🌊 Eau &amp; Bassin</option>
+              <option>🛖 Structure</option>
+              <option>🛤 Chemin &amp; Terrasse</option>
+              <option>🌳 Arbres &amp; Haies</option>
+              <option>⛺ Espace de vie</option>
+              <option>🪨 Minéral &amp; Gravier</option>
+              <option>💡 Idée future</option>
+            </select>
+          </div>
+          <div class="form-group" id="radius-group" style="display:none">
+            <label>Rayon (mètres)</label>
+            <div style="display:flex;align-items:center;gap:10px">
+              <input type="range" id="zone-radius" min="1" max="200" value="10" style="flex:1;accent-color:var(--sage)">
+              <span id="radius-display" style="font-size:0.85rem;font-weight:600;color:var(--sage-dark);min-width:55px;text-align:right">10 m</span>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Étiquettes</label>
+            <div class="tags-row" id="tags-container"></div>
+            <div class="tag-input-wrapper">
+              <input type="text" id="tag-input" placeholder="Ajouter une étiquette…">
+              <button onclick="addTagFromInput()">+</button>
+            </div>
+          </div>
+          <div class="form-group" style="flex:1;display:flex;flex-direction:column">
+            <label>Moodboard photos</label>
+            <div class="photo-grid" id="photo-grid">
+              <button class="photo-add-btn" onclick="triggerPhotoUpload()"><span class="plus">+</span><span>Fichier</span></button>
+            </div>
+            <input type="file" id="photo-input" accept="image/*" multiple style="display:none">
+            <div style="margin-top:8px;display:flex;gap:6px;align-items:center">
+              <input type="url" id="photo-url-input" placeholder="https://… URL d'image"
+                style="flex:1;background:white;border:1.5px solid rgba(42,37,25,0.15);border-radius:8px;padding:7px 10px;font-size:0.78rem;font-family:var(--font-body);color:var(--ink-soft)">
+              <button onclick="addPhotoFromUrl()"
+                style="background:var(--sage);color:white;border:none;border-radius:8px;padding:7px 12px;font-size:0.8rem;cursor:pointer;font-family:var(--font-body)">🔗 Ajouter</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: notes + photos -->
+        <div class="modal-col-right" style="display:flex;flex-direction:column">
+          <div class="form-group">
+            <label>Notes &amp; idées</label>
+            <textarea id="zone-notes" placeholder="Plantes, matériaux, ambiance, priorité…" style="min-height:410px"></textarea>
+          </div>
+          
+        </div>
+
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-ghost" id="modal-cancel">Annuler</button>
+      <button class="btn btn-primary" id="modal-save">💾 Enregistrer</button>
+    </div>
+  </div>
+</div>
+
+<!-- ── LIGHTBOX ── -->
+<div id="lightbox">
+  <button id="lightbox-close">✕</button>
+  <button id="lightbox-prev">&#8592;</button>
+  <img id="lightbox-img" src="" alt="">
+  <button id="lightbox-next">&#8594;</button>
+  <div id="lightbox-counter"></div>
+</div>
+
+<!-- ── HELP MODAL ── -->
+<div id="help-overlay">
+  <div id="help-modal">
+    <div style="display:flex;align-items:center;justify-content:space-between;padding:24px 24px 0">
+      <h2 style="font-family:var(--font-display);font-size:1.4rem;font-weight:600">Guide de l'éditeur</h2>
+      <button onclick="closeHelp()" style="background:none;border:none;font-size:1.4rem;cursor:pointer;color:var(--ink-soft);padding:4px 8px;border-radius:6px">✕</button>
+    </div>
+    <div style="padding:20px 24px 28px;display:flex;flex-direction:column;gap:20px">
+
+      <div>
+        <p style="font-family:var(--font-display);font-size:1rem;font-weight:600;margin-bottom:10px">🎨 Outils de dessin</p>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:7px">
+          <div class="help-item"><span class="help-key">D</span> Polygone (zones)</div>
+          <div class="help-item"><span class="help-key">C</span> Cercle (cliquer-glisser)</div>
+          <div class="help-item"><span class="help-key">L</span> Ligne droite / brisée</div>
+          <div class="help-item"><span class="help-key">B</span> Courbe Bézier (Catmull-Rom)</div>
+          <div class="help-item"><span class="help-key">Double-clic</span> Terminer le tracé</div>
+          <div class="help-item"><span class="help-key">Échap</span> Annuler le tracé</div>
+        </div>
+      </div>
+
+      <div>
+        <p style="font-family:var(--font-display);font-size:1rem;font-weight:600;margin-bottom:10px">↖ Sélection &amp; édition</p>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:7px">
+          <div class="help-item"><span class="help-key">S</span> Mode sélection</div>
+          <div class="help-item"><span class="help-key">Clic zone</span> Sélectionner</div>
+          <div class="help-item"><span class="help-key">⬡ Sommets</span> Glisser les points</div>
+          <div class="help-item"><span class="help-key">Dbl-clic zone</span> Éditer sommets direct</div>
+          <div class="help-item"><span class="help-key">Suppr / ⌫</span> Supprimer la sélection</div>
+          <div class="help-item"><span class="help-key">Clic droit</span> Menu contextuel</div>
+        </div>
+      </div>
+
+      <div>
+        <p style="font-family:var(--font-display);font-size:1rem;font-weight:600;margin-bottom:10px">👁 Visibilité des zones</p>
+        <p style="font-size:0.83rem;color:var(--ink-soft);line-height:1.6">Cliquez sur le bouton 👁 de chaque carte dans le panneau pour masquer/afficher la zone sur la carte. Clic droit → Masquer / Afficher fonctionne également. Les zones masquées deviennent semi-transparentes dans le panneau.</p>
+      </div>
+
+      <div>
+        <p style="font-family:var(--font-display);font-size:1rem;font-weight:600;margin-bottom:10px">💾 Sauvegarde</p>
+        <p style="font-size:0.83rem;color:var(--ink-soft);line-height:1.6"><strong style="color:var(--ink)">Ctrl+S</strong> ou bouton Sauvegarder → télécharge un fichier <code style="background:var(--parchment);padding:1px 5px;border-radius:4px">.json</code>. Sauvegarde automatique dans le navigateur toutes les 2 min. Importer recharge un fichier existant.</p>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ── HIDDEN INPUTS ── -->
+<input type="file" id="import-input" accept=".json" style="display:none">
+
+<!-- ── TOAST ── -->
+<div id="toast"></div>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

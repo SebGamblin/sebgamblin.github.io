@@ -1,0 +1,323 @@
+{
+  "version": 1,
+  "savedAt": "2026-05-11T10:47:56.742Z",
+  "mapCenter": {
+    "lat": 49.225680111943674,
+    "lng": -0.9037971496582032
+  },
+  "mapZoom": 19,
+  "zones": [
+    {
+      "id": "mp0zhluw3ehx4vuruns",
+      "name": "Terrain",
+      "category": "⛺ Espace de vie",
+      "notes": "",
+      "color": "#7A9E7E",
+      "points": [
+        {
+          "lat": 49.225094602609396,
+          "lng": -0.9030119329690934
+        },
+        {
+          "lat": 49.22518306444962,
+          "lng": -0.903240591287613
+        },
+        {
+          "lat": 49.22537137378017,
+          "lng": -0.9038313478231431
+        },
+        {
+          "lat": 49.225525086213345,
+          "lng": -0.904277265071869
+        },
+        {
+          "lat": 49.22561748861397,
+          "lng": -0.9045086055994034
+        },
+        {
+          "lat": 49.22569894271959,
+          "lng": -0.9051194787025453
+        },
+        {
+          "lat": 49.22573441462685,
+          "lng": -0.9053608775138856
+        },
+        {
+          "lat": 49.22611102836788,
+          "lng": -0.9052455425262452
+        },
+        {
+          "lat": 49.226424579013646,
+          "lng": -0.9049880504608155
+        },
+        {
+          "lat": 49.22626867977928,
+          "lng": -0.9042853116989137
+        },
+        {
+          "lat": 49.22592359770208,
+          "lng": -0.9032446146011354
+        },
+        {
+          "lat": 49.22570638744297,
+          "lng": -0.902528464794159
+        },
+        {
+          "lat": 49.22563106430758,
+          "lng": -0.9022897481918336
+        },
+        {
+          "lat": 49.22561310935719,
+          "lng": -0.902262255549431
+        },
+        {
+          "lat": 49.22534247053421,
+          "lng": -0.902623012661934
+        },
+        {
+          "lat": 49.22521371950584,
+          "lng": -0.90278260409832
+        },
+        {
+          "lat": 49.225094164679106,
+          "lng": -0.9030119329690934
+        }
+      ],
+      "area": 15549.415843282963,
+      "tags": [],
+      "photos": []
+    },
+    {
+      "id": "mp0zi5cdj7j45j3g5s",
+      "name": "Puits",
+      "category": "🌊 Eau & Bassin",
+      "notes": "",
+      "color": "#7A9E7E",
+      "isCircle": true,
+      "center": {
+        "lat": 49.22516248175836,
+        "lng": -0.9029297903180123
+      },
+      "radius": 1,
+      "area": 3.141592653589793,
+      "points": [],
+      "tags": [],
+      "photos": [
+        "https://www.leparisien.fr/resizer/javHstf4nLu3B-42CiWBa2X1Do8=/932x582/cloudfront-eu-central-1.images.arcpublishing.com/lpguideshopping/57Z5VXDYYZCP7M4BS2SZL554ME.jpg"
+      ]
+    },
+    {
+      "id": "mp10jo2t255o4fhfyyf",
+      "name": "Composte",
+      "category": "🛖 Structure",
+      "notes": "",
+      "color": "#7A9E7E",
+      "isCircle": true,
+      "center": {
+        "lat": 49.225593402696816,
+        "lng": -0.9023688733577729
+      },
+      "radius": 2,
+      "area": 12.566370614359172,
+      "points": [],
+      "tags": [],
+      "photos": []
+    },
+    {
+      "id": "mp10kc2px3reqjflksa",
+      "name": "Jardin au sol",
+      "category": "🌿 Végétation",
+      "notes": "Patates, carottes...\n\nSerre ?",
+      "color": "#7A9E7E",
+      "points": [
+        {
+          "lat": 49.22563588148827,
+          "lng": -0.9023822844028474
+        },
+        {
+          "lat": 49.22558858551198,
+          "lng": -0.9024218469858171
+        },
+        {
+          "lat": 49.22570463574347,
+          "lng": -0.9028020501136781
+        },
+        {
+          "lat": 49.225757186702026,
+          "lng": -0.9027604758739473
+        },
+        {
+          "lat": 49.22563544356279,
+          "lng": -0.9023836255073548
+        },
+        {
+          "lat": 49.22563281600969,
+          "lng": -0.902385637164116
+        }
+      ],
+      "area": 190.4056674210864,
+      "tags": [],
+      "photos": [
+        "https://www.google.com/url?sa=t&source=web&rct=j&url=https%3A%2F%2Fsanrivaljardin.com%2Fserres-maraicheres-premium%2F845-serre-de-jardin-tunnel-48-m2serre-de-jardin-tunnel-48-m-premium-facile-a-monter.html&ved=0CBYQjRxqFwoTCPD006eHsZQDFQAAAAAdAAAAABA4&opi=89978449"
+      ]
+    },
+    {
+      "id": "mp10v1ihxbktw8y63ya",
+      "name": "Terasse",
+      "category": "🛖 Structure",
+      "notes": "",
+      "color": "#7A9E7E",
+      "points": [
+        {
+          "lat": 49.22537443927498,
+          "lng": -0.9030474722385408
+        },
+        {
+          "lat": 49.225361301438795,
+          "lng": -0.9030595421791078
+        },
+        {
+          "lat": 49.22534728774301,
+          "lng": -0.9030219912528993
+        },
+        {
+          "lat": 49.22537706684178,
+          "lng": -0.9030018746852876
+        },
+        {
+          "lat": 49.225391080529086,
+          "lng": -0.9030367434024812
+        }
+      ],
+      "area": 10.893466606952002,
+      "tags": [],
+      "photos": [
+        "https://cloudfront-eu-central-1.images.arcpublishing.com/lpguideshopping/PGX3JVFM5BCSBHY3TZAHXUT5OY.jpg"
+      ]
+    },
+    {
+      "id": "mp12omq9uu4jjfhshk",
+      "name": "Massifs",
+      "category": "🌿 Végétation",
+      "notes": "",
+      "color": "#7A9E7E",
+      "isCircle": true,
+      "center": {
+        "lat": 49.22521065400105,
+        "lng": -0.9030025452375413
+      },
+      "radius": 3,
+      "area": 28.274333882308138,
+      "points": [],
+      "tags": [],
+      "photos": []
+    },
+    {
+      "id": "mp12pywhtuahwfn799",
+      "name": "Cabane & balançoire",
+      "category": "🛖 Structure",
+      "notes": "",
+      "color": "#7A9E7E",
+      "isCircle": true,
+      "center": {
+        "lat": 49.22520715056682,
+        "lng": -0.9031145274639131
+      },
+      "radius": 2,
+      "area": 12.566370614359172,
+      "points": [],
+      "tags": [],
+      "photos": [
+        "https://www.droledecabane.com/ori-cabane-perchee-enfants-240.jpg"
+      ]
+    },
+    {
+      "id": "mp12rsxo5ptjwmg2ifs",
+      "name": "Jardin surélévé",
+      "category": "🥕 Potager",
+      "notes": "",
+      "color": "#7A9E7E",
+      "points": [
+        {
+          "lat": 49.22534597395885,
+          "lng": -0.9031044691801071
+        },
+        {
+          "lat": 49.22523955732414,
+          "lng": -0.9031929820775987
+        },
+        {
+          "lat": 49.22526670891526,
+          "lng": -0.9032808244228364
+        },
+        {
+          "lat": 49.22537443927498,
+          "lng": -0.9031856060028077
+        },
+        {
+          "lat": 49.2253464118869,
+          "lng": -0.9031044691801071
+        }
+      ],
+      "area": 93.82299910020359,
+      "tags": [],
+      "photos": []
+    },
+    {
+      "id": "mp12t8v76vragtxx0ch",
+      "name": "Arches",
+      "category": "🌳 Arbres & Haies",
+      "notes": "",
+      "color": "#7A9E7E",
+      "isLine": true,
+      "isCurve": false,
+      "thickness": 10,
+      "points": [
+        {
+          "lat": 49.22544188011231,
+          "lng": -0.9030850231647493
+        },
+        {
+          "lat": 49.225610919728645,
+          "lng": -0.9029361605644227
+        },
+        {
+          "lat": 49.2255224586544,
+          "lng": -0.903003215789795
+        },
+        {
+          "lat": 49.225508445004344,
+          "lng": -0.9029683470726014
+        },
+        {
+          "lat": 49.225546106679836,
+          "lng": -0.9030608832836151
+        },
+        {
+          "lat": 49.225546106679836,
+          "lng": -0.9030608832836151
+        },
+        {
+          "lat": 49.22554435497464,
+          "lng": -0.90306356549263
+        }
+      ],
+      "area": 0,
+      "tags": [],
+      "photos": [
+        "https://www.lesentreprisesdupaysage.fr/content/uploads/2023/03/arceau_jardin3.webp"
+      ]
+    }
+  ],
+  "zoneVisible": {
+    "mp0zhluw3ehx4vuruns": true,
+    "mp0zi5cdj7j45j3g5s": true,
+    "mp10jo2t255o4fhfyyf": true,
+    "mp10kc2px3reqjflksa": true,
+    "mp10v1ihxbktw8y63ya": true,
+    "mp12omq9uu4jjfhshk": true,
+    "mp12pywhtuahwfn799": true,
+    "mp12rsxo5ptjwmg2ifs": true,
+    "mp12t8v76vragtxx0ch": true
+  }
+}
