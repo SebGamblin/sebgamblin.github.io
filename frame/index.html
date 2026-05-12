@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ScrabblePrint – Éditeur de page prénoms</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Josefin+Sans:wght@300;400;600&family=UnifrakturMaguntia&family=IM+Fell+English:ital@0;1&family=Cinzel:wght@700;900&family=Special+Elite&family=Abril+Fatface&family=Permanent+Marker&family=Bebas+Neue&family=Cormorant+Garamond:wght@600;700&family=Righteous&display=swap" />
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<div class="app">
+
+  <!-- ═══════════════════════════════ PANEL ═══════════════════════════════ -->
+  <aside class="panel" id="panel">
+    <div class="panel-logo">
+      <span class="logo-tile">S</span>
+      <span class="logo-tile">P</span>
+      <span class="logo-text">ScrabblePrint</span>
+    </div>
+
+    <!-- PRÉNOMS -->
+    <div class="section-title">Prénoms</div>
+    <div id="names-list"></div>
+    <button class="add-btn" id="add-name-btn">＋ Ajouter un prénom</button>
+
+    <!-- ENTREMÊLEMENT -->
+    <div class="section-title">Entremêlement</div>
+    <div class="interlock-nav">
+      <button class="nav-btn" id="prev-layout" title="Disposition précédente">&#8249;</button>
+      <span class="interlock-label" id="interlock-label">1 / 1</span>
+      <button class="nav-btn" id="next-layout" title="Disposition suivante">&#8250;</button>
+    </div>
+    <p class="hint">Les lettres communes créent les croisements</p>
+
+    <!-- TYPOGRAPHIE -->
+    <div class="section-title">Typographie des tuiles</div>
+    <select id="font-select">
+      <option value="'Playfair Display', serif">Playfair Display</option>
+      <option value="'Libre Baskerville', serif">Libre Baskerville</option>
+      <option value="'Cinzel', serif">Cinzel</option>
+      <option value="'Cormorant Garamond', serif">Cormorant Garamond</option>
+      <option value="'IM Fell English', serif">IM Fell English</option>
+      <option value="'Abril Fatface', cursive">Abril Fatface</option>
+      <option value="'Special Elite', cursive">Special Elite</option>
+      <option value="'Permanent Marker', cursive">Permanent Marker</option>
+      <option value="'Bebas Neue', sans-serif">Bebas Neue</option>
+      <option value="'Righteous', sans-serif">Righteous</option>
+      <option value="'UnifrakturMaguntia', cursive">Fraktur gothique</option>
+    </select>
+
+    <!-- TAILLE DES TUILES -->
+    <div class="section-title">Taille des tuiles</div>
+    <div class="range-row">
+      <input type="range" min="28" max="68" value="50" id="tile-size" />
+      <span class="range-val" id="tile-size-val">50px</span>
+    </div>
+
+    <!-- TEXTE BAS -->
+    <div class="section-title">Texte du bas</div>
+    <label>Titre principal</label>
+    <div class="text-size-row">
+      <input type="text" id="main-text" value="Notre famille" placeholder="Titre…" />
+      <input type="number" id="main-size" value="28" min="10" max="72" title="Taille (px)" />
+    </div>
+    <label>Sous-titre</label>
+    <div class="text-size-row">
+      <input type="text" id="sub-text" value="avec amour · pour toujours" placeholder="Sous-titre…" />
+      <input type="number" id="sub-size" value="13" min="8" max="48" title="Taille (px)" />
+    </div>
+    <label>Typographie texte bas</label>
+    <select id="font-bottom">
+      <option value="'Playfair Display', serif">Playfair Display</option>
+      <option value="'Josefin Sans', sans-serif">Josefin Sans</option>
+      <option value="'Cinzel', serif">Cinzel</option>
+      <option value="'Cormorant Garamond', serif">Cormorant Garamond</option>
+      <option value="'Libre Baskerville', serif">Libre Baskerville</option>
+      <option value="'Special Elite', cursive">Special Elite</option>
+      <option value="'Bebas Neue', sans-serif">Bebas Neue</option>
+    </select>
+
+    <!-- STYLE DES TUILES -->
+    <div class="section-title">Palette de tuiles</div>
+    <div class="color-row" id="palette"></div>
+
+    <!-- CADRE -->
+    <div class="section-title">Cadre</div>
+    <div class="layout-row">
+      <button class="layout-btn active" data-frame="classic">Classique</button>
+      <button class="layout-btn" data-frame="deco">Art déco</button>
+      <button class="layout-btn" data-frame="dots">Pointillé</button>
+      <button class="layout-btn" data-frame="none">Aucun</button>
+    </div>
+
+    <!-- FOND -->
+    <div class="section-title">Fond de page</div>
+    <div class="color-row" id="bg-palette"></div>
+
+    <!-- OPTIONS -->
+    <div class="section-title">Options</div>
+    <div class="toggle-row">
+      <div class="toggle on" id="toggle-scores"></div>
+      <span class="toggle-label">Points Scrabble</span>
+    </div>
+    <div class="toggle-row">
+      <div class="toggle on" id="toggle-shadow"></div>
+      <span class="toggle-label">Ombre portée</span>
+    </div>
+
+    <button class="print-btn" id="print-btn">◉ Imprimer / Exporter PDF</button>
+  </aside>
+
+  <!-- ═══════════════════════════════ PREVIEW ═══════════════════════════════ -->
+  <main class="preview-area">
+    <div class="page" id="page">
+      <canvas id="frame-canvas" width="595" height="842"></canvas>
+      <div class="tiles-area" id="tiles-area">
+        <!-- Generated by JS -->
+      </div>
+      <div class="bottom-text" id="bottom-text">
+        <div class="bottom-main" id="preview-main"></div>
+        <div class="bottom-sub"  id="preview-sub"></div>
+      </div>
+    </div>
+  </main>
+
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
