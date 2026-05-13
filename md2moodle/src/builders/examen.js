@@ -19,7 +19,7 @@ import os from 'os';
 import puppeteer from 'puppeteer';
 
 import { parseMarkdown } from '../utils/markdown.js';
-import { getRuntimeDir } from '../utils/runtime.js';
+import { getRuntimeDir, getThemeCss } from '../utils/runtime.js';
 import { log } from '../utils/log.js';
 
 export async function buildExamen(ctx) {
@@ -56,7 +56,10 @@ export async function buildExamen(ctx) {
 
   const tmp     = fs.mkdtempSync(path.join(os.tmpdir(), 'md2moodle-exam-'));
   const tmpHtml = path.join(tmp, 'examen.html');
-  fs.writeFileSync(tmpHtml, html, 'utf-8');
+
+  // Réécrire les chemins de polices KaTeX en data URIs (Puppeteer ouvre en file://)
+  const htmlFixed = rewriteFontUrls(html, path.join(runtimeDir, 'libs'));
+  fs.writeFileSync(tmpHtml, htmlFixed, 'utf-8');
 
   log.info('Lancement de Puppeteer…');
   const browser = await puppeteer.launch({
@@ -84,7 +87,7 @@ export async function buildExamen(ctx) {
       margin: { top: '14mm', bottom: '20mm', left: '20mm', right: '20mm' },
       displayHeaderFooter: true,
       headerTemplate: buildPageHeader(fm, title, logoB64),
-      footerTemplate:  buildPageFooter(fm, title, logoB64),
+      footerTemplate:  buildPageFooter(fm),
     });
 
     log.done(`PDF examen créé : ${path.basename(pdfPath)}`);
@@ -263,63 +266,23 @@ function buildFirstPageHeader(fm, title, logoHtml) {
   const docs     = fm.documents ? escapeHtml(fm.documents) : '';
 
   return `<div class="exam-first-header">
-<div style="
-    display:flex;
-    justify-content:space-between;
-    align-items:flex-start;
-    gap:40px;
-    width:100%;
-    margin-bottom:12px;
-">
+<table style="width:100%;border-collapse:collapse;margin-bottom:8px;border: none;">
 
-    <!-- Partie gauche -->
-    <div style="flex:1;">
-
+    <tr>
+      <td style="width:60%;vertical-align:top;border: none;">
         ${logoHtml}
-
-        <div style="
-            font-size:14px;
-            font-weight:bold;
-            margin-bottom:4px;
-        ">
-            ${escapeHtml(title)}
-        </div>
-
-        <div style="color:#555;">
-            ${subtitle}
-        </div>
-
-    </div>
-
-    <!-- Partie droite -->
-    <div style="
-        min-width:220px;
-        text-align:right;
-    ">
-
-        <div style="font-weight:bold;">
-            ${etab}
-        </div>
-
-        ${date_
-            ? `<div style="margin-top:4px;">${date_}</div>`
-            : ''
-        }
-
-        ${duree
-            ? `<div style="margin-top:4px;">${duree}</div>`
-            : ''
-        }
-
-        ${docs
-            ? `<div style="margin-top:4px;color:#c00;font-weight:bold;">${docs}</div>`
-            : ''
-        }
-
-    </div>
-
-</div>
-  <div style="display:flex;gap:32px;padding-top:7px;padding-bottom:14px;border-bottom:1px solid #ccc;">
+        <div style="font-size:14px;font-weight:bold;margin-bottom:2px;">${escapeHtml(title)}</div>
+        <div style="color:#555;">${subtitle}</div>
+      </td>
+      <td style="text-align:right;vertical-align:top;border: none;">
+        <div style="font-weight:bold;">${etab}</div>
+        ${date_    ? `<div style="margin-top:2px;">${date_}</div>`                               : ''}
+        ${duree    ? `<div style="margin-top:2px;">${duree}</div>`                               : ''}
+        ${docs     ? `<div style="margin-top:2px;color:#c00;font-weight:bold;">${docs}</div>`    : ''}
+      </td>
+    </tr>
+  </table>
+  <div style="display:flex;gap:32px;padding-top:7px;border-top:1px solid #ccc;">
     <div style="flex:1;"><strong>Nom :</strong>&ensp;<span style="display:inline-block;min-width:140px;border-bottom:1px solid #555;">&nbsp;</span></div>
     <div style="flex:1;"><strong>Prénom :</strong>&ensp;<span style="display:inline-block;min-width:140px;border-bottom:1px solid #555;">&nbsp;</span></div>
     <div style="width:180px;"><strong>Groupe :</strong>&ensp;<span style="display:inline-block;min-width:70px;border-bottom:1px solid #555;">&nbsp;</span></div>
@@ -340,24 +303,20 @@ function buildPageHeader(fm, title, logoB64) {
     : '';
 
   return `<div style="font-family:sans-serif;font-size:9px;width:100%;
-    padding:3mm 20mm 2mm;box-sizing:border-box;
+    padding:3mm 20mm 2mm;box-sizing:border-box;border-bottom:1px solid #ccc;
     display:flex;justify-content:space-between;align-items:center;
     -webkit-print-color-adjust:exact;print-color-adjust:exact;">
-    <span><strong></strong></span>
+    <span>${miniLogo}<strong>${short}</strong>${etab ? ' — ' + etab : ''}</span>
     <span style="color:#888;">Page <span class="pageNumber"></span> / <span class="totalPages"></span></span>
   </div>`;
 }
 
-function buildPageFooter(fm, title, logoB64) {
+function buildPageFooter(fm) {
   const etab = escapeHtml(fm.etablissement || '');
-  const miniLogo = logoB64
-    ? `<img src="${logoB64}" style="height:18px;vertical-align:middle;margin-right:6px" alt="">`
-    : '';
   return `<div style="font-family:sans-serif;font-size:9px;color:#aaa;width:100%;
-    padding:2mm 20mm;box-sizing:border-box;
+    padding:2mm 20mm;box-sizing:border-box;border-top:1px solid #eee;
     display:flex;justify-content:space-between;">
-    ${miniLogo}
-    <span>${title}</span>
+    <span>${etab}</span>
     <span>Page <span class="pageNumber"></span> / <span class="totalPages"></span></span>
   </div>`;
 }
@@ -379,6 +338,12 @@ function preprocessExam(md) {
   md = md.replace(
     /:::[ \t]*newpage[ \t]*\r?\n?[\s\S]*?:::/g,
     '\n<div class="page-break"></div>\n'
+  );
+  // {.horizontal} après une liste → envelopper la liste dans .qcm-horizontal
+  // Syntaxe : ligne {.horizontal} immédiatement après le dernier item de la liste
+  md = md.replace(
+    /((?:^[ \t]*-[ \t].+\r?\n)+)\{\.horizontal\}[ \t]*\r?\n?/gm,
+    (_, list) => `<div class="qcm-horizontal">\n\n${list}\n</div>\n`
   );
   return md;
 }
@@ -407,4 +372,21 @@ function findLogo(courseDir, runtimeDir) {
 
 function escapeHtml(str) {
   return String(str || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+
+/**
+ * Remplace les url(fonts/KaTeX_*.woff2) dans le CSS par des data URIs base64.
+ * Nécessaire pour Puppeteer qui ouvre en file:// depuis un dossier temporaire.
+ */
+function rewriteFontUrls(html, libsDir) {
+  const fontsDir = path.join(libsDir, 'fonts');
+  return html.replace(
+    /url\(["']?(fonts\/[^"')]+\.woff2)["']?\)/g,
+    (match, fontPath) => {
+      const abs = path.join(fontsDir, path.basename(fontPath));
+      if (!fs.existsSync(abs)) return match;
+      const b64 = fs.readFileSync(abs).toString('base64');
+      return `url("data:font/woff2;base64,${b64}")`;
+    }
+  );
 }

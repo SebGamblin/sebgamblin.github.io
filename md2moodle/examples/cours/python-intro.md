@@ -47,17 +47,14 @@ print(type(x))       # <class 'int'>
 
 
 
-> Callout test
-> bla  
-> bla
+---
 
-
-[[Internal link|Wikilinks]]
+## Test
 
 <img src="logo.png"/>
 
+<a href="https://docs.python.org/3/"> Python doc </a>
 
-![[log.png]]
 
 
 > [!info] Here's a callout title
@@ -66,9 +63,12 @@ print(type(x))       # <class 'int'>
 
 
 > [!question] Can callouts be nested? 
-> [[Internal link|Wikilinks]]
-> > [!todo] Yes!, they can.
-> > > [!example]  You can even use multiple layers of nesting.
+>> [!question] Yes!, they can.
+>>> [!question]  You can even use multiple layers of nesting.
+
+
+
+---
 
 
 ```mermaid
@@ -83,16 +83,30 @@ graph TD
 ## Callouts
 
 
-<div class="callout callout-info">Info utile.</div>
-
-<blockquote class="callout callout-warning">
-    <p>Attention au piège</p>
-</blockquote>
+> Callout test
+>   
+> bla
 
 
-<div class="callout callout-warning">
-Info utile.
-</div>
+> [!info] Here's a callout title
+> Here's a callout block.
+> It supports **Markdown**
+
+
+> [!warning] Here's a callout title
+> Here's a callout block.
+> It supports **Markdown**
+
+
+> [!danger] Here's a callout title
+> Here's a callout block.
+> It supports **Markdown**
+
+
+> [!success] Here's a callout title
+> Here's a callout block.
+> It supports **Markdown**
+
 
 ---
 
@@ -108,14 +122,14 @@ $$S_n = \sum_{k=1}^{n} k = \frac{n(n+1)}{2}$$
 
 ## Diagramme de flux
 
-<div class="mermaid" style="width:70%;margin:auto">
+```mermaid
 flowchart TD
     A[Entrée utilisateur] --> B{Valide ?}
     B -->|Oui| C[Traitement]
     B -->|Non| D[Message d'erreur]
     C --> E[Affichage résultat]
     D --> A
-</div>
+```
 
 ---
 

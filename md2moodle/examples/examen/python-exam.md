@@ -26,6 +26,7 @@ Quelle est la valeur de `len([1, 2, [3, 4], 5])` ?
 - [ ] 4
 - [ ] 3
 - [ ] 6
+{.horizontal}
 
 ### Question 1.3 *(2 pts)*
 

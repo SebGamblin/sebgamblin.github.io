@@ -6,10 +6,11 @@ import fs from 'fs';
 import path from 'path';
 import http from 'http';
 import { EventEmitter } from 'events';
+import os from 'os';
 import { exec } from 'child_process';
 
 import { parseMarkdown, parseSummary, resolvePages } from '../utils/markdown.js';
-import { getRuntimeDir, getThemePath } from '../utils/runtime.js';
+import { getRuntimeDir, getThemePath, getThemeCss } from '../utils/runtime.js';
 import { renderNavBlock } from '../utils/template.js';
 import { log } from '../utils/log.js';
 
@@ -35,14 +36,33 @@ export async function serve(ctx) {
 
   if (summary && fs.existsSync(summary)) {
     const chapters = parseSummary(summary);
-    extraPages = resolvePages(summary, chapters);
+    const allPages = resolvePages(summary, chapters);
+
+    // Dédupliquer les pages (même absPath = même fichier)
+    const seen = new Set();
+    for (const page of allPages) {
+      // "index.html" dans le summary pointe vers la page principale
+      const absPath = (page.href === 'index.html')
+        ? path.resolve(input)
+        : page.absPath;
+
+      const key = path.resolve(absPath);
+      if (!seen.has(key)) {
+        seen.add(key);
+        extraPages.push({ ...page, absPath });
+      }
+    }
+
     navBlock = renderNavBlock(
       chapters.map(ch => ({
         ...ch,
         children: (ch.children || []).map(c => ({
           title: c.title,
+          // href dans la nav : les fichiers .md sont servis par leur nom,
+          // sauf la page principale qui répond à /index.html aussi
           href: path.resolve(path.dirname(summary), c.href) === path.resolve(input)
-            ? 'index.html' : c.href,
+            ? 'index.html'
+            : c.href,
         })),
       }))
     );
@@ -69,6 +89,30 @@ export async function serve(ctx) {
       return;
     }
 
+    // ── Export PDF via Puppeteer (même résultat que --type pdf en CLI) ────
+    if (pathname === '/__pdf') {
+      try {
+        log.info('Export PDF via Puppeteer…');
+        const puppeteer = (await import('puppeteer')).default;
+        const { buildPdf } = await import('./pdf.js');
+        const pdfPath = path.join(os.tmpdir(), `${path.basename(input, '.md')}-${Date.now()}.pdf`);
+        await buildPdf({ input, theme, cwd: path.dirname(input), output: pdfPath, noOpen: true });
+        const pdfData = fs.readFileSync(pdfPath);
+        fs.unlinkSync(pdfPath);
+        res.writeHead(200, {
+          'Content-Type': 'application/pdf',
+          'Content-Disposition': `attachment; filename="${path.basename(input, '.md')}.pdf"`,
+          'Content-Length': pdfData.length,
+        });
+        res.end(pdfData);
+        log.ok('PDF envoyé au navigateur');
+      } catch(e) {
+        log.err(`PDF error: ${e.message}`);
+        res.writeHead(500); res.end(e.message);
+      }
+      return;
+    }
+
     // Status
     if (pathname === '/__status') {
       res.writeHead(200, { 'Content-Type': 'application/json' });
@@ -89,15 +133,16 @@ export async function serve(ctx) {
       }
     }
 
-    // Page principale
+    // Page principale — répond à / et /index.html
     if (pathname === '/' || pathname === '/index.html') {
       return servePage(res, input, input, runtimeDir, theme, navBlock);
     }
 
     // Pages secondaires du sommaire
-    const matchedPage = extraPages.find(p =>
-      '/' + p.href === pathname || pathname === '/' + p.href
-    );
+    const matchedPage = extraPages.find(p => {
+      if (p.absPath === path.resolve(input)) return false; // page principale déjà gérée
+      return '/' + p.href === pathname;
+    });
     if (matchedPage) {
       if (!fs.existsSync(matchedPage.absPath)) {
         res.writeHead(404); res.end(`Page introuvable : ${matchedPage.href}`);
@@ -137,6 +182,7 @@ export async function serve(ctx) {
     path.dirname(input),
     summary,
     getThemePath(theme),
+    path.join(getRuntimeDir(), 'base.css'),
   ].filter(Boolean);
 
   let debounce = null;
@@ -162,9 +208,9 @@ export async function serve(ctx) {
 function servePage(res, mdPath, mainInput, runtimeDir, theme, navBlock) {
   try {
     const parsed   = parseMarkdown(mdPath);
-    const themeCss = fs.readFileSync(getThemePath(theme), 'utf-8');
+    const themeCss = getThemeCss(theme);
     const moteurJs = fs.readFileSync(path.join(runtimeDir, 'moteur.js'), 'utf-8');
-    const page     = buildDevPage(parsed, themeCss, moteurJs, navBlock);
+    const page     = buildDevPage(parsed, themeCss, moteurJs, navBlock, runtimeDir);
     res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
     res.end(page);
   } catch (e) {
@@ -175,17 +221,25 @@ function servePage(res, mdPath, mainInput, runtimeDir, theme, navBlock) {
 
 // ── Page HTML dev ──────────────────────────────────────────────────────────
 
-function buildDevPage(parsed, themeCss, moteurJs, navBlock) {
+function buildDevPage(parsed, themeCss, moteurJs, navBlock, runtimeDir) {
+  const b64 = Buffer.from(parsed.bodyOnly, 'utf-8').toString('base64');
+
+  // Inliner katex.min.css + highlight-github.min.css pour qu'ils soient
+  // dans le même bloc <style> que le thème. Cela garantit que notre
+  // anti-contamination dark-mode (body { background-color !important })
+  // vient EN DERNIER et gagne sur @media (prefers-color-scheme: dark) de KaTeX.
+  const katexCss = fs.readFileSync(path.join(runtimeDir, 'libs', 'katex.min.css'), 'utf-8');
+  const hljsCss  = fs.readFileSync(path.join(runtimeDir, 'libs', 'highlight-github.min.css'), 'utf-8');
+
   return `<!DOCTYPE html>
 <html lang="fr">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>${escapeHtml(parsed.title)} — dev</title>
-<link rel="stylesheet" href="/libs/katex.min.css">
-<link rel="stylesheet" href="/libs/highlight-github.min.css">
-<!-- reveal.min.css chargé à la demande par moteur.js au passage en mode slides -->
 <style>
+${katexCss}
+${hljsCss}
 ${themeCss}
 #dev-badge {
   position: fixed; bottom: 8px; right: 12px;
@@ -204,9 +258,7 @@ ${themeCss}
 </head>
 <body>
 
-<div id="cours-md" style="display:none">
-${parsed.bodyOnly}
-</div>
+<div id="cours-md" style="display:none" data-b64="${b64}"></div>
 
 ${navBlock}
 
