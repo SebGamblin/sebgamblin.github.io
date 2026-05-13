@@ -134,9 +134,16 @@
 
   function loadAllLibs(cb) {
     if (state.libsLoaded) { cb(); return; }
-    // highlight-github = thème CLAIR — ne pas charger highlight.min.css (dark)
-    loadStyle(LIBS + 'highlight-github.min.css');
-    loadStyle(LIBS + 'katex.min.css');
+
+    // Ne charger katex.min.css et highlight-github.min.css que s'ils ne sont
+    // pas déjà inlinés dans la page (mode serve/html les inline dans <style>
+    // pour contrôler l'ordre et éviter la contamination dark-mode de KaTeX).
+    var katexAlreadyInlined = !!(document.querySelector('style') &&
+      document.querySelector('style').textContent.includes('KaTeX_Main'));
+    if (!katexAlreadyInlined) {
+      loadStyle(LIBS + 'highlight-github.min.css');
+      loadStyle(LIBS + 'katex.min.css');
+    }
     loadFonts();
     // reveal chargé à la demande dans loadReveal() pour éviter fond noir
     var chain = [
@@ -163,22 +170,29 @@
     state.libsLoaded = true;
     if (_savedDefine) { window.define = _savedDefine; window.require = _savedRequire; }
 
-    // marked : configurer le renderer (compatible v12 et antérieures)
     if (typeof marked !== 'undefined') {
+      // Autoriser le HTML brut dans le Markdown (nécessaire pour <img>, <div class="callout">…)
       try {
-        // marked v2+ : marked.use()
-        marked.use({ renderer: buildRenderer(), gfm: true, breaks: false });
+        marked.use({
+          renderer: buildRenderer(),
+          gfm: true,
+          breaks: false,
+          pedantic: false,
+        });
+        // marked v12+ : il faut aussi passer mangle:false et headerIds:false
+        // pour éviter les warnings, et surtout ne PAS sanitize le HTML
+        if (marked.defaults && marked.defaults.sanitize !== undefined) {
+          marked.setOptions({ sanitize: false });
+        }
       } catch(e) {
-        // fallback très anciennes versions
-        marked.setOptions({ renderer: buildRenderer() });
+        marked.setOptions({ renderer: buildRenderer(), sanitize: false });
       }
     }
 
-    // mermaid
     if (typeof mermaid !== 'undefined') {
       mermaid.initialize({
         startOnLoad: false,
-        securityLevel: 'loose',   // nécessaire pour certains diagrammes
+        securityLevel: 'loose',
         theme: 'base',
         themeVariables: {
           primaryColor:       '#e8f4fd',
@@ -191,12 +205,80 @@
   }
 
   // ══════════════════════════════════════════════════════════════════════════
+  // Préprocesseur Markdown (avant marked.parse)
+  // ══════════════════════════════════════════════════════════════════════════
+
+  // Transformations appliquées sur le texte brut avant le parsing marked :
+  //   1. Callouts Obsidian  : > [!info] Titre → <blockquote class="callout callout-info">
+  //   2. Wikilinks          : [[Fichier|Texte]] → [Texte](Fichier)
+  //   3. Images wikilinks   : ![[image.png]]   → ![image.png](image.png)
+
+  function preprocessMarkdown(md) {
+    // ── Images wikilinks : ![[file.png]] → ![file.png](file.png) ──────────
+    md = md.replace(/!\[\[([^\]]+)\]\]/g, function(_, src) {
+      var alt = src.replace(/^.*\//, '').replace(/\.[^.]+$/, '');
+      return '![' + alt + '](' + src + ')';
+    });
+
+    // ── Wikilinks : [[Page|Texte]] ou [[Page]] → lien Markdown ───────────
+    md = md.replace(/\[\[([^\]|]+)\|([^\]]+)\]\]/g, '[$2]($1)');
+    md = md.replace(/\[\[([^\]]+)\]\]/g, '[$1]($1)');
+
+    // ── Callouts Obsidian : > [!type] Titre ───────────────────────────────
+    // On cherche un bloc de lignes commençant par > dont la première
+    // contient [!type]. On remplace le TOUT (pas juste une partie).
+    md = md.replace(
+      /^(> ?\[!([\w]+)\][^\n]*\n(?:> ?[^\n]*\n?)*)/gm,
+      function(block) {
+        // Découper ligne par ligne
+        var lines = block.split('\n').filter(function(l) { return l.trim() !== ''; });
+
+        // Première ligne : > [!type] Titre optionnel
+        var firstLine = lines[0];
+        var headerMatch = firstLine.match(/^> ?\[!([\w]+)\][ \t]*(.*)/i);
+        if (!headerMatch) return block;
+
+        var type     = headerMatch[1].toLowerCase();
+        var titleTxt = headerMatch[2].trim();
+
+        // Lignes suivantes : contenu (supprimer le ">" de début)
+        var contentLines = lines.slice(1).map(function(l) {
+          return l.replace(/^> ?/, '');
+        });
+        var content = contentLines.join('\n').trim();
+
+        var cssType = {
+          info:'info', note:'info', tip:'success', important:'info',
+          warning:'warning', caution:'warning', attention:'warning',
+          danger:'danger', error:'danger', failure:'danger', bug:'danger',
+          success:'success', check:'success', done:'success',
+          question:'info', faq:'info', help:'info', hint:'success',
+          quote:'info', example:'info', abstract:'info', summary:'info', todo:'warning',
+        }[type] || 'info';
+
+        var icons = { info:'ℹ️', warning:'⚠️', danger:'🚫', success:'✅' };
+        var icon  = icons[cssType] || 'ℹ️';
+
+        var titleHtml = titleTxt
+          ? '<div class="callout-title">' + icon + '&nbsp;' + escapeHtml(titleTxt) + '</div>'
+          : '<div class="callout-title">' + icon + '&nbsp;' + escapeHtml(type.charAt(0).toUpperCase() + type.slice(1)) + '</div>';
+
+        return '<div class="callout callout-' + cssType + '">\n' +
+               titleHtml + '\n\n' + content + '\n\n</div>\n';
+      }
+    );
+
+    return md;
+  }
+
+  // ══════════════════════════════════════════════════════════════════════════
   // Renderer marked
   // ══════════════════════════════════════════════════════════════════════════
 
   function buildRenderer() {
     var renderer = new marked.Renderer();
 
+    // ── Code ──────────────────────────────────────────────────────────────
     // Signature marked v12 : token = { text, lang, escaped }
     // Signature marked <v9 : (code, lang)
     renderer.code = function (tokenOrCode, langArg) {
@@ -210,7 +292,6 @@
       }
 
       if (lang === 'mermaid') {
-        // Stocker le code brut en base64 pour éviter tout problème d'entités
         return '<div class="mermaid-pending" data-b64="' + b64encode(code) + '"></div>';
       }
 
@@ -271,18 +352,23 @@
     }
   }
 
-  // ══════════════════════════════════════════════════════════════════════════
-  // Rendu Document
-  // ══════════════════════════════════════════════════════════════════════════
+  // Lancer mermaid uniquement sur la slide actuellement visible
+  // (Reveal.js ne rend que la slide courante dans le DOM)
+  function renderMermaidInCurrentSlide() {
+    if (typeof mermaid === 'undefined') return;
+    var currentSection = document.querySelector('.reveal .slides section.present');
+    if (!currentSection) {
+      // Fallback : toutes les sections
+      currentSection = document.querySelector('.reveal .slides');
+    }
+    if (currentSection) resolveMermaidPlaceholders(currentSection);
+  }
 
   function renderDoc() {
     var container = document.getElementById('moteur-doc');
     if (!container) return;
 
-    container.innerHTML = marked.parse(state.md,  {
-      headerIds: false,
-      mangle: false
-    });
+    container.innerHTML = marked.parse(preprocessMarkdown(state.md));
     container.style.display = '';
 
     if (typeof renderMathInElement !== 'undefined') {
@@ -313,10 +399,7 @@
     loadReveal(function () {
       var sections = state.md.split(/\n---\n/);
       slides.innerHTML = sections.map(function (s) {
-        return '<section>' + marked.parse(s.trim(), {
-          headerIds: false,
-          mangle: false
-        }) + '</section>';
+        return '<section>' + marked.parse(preprocessMarkdown(s.trim())) + '</section>';
       }).join('');
 
       var doc = document.getElementById('moteur-doc');
@@ -344,12 +427,17 @@
           var vp = document.querySelector('.reveal-viewport');
           if (vp) vp.style.removeProperty('background');
           document.body.style.removeProperty('background');
-          resolveMermaidPlaceholders(slides);
+
+          // Mermaid sur la slide courante + sur slidechanged
+          renderMermaidInCurrentSlide();
+          state.revealInstance.on('slidechanged', function() {
+            renderMermaidInCurrentSlide();
+          });
         });
       } else if (state.revealInstance) {
         state.revealInstance.sync();
         state.revealInstance.slide(0, 0);
-        resolveMermaidPlaceholders(slides);
+        renderMermaidInCurrentSlide();
       }
 
       hideBanner();
@@ -380,6 +468,22 @@
   }
 
   function printDoc() {
+    // En mode serve (dev), utiliser l'endpoint /__pdf pour un PDF via Puppeteer
+    // identique au --type pdf en CLI.
+    // En mode statique (zip Moodle), fallback sur window.print().
+    var isPuppeteerAvailable = window.location.hostname === 'localhost' ||
+                               window.location.hostname === '127.0.0.1';
+    if (!state.slideMode && isPuppeteerAvailable) {
+      // Télécharger le PDF via Puppeteer
+      var a = document.createElement('a');
+      a.href = '/__pdf';
+      a.download = '';
+      a.style.display = 'none';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      return;
+    }
     if (state.slideMode) switchMode();
     setTimeout(function () { window.print(); }, 300);
   }
@@ -548,6 +652,10 @@
   function readMarkdown() {
     var div = document.getElementById('cours-md');
     if (!div) return null;
+    // Nouveau format : base64 dans data-b64
+    var b64 = div.getAttribute('data-b64');
+    if (b64) return b64decode(b64) || null;
+    // Fallback ancien format : textContent
     return (div.textContent || div.innerText || '').trim() || null;
   }
 

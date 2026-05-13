@@ -33,7 +33,7 @@ h2 {
   margin: 18pt 0 6pt;
   padding: 4pt 8pt;
   background: #f0f0f0;
-  border-left: 4pt solid #333;
+  border-left: 4pt solid red;
   break-before: auto;
 }
 
@@ -158,4 +158,23 @@ h3 em {
   background: #f0f0f0;
   padding: 1pt 5pt;
   border-radius: 3pt;
+}
+
+/* ── QCM horizontal ──────────────────────────────────────────────────────── */
+/* Syntaxe MD : liste de cases à cocher suivie de {.horizontal}             */
+.qcm-horizontal .qcm-list {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 6pt 18pt;
+  padding: 4pt 0;
+  list-style: none;
+  margin: 4pt 0 8pt;
+}
+.qcm-horizontal .qcm-item {
+  display: flex;
+  align-items: center;
+  gap: 5pt;
+  break-inside: avoid;
+  margin-bottom: 0;
 }

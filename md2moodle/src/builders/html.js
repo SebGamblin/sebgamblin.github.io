@@ -21,7 +21,7 @@ import archiver from 'archiver';
 import { parseMarkdown, parseSummary, resolvePages } from '../utils/markdown.js';
 import { resolveAssets, copyAssets, rewritePaths } from '../utils/assets.js';
 import { renderPage, renderNavBlock } from '../utils/template.js';
-import { getRuntimeDir, getThemePath } from '../utils/runtime.js';
+import { getRuntimeDir, getThemePath, getThemeCss } from '../utils/runtime.js';
 import { log } from '../utils/log.js';
 
 export async function buildHtml(ctx) {
@@ -55,13 +55,18 @@ export async function buildHtml(ctx) {
     copyDir(path.join(runtimeDir, 'libs'),  path.join(pkg, 'libs'));
     log.ok('Copié : libs/');
 
-    // moteur.js
     fs.copyFileSync(path.join(runtimeDir, 'moteur.js'), path.join(pkg, 'moteur.js'));
     log.ok('Copié : moteur.js');
 
-    // Thème CSS → style.css
-    const themePath = getThemePath(theme);
-    fs.copyFileSync(themePath, path.join(pkg, 'style.css'));
+    // Construire le CSS complet inline : katex + hljs + thème
+    // (dans cet ordre pour que les overrides du thème gagnent sur KaTeX dark mode)
+    const katexCss   = fs.readFileSync(path.join(runtimeDir, 'libs', 'katex.min.css'), 'utf-8');
+    const hljsCss    = fs.readFileSync(path.join(runtimeDir, 'libs', 'highlight-github.min.css'), 'utf-8');
+    const themeCssContent = getThemeCss(theme);
+    const fullInlineCss = `${katexCss}\n${hljsCss}\n${themeCssContent}`;
+
+    // On conserve aussi style.css dans le zip (utile si on ouvre les fichiers directement)
+    fs.writeFileSync(path.join(pkg, 'style.css'), fullInlineCss, 'utf-8');
     log.ok(`Thème : ${theme} → style.css`);
 
     // Logo optionnel
@@ -84,35 +89,36 @@ export async function buildHtml(ctx) {
     const navBlock = renderNavBlock(
       chapters.map(ch => ({
         ...ch,
-        // La page principale correspond au premier lien si c'est l'index
-        children: ch.children.map(c => ({
+        children: (ch.children || []).map(c => ({
           title: c.title,
-          href:  c.href === path.basename(input) ? 'index.html' : c.href,
+          // Mapper vers index.html si le lien pointe vers la page principale
+          href: (c.href === path.basename(input) || c.href === 'index.html')
+            ? 'index.html'
+            : c.href,
         })),
       }))
     );
 
-    const indexHtml = renderPage({ title: pageTitle, content: mainContent, navBlock });
+    const indexHtml = renderPage({ title: pageTitle, content: mainContent, navBlock, inlineCss: fullInlineCss });
     fs.writeFileSync(path.join(pkg, 'index.html'), indexHtml);
     log.ok('Généré : index.html');
 
     // ── 5. Pages secondaires ──────────────────────────────────────────────
+    const seenPaths = new Set([path.resolve(input)]);
+
     for (const page of extraPages) {
-      if (!fs.existsSync(page.absPath)) {
-        log.warn(`Page introuvable : ${page.href}`);
-        continue;
-      }
-      if (path.resolve(page.absPath) === path.resolve(input)) {
-        log.dim(`Ignorée (page principale) : ${page.href}`);
-        continue;
-      }
+      // Ignorer si le href pointe vers index.html (alias de la page principale)
+      if (page.href === 'index.html') { log.dim(`Ignorée (alias index) : ${page.href}`); continue; }
+      if (!fs.existsSync(page.absPath)) { log.warn(`Page introuvable : ${page.href}`); continue; }
+      if (seenPaths.has(path.resolve(page.absPath))) { log.dim(`Ignorée (déjà générée) : ${page.href}`); continue; }
+      seenPaths.add(path.resolve(page.absPath));
 
       const parsed = parseMarkdown(page.absPath);
       const pageAssets = resolveAssets(parsed.bodyOnly, page.absPath);
       const pageMapping = copyAssets(pageAssets.filter(a => a.exists), pkg);
       let pageContent = rewritePaths(parsed.bodyOnly, pageMapping);
 
-      const pageHtml = renderPage({ title: parsed.title, content: pageContent, navBlock });
+      const pageHtml = renderPage({ title: parsed.title, content: pageContent, navBlock, inlineCss: fullInlineCss });
       const destPath = path.join(pkg, page.href);
       fs.mkdirSync(path.dirname(destPath), { recursive: true });
       fs.writeFileSync(destPath, pageHtml);

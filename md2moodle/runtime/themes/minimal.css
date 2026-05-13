@@ -1,32 +1,91 @@
-/**
- * themes/minimal.css — Thème minimaliste
- * Typographie épurée, peu de couleurs, idéal pour les TDs imprimés.
- */
-
-@import url('./default.css');
+/* ── Neutralisation dark-mode externe ──────────────────────────────────────
+   html+body avec !important — résiste aux extensions et à KaTeX.
+   Le @media ci-dessous RE-force toutes les variables en mode dark système
+   pour qu'aucune lib externe ne puisse les écraser. */
+html, body {
+  background: #ffffff !important;
+  color: #111827 !important;
+  color-scheme: light !important;
+}
+:root {
+  --color-bg: #ffffff !important;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-bg: #ffffff !important;
+    --color-surface: #fafafa !important;
+    --color-border: #e5e7eb !important;
+    --color-border-strong: #d1d5db !important;
+    --color-text: #111827 !important;
+    --color-text-muted: #6b7280 !important;
+    --color-accent: #374151 !important;
+    --color-accent-light: #f3f4f6 !important;
+    --code-bg: #f9fafb !important;
+    --code-border: #e5e7eb !important;
+    --code-text: #111827 !important;
+    --code-lang-bg: #f3f4f6 !important;
+    --code-lang-text: #6b7280 !important;
+    --toolbar-bg: rgba(255,255,255,.97) !important;
+    color-scheme: light;
+  }
+  html, body {
+    background: #ffffff !important;
+    color: #111827 !important;
+  }
+}
 
 :root {
-  --color-accent:       #374151;
-  --color-accent-light: #f3f4f6;
+  --color-bg: #ffffff !important;
+  color-scheme: light;
+}
+
+/**
+ * minimal.css — Thème minimaliste noir et blanc
+ * Variables uniquement — base.css fournit les styles.
+ */
+:root {
+  --color-bg:           #ffffff;
   --color-surface:      #fafafa;
   --color-border:       #e5e7eb;
+  --color-border-strong:#d1d5db;
+  --color-text:         #111827;
+  --color-text-muted:   #6b7280;
+  --color-accent:       #374151;
+  --color-accent-light: #f3f4f6;
+
+  --color-info:         #374151;  --color-info-bg:    #f3f4f6;
+  --color-warning:      #92400e;  --color-warning-bg: #fffbeb;
+  --color-danger:       #991b1b;  --color-danger-bg:  #fef2f2;
+  --color-success:      #065f46;  --color-success-bg: #ecfdf5;
+
+  --font-body:  'DM Sans', system-ui, sans-serif;
+  --font-code:  'DM Mono', 'Fira Mono', monospace;
+  --font-serif: 'DM Sans', system-ui, sans-serif; /* pas de serif en minimal */
+
+  --sidebar-w: 240px;
+  --toolbar-h: 44px;
+  --doc-max-w: 860px;
+
+  --radius-sm: 2px;
+  --radius-md: 4px;
+  --radius-lg: 6px;
+  --shadow-sm: none;
+  --shadow-md: 0 2px 8px rgba(0,0,0,.08);
+
+  --toolbar-bg: rgba(255,255,255,.97);
+
+  --code-bg:        #f9fafb;
+  --code-border:    #e5e7eb;
+  --code-text:      #111827;
+  --code-lang-bg:   #f3f4f6;
+  --code-lang-text: #6b7280;
+  --code-copy-bg:   rgba(0,0,0,.04);
+  --code-copy-hover:rgba(0,0,0,.08);
+  --code-hl-bg:     #fef9c3;
 }
 
-/* Titres sans barre colorée */
-#moteur-doc h1 {
-  font-family: var(--font-body);
-  font-weight: 800;
-  font-size: 2rem;
-  border-bottom: 2px solid #374151;
+@media (prefers-color-scheme: dark) {
+  :root { --color-bg: #ffffff; }
+  body  { background-color: #ffffff !important; color: #111827 !important; }
 }
-
-#moteur-doc h2 {
-  font-size: 1.35rem;
-  font-weight: 700;
-  padding-left: 0;
-}
-#moteur-doc h2::before { display: none; }
-
-#moteur-doc a { color: #374151; }
-
-.moteur-btn.active { background: #f3f4f6; border-color: #374151; color: #374151; }

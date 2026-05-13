@@ -1,464 +1,98 @@
-/**
- * themes/default.css — Thème par défaut md2moodle
- * Architecture CSS en variables → simple à surcharger.
- */
-
-/* ── Variables ──────────────────────────────────────────────────────────── */
+/* ── Neutralisation dark-mode externe ──────────────────────────────────────
+   html+body avec !important — résiste aux extensions et à KaTeX.
+   Le @media ci-dessous RE-force toutes les variables en mode dark système
+   pour qu'aucune lib externe ne puisse les écraser. */
+html, body {
+  background: #ffffff !important;
+  color: #1a202c !important;
+  color-scheme: light !important;
+}
 :root {
+  --color-bg: #ffffff !important;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-bg: #ffffff !important;
+    --color-surface: #f8f9fa !important;
+    --color-border: #e2e8f0 !important;
+    --color-border-strong: #cbd5e0 !important;
+    --color-text: #1a202c !important;
+    --color-text-muted: #718096 !important;
+    --color-accent: #2563eb !important;
+    --color-accent-light: #dbeafe !important;
+    --code-bg: #f6f8fa !important;
+    --code-border: #e1e4e8 !important;
+    --code-text: #24292e !important;
+    --code-lang-bg: #f0f2f5 !important;
+    --code-lang-text: #6a737d !important;
+    --toolbar-bg: rgba(255,255,255,.97) !important;
+    color-scheme: light;
+  }
+  html, body {
+    background: #ffffff !important;
+    color: #1a202c !important;
+  }
+}
+
+:root {
+  --color-bg: #ffffff !important;
+  color-scheme: light;
+}
+
+/**
+ * default.css — Thème par défaut (bleu)
+ * Ne contient QUE des variables CSS.
+ * Les styles sont dans base.css (concaténé automatiquement par le builder).
+ */
+:root {
+  /* Couleurs */
   --color-bg:           #ffffff;
   --color-surface:      #f8f9fa;
   --color-border:       #e2e8f0;
+  --color-border-strong:#cbd5e0;
   --color-text:         #1a202c;
   --color-text-muted:   #718096;
   --color-accent:       #2563eb;
   --color-accent-light: #dbeafe;
 
-  --color-info:         #0ea5e9;   --color-info-bg:    #f0f9ff;
-  --color-warning:      #f59e0b;   --color-warning-bg: #fffbeb;
-  --color-danger:       #ef4444;   --color-danger-bg:  #fef2f2;
-  --color-success:      #22c55e;   --color-success-bg: #f0fdf4;
+  --color-info:         #0ea5e9;  --color-info-bg:    #f0f9ff;
+  --color-warning:      #f59e0b;  --color-warning-bg: #fffbeb;
+  --color-danger:       #ef4444;  --color-danger-bg:  #fef2f2;
+  --color-success:      #22c55e;  --color-success-bg: #f0fdf4;
 
+  /* Typographie */
   --font-body:  'DM Sans', system-ui, sans-serif;
   --font-code:  'DM Mono', 'Fira Mono', monospace;
   --font-serif: 'DM Serif Display', Georgia, serif;
 
-  --sidebar-w:   240px;
-  --toolbar-h:   44px;
-  --doc-max-w:   860px;
+  /* Layout */
+  --sidebar-w: 240px;
+  --toolbar-h: 44px;
+  --doc-max-w: 860px;
 
+  /* Formes */
   --radius-sm: 4px;
   --radius-md: 8px;
   --radius-lg: 12px;
   --shadow-sm: 0 1px 3px rgba(0,0,0,.08);
   --shadow-md: 0 4px 12px rgba(0,0,0,.12);
+
+  /* Toolbar — explicite pour résister à KaTeX dark-mode */
+  --toolbar-bg: rgba(255,255,255,.97);
+
+  /* Code */
+  --code-bg:        #f6f8fa;
+  --code-border:    #e1e4e8;
+  --code-text:      #24292e;
+  --code-lang-bg:   #f0f2f5;
+  --code-lang-text: #6a737d;
+  --code-copy-bg:   rgba(0,0,0,.04);
+  --code-copy-hover:rgba(0,0,0,.08);
+  --code-hl-bg:     #fff3cd;
 }
 
-/* ── Reset ───────────────────────────────────────────────────────────────── */
-*, *::before, *::after { box-sizing: border-box; }
-html { scroll-behavior: smooth; }
-body {
-  margin: 0;
-  font-family: var(--font-body);
-  font-size: 16px;
-  line-height: 1.7;
-  color: var(--color-text);
-  background: var(--color-bg);
-  -webkit-font-smoothing: antialiased;
+@media (prefers-color-scheme: dark) {
+  :root { --color-bg: #ffffff; color-scheme: light; }
+  body  { background-color: #ffffff !important; color: #1a202c !important; }
 }
-
-/* ── Toolbar ─────────────────────────────────────────────────────────────── */
-#moteur-toolbar {
-  position: fixed;
-  top: 0; left: 0;
-  z-index: 200;
-  display: flex;
-  align-items: center;
-  gap: 4px;
-  padding: 6px 10px;
-  background: rgba(255,255,255,.95);
-  backdrop-filter: blur(8px);
-  border-bottom: 1px solid var(--color-border);
-  box-shadow: var(--shadow-sm);
-}
-
-.moteur-btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 32px; height: 32px;
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-sm);
-  background: var(--color-bg);
-  color: var(--color-text);
-  font-size: 15px;
-  cursor: pointer;
-  transition: background .15s, border-color .15s;
-  flex-shrink: 0;
-}
-.moteur-btn:hover  { background: var(--color-surface); border-color: #cbd5e0; }
-.moteur-btn.active { background: var(--color-accent-light); border-color: var(--color-accent); color: var(--color-accent); }
-
-/* Séparateur visuel après le burger */
-#moteur-sidebar-toggle { margin-right: 4px; }
-
-/* ── Sidebar ─────────────────────────────────────────────────────────────── */
-#moteur-sidebar {
-  position: fixed;
-  top: 0; left: 0; bottom: 0;
-  width: var(--sidebar-w);
-  z-index: 100;
-  overflow-y: auto;
-  background: var(--color-surface);
-  border-right: 1px solid var(--color-border);
-  transition: transform .25s ease;
-}
-#moteur-sidebar.hidden { transform: translateX(calc(-1 * var(--sidebar-w))); }
-
-.moteur-sidebar-inner  { padding: 56px 0 16px; }
-.moteur-sidebar-title  { padding: 8px 16px 12px; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; color: var(--color-text-muted); }
-.moteur-chapter        { margin-bottom: 8px; }
-.moteur-chapter-title  { padding: 4px 16px; font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: .06em; color: var(--color-text-muted); }
-
-.moteur-nav-link {
-  display: block;
-  padding: 6px 16px 6px 20px;
-  font-size: 14px;
-  color: var(--color-text);
-  text-decoration: none;
-  border-left: 3px solid transparent;
-  transition: background .12s, border-color .12s;
-}
-.moteur-nav-link:hover  { background: var(--color-accent-light); }
-.moteur-nav-link.active { border-left-color: var(--color-accent); color: var(--color-accent); background: var(--color-accent-light); font-weight: 600; }
-
-/* ── Document ────────────────────────────────────────────────────────────── */
-#moteur-doc {
-  max-width: var(--doc-max-w);
-  margin: 0 auto;
-  padding: calc(var(--toolbar-h) + 1.5rem) 2.5rem 4rem;
-}
-body.with-sidebar #moteur-doc {
-  padding-left: calc(var(--sidebar-w) + 40px);
-  max-width: calc(var(--doc-max-w) + var(--sidebar-w));
-}
-
-/* ── Typographie ─────────────────────────────────────────────────────────── */
-#moteur-doc h1 {
-  font-family: var(--font-serif);
-  font-size: 2.25rem; font-weight: 400; line-height: 1.2;
-  margin: 0 0 .4em;
-  border-bottom: 2px solid var(--color-accent);
-  padding-bottom: .3em;
-}
-#moteur-doc h2 {
-  font-size: 1.5rem; font-weight: 700;
-  margin: 2.5rem 0 .8rem;
-  padding-left: .8rem;
-  position: relative;
-}
-#moteur-doc h2::before {
-  content: '';
-  position: absolute; left: 0; top: .1em; bottom: .1em;
-  width: 4px; background: var(--color-accent); border-radius: 2px;
-}
-#moteur-doc h3  { font-size: 1.15rem; font-weight: 600; margin: 1.8rem 0 .5rem; }
-#moteur-doc h4  { font-size: 1rem;    font-weight: 600; margin: 1.2rem 0 .4rem; color: var(--color-text-muted); }
-#moteur-doc p   { margin: 0 0 1rem; }
-#moteur-doc a   { color: var(--color-accent); text-decoration: underline; text-underline-offset: 2px; }
-#moteur-doc a:hover { text-decoration: none; }
-
-/* ── Blocs de code ───────────────────────────────────────────────────────── */
-
-/* Wrapper pour positionner le bouton copier et le label langage */
-.code-block {
-  position: relative;
-  margin: 1.2rem 0;
-}
-
-/* Label langage — coin supérieur gauche */
-.code-lang {
-  position: absolute;
-  top: 0; left: 0;
-  padding: 2px 8px;
-  font-family: var(--font-code);
-  font-size: .7rem;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: .06em;
-  color: #94a3b8;
-  background: #0f1623;
-  border-radius: var(--radius-md) 0 var(--radius-sm) 0;
-  pointer-events: none;
-  z-index: 1;
-}
-
-/* Bouton copier — coin supérieur droit */
-.code-copy-btn {
-  position: absolute;
-  top: 6px; right: 8px;
-  padding: 2px 8px;
-  font-size: .8rem;
-  background: rgba(255,255,255,.08);
-  color: #94a3b8;
-  border: 1px solid rgba(255,255,255,.12);
-  border-radius: var(--radius-sm);
-  cursor: pointer;
-  transition: background .15s, color .15s;
-  z-index: 1;
-  line-height: 1.4;
-}
-.code-copy-btn:hover { background: rgba(255,255,255,.18); color: #e2e8f0; }
-
-/* ── Blocs de code — thème CLAIR (highlight-github) ─────────────────────── */
-
-/* code inline */
-#moteur-doc code, .reveal code {
-  font-family: var(--font-code);
-  font-size: .875em;
-  background: #f6f8fa;
-  border: 1px solid #e1e4e8;
-  border-radius: var(--radius-sm);
-  padding: .1em .35em;
-  color: #24292e;
-}
-
-/* Wrapper .code-block */
-.code-block {
-  position: relative;
-  margin: 1.2rem 0;
-}
-
-/* Label langage */
-.code-lang {
-  position: absolute;
-  top: 0; left: 0;
-  padding: 2px 8px;
-  font-family: var(--font-code);
-  font-size: .7rem; font-weight: 600;
-  text-transform: uppercase; letter-spacing: .06em;
-  color: #6a737d;
-  background: #f0f2f5;
-  border-radius: var(--radius-md) 0 var(--radius-sm) 0;
-  border-right: 1px solid #e1e4e8;
-  border-bottom: 1px solid #e1e4e8;
-  pointer-events: none; z-index: 1;
-}
-
-/* Bouton copier */
-.code-copy-btn {
-  position: absolute;
-  top: 6px; right: 8px;
-  padding: 2px 8px; font-size: .8rem;
-  background: rgba(0,0,0,.04);
-  color: #6a737d;
-  border: 1px solid #e1e4e8;
-  border-radius: var(--radius-sm);
-  cursor: pointer;
-  transition: background .15s, color .15s;
-  z-index: 1; line-height: 1.4;
-}
-.code-copy-btn:hover { background: rgba(0,0,0,.08); color: #24292e; }
-
-/* Bloc <pre> clair */
-.code-block pre {
-  background: #f6f8fa;
-  border: 1px solid #e1e4e8;
-  border-radius: var(--radius-md);
-  padding: 1.8rem 1.3rem .9rem;
-  overflow-x: auto;
-  margin: 0;
-}
-.code-block:not(:has(.code-lang)) pre { padding-top: 1.1rem; }
-
-.code-block pre code {
-  font-family: var(--font-code);
-  font-size: .83rem; line-height: 1.65;
-  background: none; border: none; padding: 0;
-  color: #24292e;   /* texte sombre — hljs surcharge avec ses propres couleurs */
-}
-
-/* Fallback <pre> sans wrapper */
-#moteur-doc pre {
-  background: #f6f8fa;
-  border: 1px solid #e1e4e8;
-  border-radius: var(--radius-md);
-  padding: 1.1rem 1.3rem;
-  overflow-x: auto;
-  margin: 1.2rem 0;
-}
-#moteur-doc pre code { background: none; border: none; padding: 0; color: #24292e; }
-
-/* Ligne surlignée [hl] — s'adapte au fond clair */
-mark.code-hl {
-  background: #fff3cd;
-  border-left: 3px solid #f59e0b;
-  margin-left: -1.3rem;
-  padding-left: calc(1.3rem - 3px);
-  display: inline-block;
-  width: calc(100% + 2.6rem);
-}
-
-/* ── Listes ──────────────────────────────────────────────────────────────── */
-#moteur-doc ul, #moteur-doc ol { padding-left: 1.5rem; margin: 0 0 1rem; }
-#moteur-doc li { margin-bottom: .3rem; }
-#moteur-doc li > ul, #moteur-doc li > ol { margin-top: .3rem; margin-bottom: 0; }
-
-/* ── Tableaux ────────────────────────────────────────────────────────────── */
-#moteur-doc table { width: 100%; border-collapse: collapse; margin: 1.2rem 0; font-size: .9rem; }
-#moteur-doc th { background: var(--color-accent); color: white; font-weight: 600; padding: .55rem .9rem; text-align: left; }
-#moteur-doc td { padding: .5rem .9rem; border-bottom: 1px solid var(--color-border); }
-#moteur-doc tr:nth-child(even) td { background: var(--color-surface); }
-#moteur-doc tr:hover td { background: var(--color-accent-light); }
-
-/* ── Citations ───────────────────────────────────────────────────────────── */
-#moteur-doc blockquote {
-  margin: 1.2rem 0;
-  padding: .8rem 1rem .8rem 1.2rem;
-  border-left: 4px solid var(--color-accent);
-  background: var(--color-accent-light);
-  border-radius: 0 var(--radius-md) var(--radius-md) 0;
-  color: var(--color-text);
-}
-#moteur-doc blockquote p:last-child { margin-bottom: 0; }
-
-/* ── Callouts ────────────────────────────────────────────────────────────── */
-.callout {
-  margin: 1.2rem 0; padding: .85rem 1.1rem;
-  border-radius: var(--radius-md); border-left: 4px solid; font-size: .95rem;
-}
-.callout-info    { background: var(--color-info-bg);    border-color: var(--color-info);    }
-.callout-warning { background: var(--color-warning-bg); border-color: var(--color-warning); }
-.callout-danger  { background: var(--color-danger-bg);  border-color: var(--color-danger);  }
-.callout-success { background: var(--color-success-bg); border-color: var(--color-success); }
-.callout::before { display: block; font-weight: 700; font-size: .8rem; text-transform: uppercase; letter-spacing: .06em; margin-bottom: .4rem; }
-.callout-info::before    { content: 'ℹ️  Info';      color: var(--color-info);    }
-.callout-warning::before { content: '⚠️  Attention'; color: var(--color-warning); }
-.callout-danger::before  { content: '🚫  Danger';    color: var(--color-danger);  }
-.callout-success::before { content: '✅  Succès';    color: var(--color-success); }
-
-/* ── Séparateur ──────────────────────────────────────────────────────────── */
-#moteur-doc hr { border: none; border-top: 2px dashed var(--color-border); margin: 2rem 0; }
-
-/* ── Images ──────────────────────────────────────────────────────────────── */
-#moteur-doc img { max-width: 100%; height: auto; border-radius: var(--radius-md); display: block; margin: 1rem auto; }
-
-/* ── Mermaid ─────────────────────────────────────────────────────────────── */
-.mermaid { text-align: center; margin: 1.5rem 0; overflow-x: auto; }
-
-/* ── Info popup ──────────────────────────────────────────────────────────── */
-#moteur-info-popup {
-  position: fixed; top: 50%; left: 50%; transform: translate(-50%,-50%);
-  z-index: 300; background: var(--color-bg); border: 1px solid var(--color-border);
-  border-radius: var(--radius-lg); box-shadow: var(--shadow-md); padding: 1.5rem; min-width: 280px;
-}
-.moteur-info-inner button {
-  margin-top: 1rem; padding: .4rem 1.2rem;
-  background: var(--color-accent); color: white;
-  border: none; border-radius: var(--radius-sm); cursor: pointer; font-size: .9rem;
-}
-#moteur-info-popup kbd {
-  display: inline-block; padding: 1px 5px;
-  background: var(--color-surface); border: 1px solid var(--color-border);
-  border-radius: 3px; font-family: var(--font-code); font-size: .8rem;
-}
-
-/* ── Banner ──────────────────────────────────────────────────────────────── */
-#moteur-banner {
-  position: fixed; top: 50%; left: 50%; transform: translate(-50%,-50%);
-  padding: .8rem 1.5rem; background: var(--color-surface);
-  border: 1px solid var(--color-border); border-radius: var(--radius-md);
-  color: var(--color-text-muted); font-size: .9rem; z-index: 150;
-}
-
-/* ── Impression ──────────────────────────────────────────────────────────── */
-@media print {
-  #moteur-toolbar, #moteur-sidebar, #moteur-banner, #moteur-info-popup { display: none !important; }
-  body.with-sidebar #moteur-doc { padding-left: 2.5rem !important; max-width: 100% !important; }
-  #moteur-doc { padding: 0 !important; max-width: 100% !important; }
-  #moteur-doc h2 { break-before: page; }
-  pre, table { break-inside: avoid; }
-}
-
-/* ═══════════════════════════════════════════════════════════════════════════
-   REVEAL.JS — surcharges
-   ═══════════════════════════════════════════════════════════════════════════ */
-
-/* Fond blanc forcé — Reveal.js injecte background:#191919 sur body ET sur
-   .reveal-viewport via son JS et son CSS. On force partout avec !important. */
-body,
-.reveal-viewport,
-.reveal,
-.reveal .slides,
-.reveal .slides > section {
-  background: var(--color-bg) !important;
-  color: var(--color-text) !important;
-}
-
-/* Typographie */
-.reveal {
-  font-family: var(--font-body);
-}
-.reveal h1, .reveal h2, .reveal h3, .reveal h4 {
-  font-family: var(--font-body);
-  color: var(--color-text);
-  text-transform: none;
-  letter-spacing: normal;
-  text-shadow: none;
-}
-.reveal h1 { font-size: 2rem;   border-bottom: 2px solid var(--color-accent); padding-bottom: .3em; }
-.reveal h2 { font-size: 1.5rem; color: var(--color-accent); }
-.reveal h3 { font-size: 1.2rem; }
-
-/* Paragraphes et listes — alignés à gauche */
-.reveal p, .reveal li, .reveal td { text-align: left; }
-.reveal ul, .reveal ol { display: block; text-align: left; }
-
-/* Blocs de code dans les slides — thème clair */
-.reveal .code-block { margin: .6rem 0; }
-.reveal .code-block pre {
-  background: #f6f8fa;
-  border: 1px solid #e1e4e8;
-  border-radius: var(--radius-md);
-  width: 100%; margin: 0;
-  padding: 1.6rem 1rem .7rem;
-  text-align: left;
-}
-.reveal .code-block pre code {
-  font-family: var(--font-code);
-  font-size: .75rem; line-height: 1.5;
-  color: #24292e;
-  background: transparent !important;
-  text-align: left;
-  max-height: 400px; overflow-y: auto;
-}
-.reveal code {
-  font-family: var(--font-code);
-  background: #f6f8fa;
-  border: 1px solid #e1e4e8;
-  border-radius: 3px; padding: .05em .3em;
-  font-size: .85em; color: #24292e;
-}
-.reveal pre code { background: transparent !important; border: none; color: #24292e; }
-
-/* Tableaux */
-.reveal table { font-size: .85rem; width: 100%; border-collapse: collapse; }
-.reveal th { background: var(--color-accent); color: white; padding: .4rem .7rem; text-align: left; }
-.reveal td { padding: .35rem .7rem; border-bottom: 1px solid var(--color-border); }
-.reveal tr:nth-child(even) td { background: var(--color-surface); }
-
-/* Citations — pas de soulignement, texte sombre, padding correct */
-.reveal blockquote {
-  background: var(--color-accent-light);
-  border-left: 4px solid var(--color-accent);
-  border-radius: 0 var(--radius-md) var(--radius-md) 0;
-  padding: .7rem 1rem;           /* padding explicite */
-  margin: .8rem auto;
-  width: 90%;
-  font-style: normal;            /* pas d'italique */
-  color: var(--color-text);      /* texte sombre */
-  box-shadow: none;
-  text-decoration: none;         /* pas de soulignement */
-}
-.reveal blockquote p {
-  color: var(--color-text);
-  margin: 0;
-  text-decoration: none;
-}
-.reveal blockquote::before { display: none; }  /* supprime les guillemets Reveal */
-
-/* Callouts */
-.reveal .callout { font-size: .82rem; }
-
-/* Mermaid */
-.reveal .mermaid { margin: .5rem auto; text-align: center; }
-.reveal .mermaid svg { max-width: 100%; max-height: 360px; }
-
-/* Liens — pas de soulignement par défaut dans slides */
-.reveal a { color: var(--color-accent); text-decoration: none; }
-.reveal a:hover { text-decoration: underline; }
-
-/* Numéros de page et contrôles */
-.reveal .slide-number { background: rgba(0,0,0,.15); color: var(--color-text-muted); font-size: .7rem; border-radius: var(--radius-sm); }
-.reveal .controls { color: var(--color-accent); }
-.reveal .progress { background: rgba(0,0,0,.08); }
-.reveal .progress span { background: var(--color-accent); }
