@@ -1,0 +1,32 @@
+/**
+ * themes/minimal.css — Thème minimaliste
+ * Typographie épurée, peu de couleurs, idéal pour les TDs imprimés.
+ */
+
+@import url('./default.css');
+
+:root {
+  --color-accent:       #374151;
+  --color-accent-light: #f3f4f6;
+  --color-surface:      #fafafa;
+  --color-border:       #e5e7eb;
+}
+
+/* Titres sans barre colorée */
+#moteur-doc h1 {
+  font-family: var(--font-body);
+  font-weight: 800;
+  font-size: 2rem;
+  border-bottom: 2px solid #374151;
+}
+
+#moteur-doc h2 {
+  font-size: 1.35rem;
+  font-weight: 700;
+  padding-left: 0;
+}
+#moteur-doc h2::before { display: none; }
+
+#moteur-doc a { color: #374151; }
+
+.moteur-btn.active { background: #f3f4f6; border-color: #374151; color: #374151; }

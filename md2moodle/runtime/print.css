@@ -1,0 +1,35 @@
+/**
+ * runtime/print.css
+ * Styles d'impression supplémentaires pour les exports PDF Puppeteer.
+ * Injecté uniquement par le builder PDF (pas dans le HTML web).
+ */
+
+/* Police fallback si les fonts woff2 ne se chargent pas en Puppeteer */
+body {
+  font-family: 'DM Sans', 'Segoe UI', Arial, sans-serif;
+  font-size: 14px;
+  line-height: 1.65;
+}
+
+#moteur-doc {
+  padding: 0;
+  max-width: 100%;
+}
+
+/* Sauts de page */
+h1, h2 { page-break-before: auto; break-before: auto; }
+h2 + *, h3 + * { page-break-before: avoid; break-before: avoid; }
+pre, table, figure, .mermaid, .callout { page-break-inside: avoid; break-inside: avoid; }
+
+/* Liens → afficher l'URL en note */
+a[href]::after {
+  content: ' (' attr(href) ')';
+  font-size: .78em;
+  color: #718096;
+  word-break: break-all;
+}
+a[href^="#"]::after,
+a[href^="javascript"]::after { content: ''; }
+
+/* Code plus compact */
+pre { font-size: .8rem; }

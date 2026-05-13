@@ -1,0 +1,171 @@
+/**
+ * themes/crimson.css — Thème rouge dynamique md2moodle
+ *
+ * Hérite de default.css et surcharge uniquement les variables.
+ * Ambiance : énergique, moderne, contrastée.
+ */
+
+@import url('./default.css');
+
+:root {
+  /* Base */
+  --color-bg:           #140809;
+  --color-surface:      #221012;
+  --color-border:       #4b1f24;
+
+  /* Texte */
+  --color-text:         #f8eaea;
+  --color-text-muted:   #d6a5ab;
+
+  /* Accent principal */
+  --color-accent:       #ff4d6d;
+  --color-accent-light: #5c1f2a;
+
+  /* Callouts */
+  --color-info:         #ff7b93;
+  --color-warning:      #ffb347;
+  --color-danger:       #ff4d4d;
+  --color-success:      #4ade80;
+
+  --color-info-bg:      #3a1620;
+  --color-warning-bg:   #3d2808;
+  --color-danger-bg:    #3b1116;
+  --color-success-bg:   #10281b;
+
+  /* Radius */
+  --radius-sm: 6px;
+  --radius-md: 12px;
+  --radius-lg: 18px;
+
+  /* Ombres */
+  --shadow-sm: 0 2px 6px rgba(0,0,0,.25);
+  --shadow-md: 0 6px 18px rgba(0,0,0,.35);
+}
+
+/* ── Fond général ─────────────────────────────────────────────────────── */
+
+body,
+#moteur-doc {
+  background:
+    radial-gradient(circle at top left, rgba(255,77,109,.12), transparent 30%),
+    radial-gradient(circle at bottom right, rgba(255,120,120,.08), transparent 25%),
+    var(--color-bg);
+
+  color: var(--color-text);
+}
+
+/* ── Toolbar ──────────────────────────────────────────────────────────── */
+
+#moteur-toolbar {
+  background: rgba(20, 8, 9, .92);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--color-border);
+  box-shadow: var(--shadow-sm);
+}
+
+/* ── Boutons ──────────────────────────────────────────────────────────── */
+
+.moteur-btn {
+  color: var(--color-text);
+  background: transparent;
+  border: 1px solid transparent;
+  transition: all .18s ease;
+}
+
+.moteur-btn:hover {
+  background: rgba(255, 77, 109, .12);
+  border-color: rgba(255, 77, 109, .35);
+  transform: translateY(-1px);
+}
+
+.moteur-btn-primary {
+  background: linear-gradient(135deg, #ff4d6d, #ff6b6b);
+  color: white;
+  border: none;
+  box-shadow: 0 4px 14px rgba(255,77,109,.28);
+}
+
+.moteur-btn-primary:hover {
+  filter: brightness(1.08);
+  transform: translateY(-1px);
+}
+
+/* ── Code ─────────────────────────────────────────────────────────────── */
+
+#moteur-doc pre {
+  background: #1a0f11;
+  border: 1px solid #4b1f24;
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+}
+
+#moteur-doc code {
+  background: #2a1417;
+  color: #ffd7dd;
+  padding: .15rem .35rem;
+  border-radius: 5px;
+}
+
+/* ── Titres ───────────────────────────────────────────────────────────── */
+
+#moteur-doc h1,
+#moteur-doc h2,
+#moteur-doc h3 {
+  color: #ff8fa3;
+  letter-spacing: -.02em;
+}
+
+/* ── Tableaux ─────────────────────────────────────────────────────────── */
+
+#moteur-doc table {
+  border-color: var(--color-border);
+}
+
+#moteur-doc th {
+  background: linear-gradient(135deg, #5c1f2a, #7a2635);
+  color: white;
+}
+
+#moteur-doc td {
+  border-color: var(--color-border);
+}
+
+/* ── Liens ────────────────────────────────────────────────────────────── */
+
+#moteur-doc a {
+  color: #ff8fa3;
+}
+
+#moteur-doc a:hover {
+  color: #ffb3c1;
+}
+
+/* ── Blockquotes ──────────────────────────────────────────────────────── */
+
+#moteur-doc blockquote {
+  border-left: 4px solid var(--color-accent);
+  background: rgba(255,77,109,.08);
+  color: #ffd7dd;
+}
+
+/* ── Inputs / QCM ─────────────────────────────────────────────────────── */
+
+input[type="checkbox"],
+input[type="radio"] {
+  accent-color: var(--color-accent);
+}
+
+/* ── Banner ───────────────────────────────────────────────────────────── */
+
+#moteur-banner {
+  background: linear-gradient(135deg, #221012, #2f1417);
+  color: var(--color-text-muted);
+  border-top: 1px solid var(--color-border);
+}
+
+/* ── Sélection ────────────────────────────────────────────────────────── */
+
+::selection {
+  background: rgba(255,77,109,.35);
+  color: white;
+}

@@ -1,0 +1,27 @@
+{
+  "name": "md2moodle",
+  "version": "2.0.0",
+  "description": "Convertisseur Markdown → HTML/PDF pour cours Moodle (slides + doc + examen)",
+  "type": "module",
+  "bin": {
+    "md2moodle": "./src/cli/index.js"
+  },
+  "scripts": {
+    "postinstall": "node scripts/fetch-libs.js",
+    "fetch-libs": "node scripts/fetch-libs.js",
+    "setup": "node scripts/install-global.js"
+  },
+  "dependencies": {
+    "archiver": "^7.0.1",
+    "chokidar": "^3.6.0",
+    "commander": "^12.1.0",
+    "express": "^4.19.2",
+    "gray-matter": "^4.0.3",
+    "puppeteer": "^22.0.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "keywords": ["moodle", "markdown", "slides", "pdf", "cours", "reveal", "katex", "mermaid"],
+  "license": "MIT"
+}
