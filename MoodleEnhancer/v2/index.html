@@ -93,6 +93,22 @@ $$\int_0^{+\infty} e^{-x^2} dx = \frac{\sqrt{\pi}}{2}$$
 
 ---
 
+
+# Mermaid 
+
+
+<div class="mermaid" style="width:80%;display:block;margin:auto;">
+flowchart TD
+    A["Début du programme"] --> B["Initialisation Pygame"]
+    B --> C{"Boucle de jeu active ?"}
+    C -->|Oui| D["Récupérer les événements utilisateur"]
+    D --> G["Mettre à jour les objets"]
+    G --> I["Dessiner les objets"]
+    I --> J["Rafraîchir l'affichage"]
+    J --> C
+    C -->|"Non"| K["Quitter Pygame et libérer les ressources"]
+</div>
+
 # Fin !
 
 </div>

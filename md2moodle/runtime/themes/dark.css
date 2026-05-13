@@ -1,0 +1,52 @@
+/**
+ * themes/dark.css — Thème sombre md2moodle
+ *
+ * Hérite de default.css et surcharge uniquement les variables.
+ * Utiliser en combinant : --theme dark
+ */
+
+/* Importer le thème base */
+@import url('./default.css');
+
+:root {
+  --color-bg:           #0f1117;
+  --color-surface:      #1a1d27;
+  --color-border:       #2d3148;
+  --color-text:         #e2e8f0;
+  --color-text-muted:   #718096;
+  --color-accent:       #60a5fa;
+  --color-accent-light: #1e3a5f;
+
+  --color-info-bg:      #0c2340;
+  --color-warning-bg:   #2d1f00;
+  --color-danger-bg:    #2d0f0f;
+  --color-success-bg:   #0d2d1a;
+}
+
+/* Ajustements dark spécifiques */
+#moteur-toolbar {
+  background: rgba(15, 17, 23, .95);
+}
+
+#moteur-doc pre {
+  background: #0d1117;
+}
+
+#moteur-doc code {
+  background: #1a1d27;
+  color: #e2e8f0;
+}
+
+.moteur-btn {
+  color: var(--color-text);
+}
+
+#moteur-doc th {
+  background: #1e3a5f;
+  color: #e2e8f0;
+}
+
+#moteur-banner {
+  background: #1a1d27;
+  color: #718096;
+}
