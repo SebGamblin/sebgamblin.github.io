@@ -24,7 +24,9 @@ import { log } from '../utils/log.js';
 
 export async function buildExamen(ctx) {
   const { input, output } = ctx;
-  log.step(`📝  Export Examen PDF : ${path.basename(input)}`);
+  const withAnswers = ctx.withAnswers || false;
+
+  log.step(`📝  Export Examen PDF : ${path.basename(input)}${withAnswers ? '  [CORRIGÉ]' : ''}`);
 
   const parsed = parseMarkdown(input);
   const fm     = parsed.frontmatter;
@@ -47,9 +49,10 @@ export async function buildExamen(ctx) {
   const katexCss = fs.readFileSync(path.join(runtimeDir, 'libs', 'katex.min.css'), 'utf-8');
   const hljsCss  = fs.readFileSync(path.join(runtimeDir, 'libs', 'highlight-github.min.css'), 'utf-8');
 
-  const html = buildExamPage({ parsed, fm, title, examCss, katexCss, hljsCss, logoB64, runtimeDir });
+  const html = buildExamPage({ parsed, fm, title, examCss, katexCss, hljsCss, logoB64, runtimeDir, withAnswers });
 
-  const pdfName = `${path.basename(input, '.md')}-examen.pdf`;
+  const suffix  = withAnswers ? '-corrige' : '-examen';
+  const pdfName = `${path.basename(input, '.md')}${suffix}.pdf`;
   const pdfPath = output
     ? (output.endsWith('.pdf') ? output : path.join(output, pdfName))
     : path.join(ctx.cwd, pdfName);
@@ -82,9 +85,7 @@ export async function buildExamen(ctx) {
       path: pdfPath,
       format: 'A4',
       printBackground: true,
-      // margin.top doit être assez grand pour le headerTemplate pages 2+
-      // mais pas trop (le header page 1 est dans le body)
-      margin: { top: '14mm', bottom: '20mm', left: '20mm', right: '20mm' },
+      margin: { top: '20mm', bottom: '14mm', left: '20mm', right: '20mm' },
       displayHeaderFooter: true,
       headerTemplate: buildPageHeader(fm, title, logoB64),
       footerTemplate:  buildPageFooter(fm),
@@ -99,12 +100,12 @@ export async function buildExamen(ctx) {
 
 // ── Page HTML ──────────────────────────────────────────────────────────────
 
-function buildExamPage({ parsed, fm, title, examCss, katexCss, hljsCss, logoB64, runtimeDir }) {
+function buildExamPage({ parsed, fm, title, examCss, katexCss, hljsCss, logoB64, runtimeDir, withAnswers = false }) {
   function inlineScript(file) {
     return `<script>\n${fs.readFileSync(path.join(runtimeDir, 'libs', file), 'utf-8')}\n</script>`;
   }
 
-  const processedBody = preprocessExam(parsed.bodyOnly);
+  const processedBody = preprocessExam(parsed.bodyOnly, withAnswers);
 
   // Header page 1 intégré dans le body
   const logoHtml = logoB64
@@ -144,9 +145,12 @@ ${examCss}
 /* Header page 1 dans le body */
 .exam-first-header {
   font-family: sans-serif; font-size: 11px;
-  padding: 10px 0px; margin-bottom: 16pt;
+  padding: 10px 0px;
+  margin-bottom: 16pt;
   break-inside: avoid; break-after: avoid;
 }
+.exam-first-header table { width: 100%; }
+.exam-first-header td, .exam-first-header th { border: none; }
 
 /* Saut de page forcé */
 .page-break { break-before: page; height: 0; }
@@ -167,6 +171,9 @@ ${inlineScript('katex-auto-render.min.js')}
 (function() {
   'use strict';
 
+  // Langage de coloration pour les code inline (depuis frontmatter)
+  var INLINE_LANG = ${JSON.stringify(fm.code_inline_lang || fm.lang || '')};
+
   function b64decode(b64) {
     try {
       var binary = atob(b64);
@@ -184,6 +191,26 @@ ${inlineScript('katex-auto-render.min.js')}
 
   function makeRenderer() {
     var r = new marked.Renderer();
+
+    // ── Code inline coloré : syntaxe lang entre accolades ────────────────
+    r.codespan = function(token) {
+      var text = typeof token === 'object' ? (token.text || '') : String(token || '');
+      // marked v12 pré-escape le token.text — décoder ' et " pour l'affichage
+      var decoded = text.replace(/&#39;/g, "'").replace(/&quot;/g, '"');
+      var m = decoded.match(/^\{([a-zA-Z0-9_+\-]+)\}([\s\S]*)$/);
+      if (m) {
+        var lang = m[1], code = m[2];
+        try {
+          var highlighted = (lang && hljs.getLanguage(lang))
+            ? hljs.highlight(code, { language: lang }).value
+            : hljs.highlightAuto(code).value;
+          return '<code class="hljs hljs-inline language-' + escHtml(lang) + '">' + highlighted + '</code>';
+        } catch(e) {}
+      }
+      var safe = decoded.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+      return '<code>' + safe + '</code>';
+    };
+
     r.code = function(tokenOrCode, langArg) {
       var code, lang;
       if (tokenOrCode && typeof tokenOrCode === 'object' && 'text' in tokenOrCode) {
@@ -224,7 +251,31 @@ ${inlineScript('katex-auto-render.min.js')}
   } catch(e) {}
 
   transformCheckboxes(container);
+  parseInlineVF(container);
+  renderAnswerBlocks(container);
+  highlightInlineCode(container);
   signalReady();
+
+  function renderAnswerBlocks(root) {
+    root.querySelectorAll('.answer-md[data-b64]').forEach(function(el) {
+      try {
+        var b64  = el.getAttribute('data-b64') || '';
+        var md   = b64decode(b64);
+        if (!md) return;
+        el.innerHTML = marked.parse(md);
+      } catch(e) {}
+    });
+  }
+
+  function parseInlineVF(root) {
+    if (typeof marked === 'undefined') return;
+    root.querySelectorAll('[data-b64].qcm-md, [data-b64].vf-md').forEach(function(el) {
+      try {
+        var raw  = b64decode(el.getAttribute('data-b64') || '');
+        el.innerHTML = marked.parseInline(raw || '');
+      } catch(e) {}
+    });
+  }
 
   function signalReady() {
     setTimeout(function() {
@@ -234,14 +285,31 @@ ${inlineScript('katex-auto-render.min.js')}
     }, 600);
   }
 
+  function highlightInlineCode(root) {
+    if (!INLINE_LANG || typeof hljs === 'undefined') return;
+    if (!hljs.getLanguage(INLINE_LANG)) return;
+    // Sélectionner uniquement les <code> inline (pas ceux dans <pre>)
+    root.querySelectorAll('code').forEach(function(el) {
+      if (el.closest('pre')) return; // ignorer les blocs
+      try {
+        var result = hljs.highlight(el.textContent, { language: INLINE_LANG });
+        el.innerHTML = result.value;
+        el.classList.add('hljs');
+      } catch(e) {}
+    });
+  }
+
   function transformCheckboxes(root) {
-    root.querySelectorAll('li').forEach(function(li) {
-      var input = li.querySelector('input[type="checkbox"]');
-      if (!input) return;
+    // Les QCM sont déjà convertis en HTML par preprocessExam côté Node.
+    // Cette fonction gère uniquement les éventuels input[checkbox] résiduels
+    // (marked peut en générer dans d'autres contextes).
+    root.querySelectorAll('li input[type="checkbox"]').forEach(function(input) {
+      var li = input.closest('li');
+      if (!li) return;
       li.classList.add('qcm-item');
       var box = document.createElement('span');
-      box.className = input.checked ? 'qcm-box qcm-box--checked' : 'qcm-box';
-      box.textContent = input.checked ? '✓' : '';
+      box.className = 'qcm-box';
+      box.textContent = '';
       input.replaceWith(box);
       var ul = li.closest('ul'); if (ul) ul.classList.add('qcm-list');
     });
@@ -266,15 +334,14 @@ function buildFirstPageHeader(fm, title, logoHtml) {
   const docs     = fm.documents ? escapeHtml(fm.documents) : '';
 
   return `<div class="exam-first-header">
-<table style="width:100%;border-collapse:collapse;margin-bottom:8px;border: none;">
-
+  <table style="border-collapse:collapse;margin-bottom:8px;">
     <tr>
-      <td style="width:60%;vertical-align:top;border: none;">
+      <td style="width:60%;vertical-align:top;">
         ${logoHtml}
         <div style="font-size:14px;font-weight:bold;margin-bottom:2px;">${escapeHtml(title)}</div>
         <div style="color:#555;">${subtitle}</div>
       </td>
-      <td style="text-align:right;vertical-align:top;border: none;">
+      <td style="text-align:right;vertical-align:top;">
         <div style="font-weight:bold;">${etab}</div>
         ${date_    ? `<div style="margin-top:2px;">${date_}</div>`                               : ''}
         ${duree    ? `<div style="margin-top:2px;">${duree}</div>`                               : ''}
@@ -290,24 +357,20 @@ function buildFirstPageHeader(fm, title, logoHtml) {
 </div>`;
 }
 
-// ── Header pages 2+ (Puppeteer headerTemplate) ────────────────────────────
-// Affiché sur TOUTES les pages par Puppeteer, mais visuellement minimal.
-// On cache la ligne Nom/Prénom — elle n'apparaît qu'en page 1 via le body.
+// ── Header/Footer Puppeteer ────────────────────────────────────────────────
 
 function buildPageHeader(fm, title, logoB64) {
-  const etab  = escapeHtml(fm.etablissement || '');
-  const short = escapeHtml(title);
-  // Logo miniature inline base64
+  const etab     = escapeHtml(fm.etablissement || '');
+  const short    = escapeHtml(title);
   const miniLogo = logoB64
-    ? `<img src="${logoB64}" style="height:18px;vertical-align:middle;margin-right:6px" alt="">`
+    ? `<img src="${logoB64}" style="height:14px;vertical-align:middle;margin-right:5px" alt="">`
     : '';
-
   return `<div style="font-family:sans-serif;font-size:9px;width:100%;
-    padding:3mm 20mm 2mm;box-sizing:border-box;border-bottom:1px solid #ccc;
+    padding:2mm 20mm;box-sizing:border-box;border-bottom:1px solid #ccc;
     display:flex;justify-content:space-between;align-items:center;
     -webkit-print-color-adjust:exact;print-color-adjust:exact;">
     <span>${miniLogo}<strong>${short}</strong>${etab ? ' — ' + etab : ''}</span>
-    <span style="color:#888;">Page <span class="pageNumber"></span> / <span class="totalPages"></span></span>
+    <span style="color:#888;">${escapeHtml(fm.date || '')}</span>
   </div>`;
 }
 
@@ -315,7 +378,7 @@ function buildPageFooter(fm) {
   const etab = escapeHtml(fm.etablissement || '');
   return `<div style="font-family:sans-serif;font-size:9px;color:#aaa;width:100%;
     padding:2mm 20mm;box-sizing:border-box;border-top:1px solid #eee;
-    display:flex;justify-content:space-between;">
+    display:flex;justify-content:space-between;align-items:center;">
     <span>${etab}</span>
     <span>Page <span class="pageNumber"></span> / <span class="totalPages"></span></span>
   </div>`;
@@ -323,28 +386,155 @@ function buildPageFooter(fm) {
 
 // ── Preprocessing côté Node ────────────────────────────────────────────────
 
-function preprocessExam(md) {
-  // ::: reponse N ::: → N lignes de réponse
+function preprocessExam(md, withAnswers = false) {
+
+  // ── Numérotation automatique des questions ────────────────────────────────
+  // ## Partie X → compteur de partie, reset compteur de question
+  // ### Texte   → devient "Question X.Y — Texte" (si pas déjà numérotée)
+  let partieNum   = 0;
+  let questionNum = 0;
+  md = md.replace(/^(#{2,3})\s+(.+)$/gm, (match, hashes, title) => {
+    if (hashes === '##') {
+      // Nouvelle partie : incrémenter X, reset Y
+      partieNum++;
+      questionNum = 0;
+      return `## ${title}`;
+    }
+    if (hashes === '###') {
+      questionNum++;
+      const t = title.trim().replace(/\r/g, '');
+      if (/^Question\s+\d+\.\d+/i.test(t)) return match;
+      // Séparer le libellé du barème *(N pts)*
+      const scoreMatch = t.match(/^(.*?)\s*(\*\s*\(?\s*\d+(?:[.,]\d+)?\s*pts?\s*\)?\s*\*)$/i);
+      const label = scoreMatch ? scoreMatch[1].trim() : t;
+      const score = scoreMatch ? ' ' + scoreMatch[2] : '';
+      const suffix = label ? ` — ${label}${score}` : score;
+      return `### Question ${partieNum}.${questionNum}${suffix}`;
+    }    return match;
+  });
+
+  // ── :::: columns … :::: ──────────────────────────────────────────────────
+  // Utilise 4 deux-points pour éviter le conflit avec ::: reponse :::
+  // Le --- seul sur une ligne sépare les deux colonnes
   md = md.replace(
-    /:::[ \t]*reponse[ \t]+(\d+)[ \t]*\r?\n[\s\S]*?:::/g,
-    (_, n) => generateLines(parseInt(n, 10))
+    /::::[ \t]*columns[ \t]*\r?\n([\s\S]*?)^::::/gm,
+    (_, content) => {
+      const parts = content.split(/^[ \t]*---[ \t]*$/m);
+      const left  = (parts[0] || '').trim();
+      const right = (parts[1] || '').trim();
+      return `\n<div class="exam-columns">\n` +
+        `<div class="exam-col">\n\n${left}\n\n</div>\n` +
+        `<div class="exam-col">\n\n${right}\n\n</div>\n` +
+        `</div>\n`;
+    }
   );
-  // ::: reponse ::: sans nombre → 4 lignes
+
+  // ── ::: vraifaux ::: ─────────────────────────────────────────────────────
+  // Syntaxe : - [v] Affirmation vraie  /  - [f] Affirmation fausse
   md = md.replace(
-    /:::[ \t]*reponse[ \t]*\r?\n[\s\S]*?:::/g,
-    () => generateLines(4)
+    /:::[ \t]*vraifaux[ \t]*\r?\n([\s\S]*?):::/g,
+    (_, content) => {
+      const lines = content.split('\n').filter(l => l.trim());
+      const rows  = lines.map(line => {
+        const m = line.match(/^[ \t]*-[ \t]*\[([vVfF])\][ \t]*(.*)/);
+        if (!m) return '';
+        const correct = m[1].toLowerCase() === 'v';
+        const text    = m[2].trim();
+        const b64     = Buffer.from(text, 'utf-8').toString('base64');
+
+        if (withAnswers) {
+          const vBox = correct
+            ? '<span class="qcm-box qcm-box--checked vf-true">V</span>'
+            : '<span class="qcm-box vf-false">V</span>';
+          const fBox = !correct
+            ? '<span class="qcm-box qcm-box--checked vf-false">F</span>'
+            : '<span class="qcm-box vf-true">F</span>';
+          return `<tr class="vf-row vf-row--${correct ? 'true' : 'false'}">` +
+            `<td class="vf-text vf-md" data-b64="${b64}"></td>` +
+            `<td class="vf-cell">${vBox}</td>` +
+            `<td class="vf-cell">${fBox}</td>` +
+            `</tr>`;
+        } else {
+          return `<tr class="vf-row">` +
+            `<td class="vf-text vf-md" data-b64="${b64}"></td>` +
+            `<td class="vf-cell"><span class="qcm-box">V</span></td>` +
+            `<td class="vf-cell"><span class="qcm-box">F</span></td>` +
+            `</tr>`;
+        }
+      }).filter(Boolean).join('\n');
+
+      return `\n<table class="vf-table">\n` +
+        `<thead><tr>` +
+        `<th class="vf-th-text">Affirmation</th>` +
+        `<th class="vf-th-box">V</th>` +
+        `<th class="vf-th-box">F</th>` +
+        `</tr></thead>\n<tbody>\n${rows}\n</tbody>\n</table>\n`;
+    }
   );
-  // ::: newpage ::: → saut de page
+
+  // ── QCM : transformer les cases AVANT que marked ne les parse ─────────────
+  // marked v12 convertit - [ ] en <input type="checkbox">
+  // On remplace tout ça par du HTML direct pour contrôler le rendu.
+  md = md.replace(
+    /((?:^[ \t]*-[ \t]\[[ xX]\][^\n]*\n)+)/gm,
+    (block) => {
+      const items = [];
+      for (const line of block.split('\n')) {
+        const m = line.match(/^[ \t]*-[ \t]\[([ xX])\][ \t]*(.*)/);
+        if (!m) continue;
+        const isCorrect = m[1].trim().toLowerCase() === 'x';
+        const text      = m[2].trim();
+        const b64       = Buffer.from(text, 'utf-8').toString('base64');
+        if (withAnswers && isCorrect) {
+          items.push(
+            `<li class="qcm-item qcm-item--correct">` +
+            `<span class="qcm-box qcm-box--checked">✓</span> <span class="qcm-md" data-b64="${b64}"></span></li>`
+          );
+        } else {
+          items.push(
+            `<li class="qcm-item">` +
+            `<span class="qcm-box"></span> <span class="qcm-md" data-b64="${b64}"></span></li>`
+          );
+        }
+      }
+      return `<ul class="qcm-list">\n${items.join('\n')}\n</ul>\n`;
+    }
+  );
+
+  // ── ::: reponse N … ::: ──────────────────────────────────────────────────
+  // ::: reponse N [lang] :::
+  // Le contenu est du Markdown complet (code, blocs, etc.)
+  // En mode corrigé : stocké en b64, parsé par marked dans le JS Puppeteer
+  md = md.replace(
+    /:::[ \t]*reponse[ \t]+(\d+)(?:[ \t]+(\w+))?[ \t]*\r?\n([\s\S]*?):::/g,
+    (_, n, lang, content) => {
+      const nLines = parseInt(n, 10);
+      const answer = content.trim();
+      if (withAnswers && answer) return generateAnswerBlock(nLines, answer, lang || '');
+      return generateLines(nLines);
+    }
+  );
+  md = md.replace(
+    /:::[ \t]*reponse[ \t]*\r?\n([\s\S]*?):::/g,
+    (_, content) => {
+      const answer = content.trim();
+      if (withAnswers && answer) return generateAnswerBlock(4, answer, '');
+      return generateLines(4);
+    }
+  );
+
+  // ::: newpage :::
   md = md.replace(
     /:::[ \t]*newpage[ \t]*\r?\n?[\s\S]*?:::/g,
     '\n<div class="page-break"></div>\n'
   );
-  // {.horizontal} après une liste → envelopper la liste dans .qcm-horizontal
-  // Syntaxe : ligne {.horizontal} immédiatement après le dernier item de la liste
+
+  // {.horizontal} — s'applique sur les .qcm-list générées ci-dessus
   md = md.replace(
-    /((?:^[ \t]*-[ \t].+\r?\n)+)\{\.horizontal\}[ \t]*\r?\n?/gm,
-    (_, list) => `<div class="qcm-horizontal">\n\n${list}\n</div>\n`
+    /(<ul class="qcm-list">[\s\S]*?<\/ul>)\n\{\.horizontal\}[ \t]*\r?\n?/g,
+    '<div class="qcm-horizontal">$1</div>\n'
   );
+
   return md;
 }
 
@@ -352,6 +542,20 @@ function generateLines(n) {
   let lines = '';
   for (let i = 0; i < n; i++) lines += '<div class="answer-line"></div>\n';
   return `\n<div class="answer-block">\n${lines}</div>\n`;
+}
+
+function generateAnswerBlock(n, answerText, lang) {
+  // Si un langage est spécifié et pas de bloc code, envelopper automatiquement
+  let content = answerText;
+  if (lang && !content.includes('```')) {
+    content = '```' + lang + '\n' + content + '\n```';
+  }
+  // Stocker en base64 — le JS Puppeteer appellera marked.parse() pour le rendu
+  const b64 = Buffer.from(content, 'utf-8').toString('base64');
+  return `\n<div class="answer-block answer-block--corrige">\n` +
+    `<div class="answer-corrige-label">Réponse attendue</div>\n` +
+    `<div class="answer-corrige-text answer-md" data-b64="${b64}"></div>\n` +
+    `</div>\n`;
 }
 
 function btoa_safe(str) {

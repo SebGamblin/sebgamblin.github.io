@@ -44,11 +44,12 @@
     toolbar.innerHTML =
       logoHtml +
       '<button class="moteur-btn" id="moteur-sidebar-toggle" title="Menu" style="display:none" onclick="window._moteur.toggleSidebar()">' + svgHamburger() + '</button>' +
-      btn('moteur-mode-btn',  '▶', 'switchMode',       'Slides / Document') +
-      btn('moteur-print-btn', '⬇', 'printDoc',         'Exporter PDF') +
-      btn('moteur-pdf-btn',   '🖨', 'printSlidesPdf',   'Imprimer slides', true) +
-      btn('moteur-fs-btn',    '⛶', 'toggleFullscreen', 'Plein écran') +
-      btn('moteur-info-btn',  'ⓘ', 'toggleInfo',       'Informations');
+      btn('moteur-mode-btn',   '▶', 'switchMode',       'Slides / Document') +
+      btn('moteur-print-btn',    '⬇', 'printDoc',       'Exporter PDF') +
+      btn('moteur-pdfall-btn',   '📑', 'printAllPdf',   'Exporter PDF complet (toutes pages)', true) +
+      btn('moteur-pdf-btn',      '🖨', 'printSlidesPdf', 'Imprimer slides', true) +
+      btn('moteur-fs-btn',     '⛶', 'toggleFullscreen', 'Plein écran') +
+      btn('moteur-info-btn',   'ⓘ', 'toggleInfo',       'Informations');
     document.body.appendChild(toolbar);
 
     var banner = el('div', { id: 'moteur-banner' });
@@ -69,6 +70,15 @@
     info.style.display = 'none';
     info.innerHTML = infoHtml();
     document.body.appendChild(info);
+
+    var spinner = el('div', { id: 'moteur-pdf-spinner' });
+    spinner.style.display = 'none';
+    spinner.innerHTML =
+      '<div class="moteur-spinner-inner">' +
+        '<div class="moteur-spinner-icon"></div>' +
+        '<span class="moteur-spinner-label">Génération du PDF…</span>' +
+      '</div>';
+    document.body.appendChild(spinner);
 
     els = {
       sidebar,
@@ -214,6 +224,28 @@
   //   3. Images wikilinks   : ![[image.png]]   → ![image.png](image.png)
 
   function preprocessMarkdown(md) {
+    // ── Protéger les délimiteurs LaTeX \(...\) \[...\] contre l'escape Markdown ─
+    // CommonMark considère \( comme un escape valide → marked supprime le \.
+    // En doublant : \\( → marked produit \( dans le HTML → KaTeX le reconnaît.
+    var _fenceOpen = false;
+    md = md.split('\n').map(function(line) {
+      if (/^[ \t]*(`{3,}|~{3,})/.test(line)) { _fenceOpen = !_fenceOpen; return line; }
+      if (_fenceOpen) return line;
+      var out = '', inBt = false;
+      for (var _j = 0; _j < line.length; _j++) {
+        var _c = line[_j];
+        if (_c === '`') { inBt = !inBt; out += _c; continue; }
+        if (!inBt && _c === '\\' && _j + 1 < line.length) {
+          var _n = line[_j + 1];
+          if (_n === '(' || _n === ')' || _n === '[' || _n === ']') {
+            out += '\\\\' + _n; _j++; continue;
+          }
+        }
+        out += _c;
+      }
+      return out;
+    }).join('\n');
+
     // ── Images wikilinks : ![[file.png]] → ![file.png](file.png) ──────────
     md = md.replace(/!\[\[([^\]]+)\]\]/g, function(_, src) {
       var alt = src.replace(/^.*\//, '').replace(/\.[^.]+$/, '');
@@ -277,6 +309,25 @@
 
   function buildRenderer() {
     var renderer = new marked.Renderer();
+
+    // ── Code inline : `{python}print("Hello")` ───────────────────────────
+    renderer.codespan = function(token) {
+      var text = typeof token === 'object' ? (token.text || '') : String(token || '');
+      // marked v12 pré-escape token.text — décoder ' et " pour l'affichage
+      var decoded = text.replace(/&#39;/g, "'").replace(/&quot;/g, '"');
+      var m = decoded.match(/^\{([a-zA-Z0-9_+\-]+)\}([\s\S]*)$/);
+      if (m && typeof hljs !== 'undefined') {
+        var lang = m[1], code = m[2];
+        try {
+          var highlighted = hljs.getLanguage(lang)
+            ? hljs.highlight(code, { language: lang }).value
+            : hljs.highlightAuto(code).value;
+          return '<code class="hljs hljs-inline language-' + escapeHtml(lang) + '">' + highlighted + '</code>';
+        } catch(e) {}
+      }
+      var safe = decoded.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+      return '<code>' + safe + '</code>';
+    };
 
     // ── Code ──────────────────────────────────────────────────────────────
     // Signature marked v12 : token = { text, lang, escaped }
@@ -383,8 +434,46 @@
       });
     }
 
+    highlightInlineCode(container);
     resolveMermaidPlaceholders(container);
     hideBanner();
+  }
+
+  function highlightInlineCode(container) {
+    if (typeof hljs === 'undefined') return;
+    // Lire le langage depuis le frontmatter (data-lang sur #cours-md)
+    var div  = document.getElementById('cours-md');
+    var lang = div ? (div.getAttribute('data-inline-lang') || '') : '';
+    if (!lang || !hljs.getLanguage(lang)) return;
+    container.querySelectorAll('code').forEach(function(el) {
+      if (el.closest('pre')) return;
+      try {
+        el.innerHTML = hljs.highlight(el.textContent, { language: lang }).value;
+        el.classList.add('hljs-inline');
+      } catch(e) {}
+    });
+  }
+
+  // Découpe le Markdown en slides sur ---, en ignorant les --- dans les blocs de code
+  function splitSlides(md) {
+    var slides  = [];
+    var current = '';
+    var inCode  = false;
+    // Normaliser les fins de ligne (CRLF → LF) pour les fichiers créés sous Windows
+    var lines   = md.replace(/\r/g, '').split('\n');
+
+    for (var i = 0; i < lines.length; i++) {
+      var line = lines[i];
+      if (/^[ \t]*(`{3,}|~{3,})/.test(line)) inCode = !inCode;
+      if (!inCode && /^[ \t]*---[ \t]*$/.test(line)) {
+        slides.push(current.trim());
+        current = '';
+        continue;
+      }
+      current += line + '\n';
+    }
+    if (current.trim()) slides.push(current.trim());
+    return slides.filter(Boolean);
   }
 
   // ══════════════════════════════════════════════════════════════════════════
@@ -397,7 +486,8 @@
     if (!revealEl || !slides) return;
 
     loadReveal(function () {
-      var sections = state.md.split(/\n---\n/);
+      // Découper en slides sur ---, en ignorant les blocs de code
+      var sections = splitSlides(state.md);
       slides.innerHTML = sections.map(function (s) {
         return '<section>' + marked.parse(preprocessMarkdown(s.trim())) + '</section>';
       }).join('');
@@ -419,7 +509,8 @@
       if (!state.revealInstance && typeof Reveal !== 'undefined') {
         state.revealInstance = new Reveal(revealEl, {
           hash: false, history: false, controls: true,
-          progress: true, center: true, slideNumber: 'c/t',
+          progress: true, center: false,
+          slideNumber: 'c/t',
           transition: 'slide', plugins: [], backgroundTransition: 'none',
         });
         state.revealInstance.initialize().then(function () {
@@ -428,16 +519,17 @@
           if (vp) vp.style.removeProperty('background');
           document.body.style.removeProperty('background');
 
-          // Mermaid sur la slide courante + sur slidechanged
-          renderMermaidInCurrentSlide();
-          state.revealInstance.on('slidechanged', function() {
+          // Mermaid : délai pour que Reveal finalise le layout avant le rendu
+          setTimeout(renderMermaidInCurrentSlide, 150);
+          // slidetransitionend = slide entièrement visible (vs slidechanged = début transition)
+          state.revealInstance.on('slidetransitionend', function() {
             renderMermaidInCurrentSlide();
           });
         });
       } else if (state.revealInstance) {
         state.revealInstance.sync();
         state.revealInstance.slide(0, 0);
-        renderMermaidInCurrentSlide();
+        setTimeout(renderMermaidInCurrentSlide, 150);
       }
 
       hideBanner();
@@ -467,25 +559,61 @@
     }
   }
 
+  function showSpinner(label) {
+    var el = document.getElementById('moteur-pdf-spinner');
+    if (!el) return;
+    el.querySelector('.moteur-spinner-label').textContent = label || 'Génération du PDF…';
+    el.style.display = '';
+  }
+
+  function hideSpinner() {
+    var el = document.getElementById('moteur-pdf-spinner');
+    if (el) el.style.display = 'none';
+  }
+
+  function downloadPdf(url, label) {
+    showSpinner(label);
+    fetch(url)
+      .then(function(res) {
+        if (!res.ok) throw new Error('Erreur serveur : ' + res.status);
+        var cd = res.headers.get('content-disposition') || '';
+        var m  = cd.match(/filename="([^"]+)"/);
+        var filename = m ? m[1] : 'cours.pdf';
+        return res.blob().then(function(blob) { return { blob: blob, filename: filename }; });
+      })
+      .then(function(data) {
+        hideSpinner();
+        var objUrl = URL.createObjectURL(data.blob);
+        var a = document.createElement('a');
+        a.href = objUrl; a.download = data.filename; a.style.display = 'none';
+        document.body.appendChild(a);
+        a.click();
+        setTimeout(function() { URL.revokeObjectURL(objUrl); document.body.removeChild(a); }, 2000);
+      })
+      .catch(function(e) {
+        hideSpinner();
+        alert('Erreur génération PDF : ' + e.message);
+      });
+  }
+
   function printDoc() {
-    // En mode serve (dev), utiliser l'endpoint /__pdf pour un PDF via Puppeteer
-    // identique au --type pdf en CLI.
-    // En mode statique (zip Moodle), fallback sur window.print().
     var isPuppeteerAvailable = window.location.hostname === 'localhost' ||
                                window.location.hostname === '127.0.0.1';
     if (!state.slideMode && isPuppeteerAvailable) {
-      // Télécharger le PDF via Puppeteer
-      var a = document.createElement('a');
-      a.href = '/__pdf';
-      a.download = '';
-      a.style.display = 'none';
-      document.body.appendChild(a);
-      a.click();
-      document.body.removeChild(a);
+      var _pathname = window.location.pathname;
+      try { _pathname = decodeURIComponent(_pathname); } catch(e) {}
+      downloadPdf('/__pdf?page=' + encodeURIComponent(_pathname), 'Génération du PDF…');
       return;
     }
     if (state.slideMode) switchMode();
     setTimeout(function () { window.print(); }, 300);
+  }
+
+  function printAllPdf() {
+    var isPuppeteerAvailable = window.location.hostname === 'localhost' ||
+                               window.location.hostname === '127.0.0.1';
+    if (!isPuppeteerAvailable) { alert('Export PDF complet disponible uniquement en mode serve (localhost).'); return; }
+    downloadPdf('/__pdf-all', 'Génération du PDF complet…');
   }
 
   function printSlidesPdf() {
@@ -554,6 +682,8 @@
     sidebar.innerHTML = html;
     sidebar.style.display = '';
     if (toggle) toggle.style.display = '';
+    var pdfAllBtn = document.getElementById('moteur-pdfall-btn');
+    if (pdfAllBtn) pdfAllBtn.style.display = '';
     document.body.classList.add('with-sidebar');
     applyWithSidebarStyles();
   }
@@ -591,8 +721,6 @@
     }
   }
 
-  // ══════════════════════════════════════════════════════════════════════════
-  // Fullscreen / Info / Keyboard
   // ══════════════════════════════════════════════════════════════════════════
 
   function toggleFullscreen() {
@@ -652,11 +780,10 @@
   function readMarkdown() {
     var div = document.getElementById('cours-md');
     if (!div) return null;
-    // Nouveau format : base64 dans data-b64
     var b64 = div.getAttribute('data-b64');
-    if (b64) return b64decode(b64) || null;
-    // Fallback ancien format : textContent
-    return (div.textContent || div.innerText || '').trim() || null;
+    var md  = b64 ? (b64decode(b64) || null) : ((div.textContent || div.innerText || '').trim() || null);
+    // Normaliser CRLF → LF (fichiers créés sous Windows)
+    return md ? md.replace(/\r/g, '') : null;
   }
 
   function start(md) {
@@ -693,7 +820,7 @@
   window._moteur = {
     version: VERSION,
     switchMode, toggleFullscreen, toggleInfo, toggleSidebar,
-    printDoc, printSlidesPdf, copyCode, start,
+    printDoc, printAllPdf, printSlidesPdf, copyCode, start,
   };
 
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);

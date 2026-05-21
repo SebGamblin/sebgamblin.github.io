@@ -86,15 +86,17 @@ export async function buildHtml(ctx) {
     let mainContent = rewritePaths(main.bodyOnly, mainMapping);
     mainAssets.filter(a => !a.exists).forEach(a => log.warn(`Asset introuvable : ${a.original}`));
 
+    const inputBase = path.basename(input);
+    const remapHref = (href) =>
+      (href && (href === inputBase || href === 'index.html')) ? 'index.html' : href;
+
     const navBlock = renderNavBlock(
       chapters.map(ch => ({
         ...ch,
+        href: remapHref(ch.href),
         children: (ch.children || []).map(c => ({
           title: c.title,
-          // Mapper vers index.html si le lien pointe vers la page principale
-          href: (c.href === path.basename(input) || c.href === 'index.html')
-            ? 'index.html'
-            : c.href,
+          href: remapHref(c.href),
         })),
       }))
     );

@@ -33,7 +33,7 @@ h2 {
   margin: 18pt 0 6pt;
   padding: 4pt 8pt;
   background: #f0f0f0;
-  border-left: 4pt solid red;
+  border-left: 4pt solid #333;
   break-before: auto;
 }
 
@@ -178,3 +178,160 @@ h3 em {
   break-inside: avoid;
   margin-bottom: 0;
 }
+
+/* ── Mode corrigé ─────────────────────────────────────────────────────────── */
+
+/* Encart réponse attendue */
+.answer-block--corrige {
+  border: 1.5px solid #27ae60;
+  border-radius: 4pt;
+  background: #f0fdf4;
+  padding: 8pt 10pt;
+  margin: 6pt 0 14pt;
+  break-inside: avoid;
+}
+.answer-corrige-label {
+  font-size: 7.5pt;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: .06em;
+  color: #166534;
+  margin-bottom: 5pt;
+}
+.answer-corrige-text {
+  font-size: 10pt;
+  line-height: 1.55;
+  color: #14532d;
+  white-space: pre-wrap;
+}
+
+/* QCM — bonne réponse surlignée en mode corrigé */
+/* La classe .correct est ajoutée par preprocessExam sur les [x]{.correct} */
+/* transformCheckboxes gère la conversion, on cible le li parent */
+.qcm-item--correct .qcm-box {
+  background: #dcfce7;
+  border-color: #22c55e;
+  color: #166534;
+  font-weight: bold;
+}
+.qcm-item--correct {
+  font-weight: bold;
+  color: #166534;
+}
+
+/* Bandeau "CORRIGÉ" en filigrane sur chaque page */
+@page { }
+
+/* ── Vrai / Faux ─────────────────────────────────────────────────────────── */
+.vf-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 8pt 0 14pt;
+  break-inside: avoid;
+  font-size: 10pt;
+}
+.vf-table thead tr {
+  background: #f0f0f0;
+  border-bottom: 1.5px solid #888;
+}
+.vf-th-text {
+  text-align: left;
+  padding: 4pt 8pt;
+  font-weight: bold;
+  font-size: 9pt;
+  text-transform: uppercase;
+  letter-spacing: .05em;
+  color: #555;
+}
+.vf-th-box {
+  width: 32pt;
+  text-align: center;
+  padding: 4pt 0;
+  font-weight: bold;
+  font-size: 9pt;
+  color: #555;
+}
+.vf-row { border-bottom: 1px solid #e0e0e0; }
+.vf-row:last-child { border-bottom: none; }
+.vf-text {
+  padding: 5pt 8pt;
+  vertical-align: middle;
+  line-height: 1.4;
+}
+.vf-cell {
+  text-align: center;
+  vertical-align: middle;
+  padding: 3pt 0;
+}
+
+/* Cases V/F — même style que .qcm-box */
+.vf-table .qcm-box {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 18pt; height: 18pt;
+  border: 1.5px solid #888;
+  border-radius: 3pt;
+  font-size: 9pt;
+  font-weight: bold;
+  color: #888;
+  background: white;
+}
+/* Bonne réponse en mode corrigé */
+.vf-table .qcm-box.qcm-box--checked.vf-true {
+  background: #dcfce7;
+  border-color: #22c55e;
+  color: #166534;
+}
+.vf-table .qcm-box.qcm-box--checked.vf-false {
+  background: #fee2e2;
+  border-color: #ef4444;
+  color: #991b1b;
+}
+/* Ligne surlignée en mode corrigé */
+.vf-row--true  { background: #f0fdf4; }
+.vf-row--false { background: #fef2f2; }
+
+/* ── Colonnes ────────────────────────────────────────────────────────────── */
+.exam-columns {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16pt;
+  margin: 8pt 0 14pt;
+  break-inside: avoid;
+}
+.exam-col {
+  min-width: 0; /* évite le débordement des blocs de code */
+}
+/* Les titres h3 dans les colonnes n'ont pas de break-after */
+.exam-col h3 { break-after: avoid; }
+/* Réduire légèrement la taille de police dans les colonnes */
+.exam-col pre,
+.exam-col code { font-size: 8.5pt; }
+.exam-col .code-block-exam pre { padding: 4pt 6pt; }
+
+/* Contenu Markdown dans les encarts de réponse */
+.answer-corrige-text.answer-md { padding: 0; }
+.answer-corrige-text.answer-md pre {
+  background: #f6f8fa;
+  border: 1px solid #e1e4e8;
+  border-radius: 3pt;
+  padding: 6pt 8pt;
+  margin: 4pt 0 0;
+  font-size: 9pt;
+  font-family: 'Courier New', monospace;
+  white-space: pre-wrap;
+  overflow-wrap: break-word;
+}
+.answer-corrige-text.answer-md pre code {
+  background: none; border: none; padding: 0; font-size: inherit;
+}
+.answer-corrige-text.answer-md code {
+  background: #f0f2f5;
+  border-radius: 2pt;
+  padding: 0 3pt;
+  font-size: 9pt;
+  font-family: 'Courier New', monospace;
+}
+.answer-corrige-text.answer-md p { margin: 0 0 4pt; font-size: 10pt; }
+.answer-corrige-text.answer-md p:last-child { margin-bottom: 0; }
