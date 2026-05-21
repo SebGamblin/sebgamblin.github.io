@@ -53,16 +53,18 @@ export async function serve(ctx) {
       }
     }
 
+    const summaryDir = path.dirname(summary);
+    const remapHref = (href) =>
+      href && path.resolve(summaryDir, href) === path.resolve(input) ? 'index.html' : href;
+
     navBlock = renderNavBlock(
       chapters.map(ch => ({
         ...ch,
+        // chapitres implicites (liens plats sans ## parent) ont leur href direct
+        href: remapHref(ch.href),
         children: (ch.children || []).map(c => ({
           title: c.title,
-          // href dans la nav : les fichiers .md sont servis par leur nom,
-          // sauf la page principale qui répond à /index.html aussi
-          href: path.resolve(path.dirname(summary), c.href) === path.resolve(input)
-            ? 'index.html'
-            : c.href,
+          href: remapHref(c.href),
         })),
       }))
     );
@@ -89,26 +91,61 @@ export async function serve(ctx) {
       return;
     }
 
-    // ── Export PDF via Puppeteer (même résultat que --type pdf en CLI) ────
+    // ── Export PDF via Puppeteer ──────────────────────────────────────────
     if (pathname === '/__pdf') {
       try {
         log.info('Export PDF via Puppeteer…');
-        const puppeteer = (await import('puppeteer')).default;
         const { buildPdf } = await import('./pdf.js');
-        const pdfPath = path.join(os.tmpdir(), `${path.basename(input, '.md')}-${Date.now()}.pdf`);
-        await buildPdf({ input, theme, cwd: path.dirname(input), output: pdfPath, noOpen: true });
+
+        // Résoudre la page courante depuis le paramètre ?page=
+        const pageParam = url.searchParams.get('page');
+        let targetInput = input;
+        if (pageParam && pageParam !== '/' && pageParam !== '/index.html') {
+          const match = extraPages.find(p => '/' + p.href === pageParam);
+          if (match && fs.existsSync(match.absPath)) targetInput = match.absPath;
+        }
+
+        const pdfName = `${path.basename(targetInput, '.md')}.pdf`;
+        const pdfPath = path.join(os.tmpdir(), `${path.basename(targetInput, '.md')}-${Date.now()}.pdf`);
+        await buildPdf({ input: targetInput, theme, cwd: path.dirname(targetInput), output: pdfPath, noOpen: true });
         const pdfData = fs.readFileSync(pdfPath);
         fs.unlinkSync(pdfPath);
         res.writeHead(200, {
-          'Content-Type': 'application/pdf',
-          'Content-Disposition': `attachment; filename="${path.basename(input, '.md')}.pdf"`,
-          'Content-Length': pdfData.length,
+          'Content-Type':        'application/pdf',
+          'Content-Disposition': `attachment; filename="${pdfName}"`,
+          'Content-Length':      String(pdfData.byteLength),
+          'Cache-Control':       'no-store',
         });
         res.end(pdfData);
-        log.ok('PDF envoyé au navigateur');
+        log.ok(`PDF envoyé : ${pdfName} (${Math.round(pdfData.byteLength/1024)} Ko)`);
       } catch(e) {
         log.err(`PDF error: ${e.message}`);
-        res.writeHead(500); res.end(e.message);
+        if (!res.headersSent) { res.writeHead(500); res.end(e.message); }
+      }
+      return;
+    }
+
+    // ── Export PDF complet (toutes pages + sommaire) ───────────────────────
+    if (pathname === '/__pdf-all') {
+      try {
+        log.info('Export PDF complet…');
+        const { buildPdfAll } = await import('./pdf.js');
+        const pdfName = `${path.basename(input, '.md')}-complet.pdf`;
+        const pdfPath = path.join(os.tmpdir(), `${path.basename(input, '.md')}-complet-${Date.now()}.pdf`);
+        await buildPdfAll({ input, summary, theme, cwd: path.dirname(input), output: pdfPath, noOpen: true });
+        const pdfData = fs.readFileSync(pdfPath);
+        fs.unlinkSync(pdfPath);
+        res.writeHead(200, {
+          'Content-Type':        'application/pdf',
+          'Content-Disposition': `attachment; filename="${pdfName}"`,
+          'Content-Length':      String(pdfData.byteLength),
+          'Cache-Control':       'no-store',
+        });
+        res.end(pdfData);
+        log.ok(`PDF complet envoyé (${Math.round(pdfData.byteLength/1024)} Ko)`);
+      } catch(e) {
+        log.err(`PDF complet error: ${e.message}`);
+        if (!res.headersSent) { res.writeHead(500); res.end(e.message); }
       }
       return;
     }
@@ -209,7 +246,10 @@ function servePage(res, mdPath, mainInput, runtimeDir, theme, navBlock) {
   try {
     const parsed   = parseMarkdown(mdPath);
     const themeCss = getThemeCss(theme);
-    const moteurJs = fs.readFileSync(path.join(runtimeDir, 'moteur.js'), 'utf-8');
+    const moteurPath = path.join(runtimeDir, 'moteur.js');
+    const moteurJs = fs.readFileSync(moteurPath, 'utf-8');
+    const hasSplit = moteurJs.includes('splitSlides');
+    log.info(`moteur.js : ${moteurPath} (splitSlides: ${hasSplit})`);
     const page     = buildDevPage(parsed, themeCss, moteurJs, navBlock, runtimeDir);
     res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
     res.end(page);
@@ -222,7 +262,7 @@ function servePage(res, mdPath, mainInput, runtimeDir, theme, navBlock) {
 // ── Page HTML dev ──────────────────────────────────────────────────────────
 
 function buildDevPage(parsed, themeCss, moteurJs, navBlock, runtimeDir) {
-  const b64 = Buffer.from(parsed.bodyOnly, 'utf-8').toString('base64');
+  const b64 = Buffer.from(parsed.bodyOnly.replace(/\r/g, ''), 'utf-8').toString('base64');
 
   // Inliner katex.min.css + highlight-github.min.css pour qu'ils soient
   // dans le même bloc <style> que le thème. Cela garantit que notre

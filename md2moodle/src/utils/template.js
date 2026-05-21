@@ -17,7 +17,7 @@
  *   base       — préfixe pour les assets (ex: './' ou '')
  */
 export function renderPage({ title, content, navBlock = '', base = './', inlineCss = null }) {
-  const b64 = Buffer.from(content, 'utf-8').toString('base64');
+  const b64 = Buffer.from(content.replace(/\r/g, ''), 'utf-8').toString('base64');
 
   // Si inlineCss est fourni, on l'injecte directement en <style>.
   // Sinon fallback sur <link href="style.css"> (mode compat).

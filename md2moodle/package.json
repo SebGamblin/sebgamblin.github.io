@@ -17,11 +17,21 @@
     "commander": "^12.1.0",
     "express": "^4.19.2",
     "gray-matter": "^4.0.3",
+    "pdf2pic": "^3.2.0",
     "puppeteer": "^22.0.0"
   },
   "engines": {
     "node": ">=18.0.0"
   },
-  "keywords": ["moodle", "markdown", "slides", "pdf", "cours", "reveal", "katex", "mermaid"],
+  "keywords": [
+    "moodle",
+    "markdown",
+    "slides",
+    "pdf",
+    "cours",
+    "reveal",
+    "katex",
+    "mermaid"
+  ],
   "license": "MIT"
 }

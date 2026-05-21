@@ -1,0 +1,20 @@
+# Dépendances
+node_modules/
+
+# Sorties générées (exports HTML, PDF, ZIP)
+full_example/
+full_example*/
+examples/*/full_example*
+*.zip
+*.pdf
+
+# IDE
+.vscode/
+.idea/
+
+# Claude
+.claude/
+
+# OS
+.DS_Store
+Thumbs.db
