@@ -1,0 +1,4 @@
+# GitHub Pages (Jekyll) : ne pas interpréter les exemples md2moodle,
+# dont l'en-tête (« date: "Ma date" ») fait échouer la construction du site.
+exclude:
+  - md2moodle/examples
