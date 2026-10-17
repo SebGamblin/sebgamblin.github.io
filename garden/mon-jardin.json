@@ -1,17 +1,17 @@
 {
   "version": 1,
-  "savedAt": "2026-05-11T10:47:56.742Z",
+  "savedAt": "2026-10-17T21:30:00.000Z",
   "mapCenter": {
-    "lat": 49.225680111943674,
-    "lng": -0.9037971496582032
+    "lat": 49.22575,
+    "lng": -0.9037
   },
-  "mapZoom": 19,
+  "mapZoom": 18,
   "zones": [
     {
       "id": "mp0zhluw3ehx4vuruns",
       "name": "Terrain",
       "category": "⛺ Espace de vie",
-      "notes": "",
+      "notes": "PARCELLE ≈ 1,55 ha — lecture du site (altitudes IGN RGE ALTI, grille 20×15 m) :\n• Plateau est/centre à 70–74 m, pente très douce (2–3 %) vers le NORD-OUEST → l'eau de ruissellement file vers le fossé nord.\n• À partir de x≈−110 m (côté ouest), talus raide ≈ 13 % jusqu'à 62 m, vers la rivière : sol drainé, l'air froid s'écoule vers la vallée (pas de cuvette gélive sur le plateau).\n• Point le plus bas du plateau : coin nord-ouest (≈ 70,0 m) → c'est là que l'eau s'accumule naturellement.\n• Vents : dominants O–SO (pluie, tempêtes d'automne-hiver), partiellement freinés par le cordon boisé de la rivière ; vents froids de N–NE au printemps (gelées tardives) qui arrivent librement par le champ nord.\n• Soleil : la longue haie sud (voisins) ombre une bande au nord d'elle (≈ 16 m à midi en décembre pour 5 m de haie, ≈ 2,5 m en juin). La haie nord, elle, n'ombre que le champ → le nord de la parcelle est la zone la plus lumineuse et la plus abritée du sud-ouest une fois la haie nord épaissie.\n\nÉTUDE DES SOLS (oct. 2026) :\nCommune : Le Molay-Littry (Calvados), Bessin bocager, feuille géologique BRGM n°118 « Balleroy ».\n• Sous-sol : socle ancien du Massif armoricain, des schistes et des grès (carte lithologique BRGM). La vallée, à l'ouest, est sur des alluvions récentes.\n• Sol (modèle SoilGrids, maille de 250 m, valeurs indicatives) : LIMON ARGILEUX (≈ 24 % d'argile, 56 % de limon, 20 % de sable), 12–14 % de cailloux de schiste, pH 5,7 en surface → 6,1 à 1 m, carbone organique ≈ 54 g/kg en surface (≈ 9 % de matière organique, typique d'une vieille prairie pâturée) puis 9 g/kg à 30–60 cm. Densité 1,2 en surface → 1,4 dès 30 cm (sol qui se tasse en profondeur).\n• Type probable : sol brun acide (brunisol) sur limon et schiste altéré, frais, qui garde l'eau en hiver sur le replat nord et au pied du talus.\n• Risques (Géorisques) : radon de potentiel 3 (le plus élevé), sismicité faible, aucune cavité ni mouvement de terrain recensé dans un rayon d'un km.\n\nÀ VÉRIFIER SUR PLACE : analyse de terre (laboratoire agronomique régional ; pH, MO, P, K, texture) à 4 endroits + test bêche (traces rouille/gris = eau stagnante) + test d'infiltration avant de creuser noue et mares.\n\nPÂTURAGE ACTUEL (moutons et vaches) : la richesse du sol en surface vient du pâturage — c'est un capital. Mais les vaches tassent le limon humide (semelle à 10–30 cm, surtout aux entrées, abreuvoirs et le long des haies) et toute plantation devra être protégée tant que des animaux sont sur la parcelle. Voir les fiches Potager, Verger–forêt-jardin, Talus, Mares et Hameau.",
       "color": "#7A9E7E",
       "points": [
         {
@@ -84,14 +84,16 @@
         }
       ],
       "area": 15549.415843282963,
-      "tags": [],
+      "tags": [
+        "existant"
+      ],
       "photos": []
     },
     {
       "id": "mp0zi5cdj7j45j3g5s",
       "name": "Puits",
       "category": "🌊 Eau & Bassin",
-      "notes": "",
+      "notes": "Garder un périmètre de protection : aucun compost de toilettes sèches, phyto-épuration ou stockage de fumier à moins de 35 m (ici tout est à > 100 m, à l'ouest et en aval). Eau d'appoint pour le potager surélevé et les semis.",
       "color": "#7A9E7E",
       "isCircle": true,
       "center": {
@@ -101,16 +103,19 @@
       "radius": 1,
       "area": 3.141592653589793,
       "points": [],
-      "tags": [],
+      "tags": [
+        "existant"
+      ],
       "photos": [
-        "https://www.leparisien.fr/resizer/javHstf4nLu3B-42CiWBa2X1Do8=/932x582/cloudfront-eu-central-1.images.arcpublishing.com/lpguideshopping/57Z5VXDYYZCP7M4BS2SZL554ME.jpg"
+        "https://www.leparisien.fr/resizer/javHstf4nLu3B-42CiWBa2X1Do8=/932x582/cloudfront-eu-central-1.images.arcpublishing.com/lpguideshopping/57Z5VXDYYZCP7M4BS2SZL554ME.jpg",
+        "https://thumb.wikimedia.org/wikipedia/commons/thumb/f/f6/Hand_pump_and_stone_trough_in_the_walled_garden%2C_Attingham_Park%2C_Shropshire.jpg/960px-Hand_pump_and_stone_trough_in_the_walled_garden%2C_Attingham_Park%2C_Shropshire.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail"
       ]
     },
     {
       "id": "mp10jo2t255o4fhfyyf",
       "name": "Composte",
       "category": "🛖 Structure",
-      "notes": "",
+      "notes": "Conservé pour les déchets de cuisine de la maison (proche, accessible en chaussons). Le gros compost « jardin + broyat » est déplacé près du potager collectif (voir Pôle compost).",
       "color": "#7A9E7E",
       "isCircle": true,
       "center": {
@@ -120,14 +125,16 @@
       "radius": 2,
       "area": 12.566370614359172,
       "points": [],
-      "tags": [],
+      "tags": [
+        "existant"
+      ],
       "photos": []
     },
     {
       "id": "mp10kc2px3reqjflksa",
       "name": "Jardin au sol",
       "category": "🌿 Végétation",
-      "notes": "Patates, carottes...\n\nSerre ?",
+      "notes": "Patates, carottes...\n\nSerre ?\n\nConservé en « grande culture » : pommes de terre, courges, maïs-haricot, engrais verts en rotation. Près de la mare et du compost, en plein soleil (la haie nord n'ombre pas). La serre proposée est placée dans le potager collectif pour profiter du nouveau point d'eau (noue) et de la cabane de semis.",
       "color": "#7A9E7E",
       "points": [
         {
@@ -156,9 +163,12 @@
         }
       ],
       "area": 190.4056674210864,
-      "tags": [],
+      "tags": [
+        "existant"
+      ],
       "photos": [
-        "https://www.google.com/url?sa=t&source=web&rct=j&url=https%3A%2F%2Fsanrivaljardin.com%2Fserres-maraicheres-premium%2F845-serre-de-jardin-tunnel-48-m2serre-de-jardin-tunnel-48-m-premium-facile-a-monter.html&ved=0CBYQjRxqFwoTCPD006eHsZQDFQAAAAAdAAAAABA4&opi=89978449"
+        "https://www.google.com/url?sa=t&source=web&rct=j&url=https%3A%2F%2Fsanrivaljardin.com%2Fserres-maraicheres-premium%2F845-serre-de-jardin-tunnel-48-m2serre-de-jardin-tunnel-48-m-premium-facile-a-monter.html&ved=0CBYQjRxqFwoTCPD006eHsZQDFQAAAAAdAAAAABA4&opi=89978449",
+        "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/71/Chiswick_House_Kitchen_Garden_-_sunken_beds.jpg/960px-Chiswick_House_Kitchen_Garden_-_sunken_beds.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail"
       ]
     },
     {
@@ -190,7 +200,9 @@
         }
       ],
       "area": 10.893466606952002,
-      "tags": [],
+      "tags": [
+        "existant"
+      ],
       "photos": [
         "https://cloudfront-eu-central-1.images.arcpublishing.com/lpguideshopping/PGX3JVFM5BCSBHY3TZAHXUT5OY.jpg"
       ]
@@ -209,8 +221,12 @@
       "radius": 3,
       "area": 28.274333882308138,
       "points": [],
-      "tags": [],
-      "photos": []
+      "tags": [
+        "existant"
+      ],
+      "photos": [
+        "https://upload.wikimedia.org/wikipedia/commons/5/57/Erasmus_Darwin_House_-herb_garden-9July2007.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled"
+      ]
     },
     {
       "id": "mp12pywhtuahwfn799",
@@ -226,7 +242,9 @@
       "radius": 2,
       "area": 12.566370614359172,
       "points": [],
-      "tags": [],
+      "tags": [
+        "existant"
+      ],
       "photos": [
         "https://www.droledecabane.com/ori-cabane-perchee-enfants-240.jpg"
       ]
@@ -235,7 +253,7 @@
       "id": "mp12rsxo5ptjwmg2ifs",
       "name": "Jardin surélévé",
       "category": "🥕 Potager",
-      "notes": "",
+      "notes": "À CRÉER. Avis sur l'emplacement : BON, avec deux ajustements.\n\n✔ Pourquoi c'est un bon endroit :\n• Zone 1 : à 10–20 m de la terrasse et de la cuisine, à 18 m du puits → on y va pour 3 brins de ciboulette.\n• Plein sud dégagé à midi d'avril à septembre : l'ombre portée de la grande maison voisine (≈ 15 m au sud) ne l'atteint qu'en hiver.\n• Grand axe NNO–SSE : les planches orientées nord-sud reçoivent le soleil des deux côtés.\n\n⚠ Ajustements :\n1. Son côté est longe la ligne sombre visible au satellite (haie ou massif existant, en bordure du jardin de la maison). Les racines d'une haie envahissent la terre riche d'un bac surélevé en 2–3 ans : laisser 1,5–2 m de passage, ou poser un treillis/feutre anti-racines au fond des bacs (et un grillage anti-taupes).\n2. Le bâtiment voisin au sud-ouest (≈ 10 m, angle à x≈−28 m) fait de l'ombre en fin d'après-midi au printemps et à l'automne sur l'angle ouest : y mettre les salades, épinards, persil (mi-ombre bienvenue) ; tomates, courgettes, basilic côté est.\n\nConception : bacs de 1,20 m de large maximum (on atteint le milieu des deux côtés), 60–80 cm de haut (pas besoin de se pencher), allées de 60 cm en copeaux (80 cm pour une brouette). Remplissage en lasagnes (branchages, BRF, feuilles, compost, terreau). Les tuteurs et rames hautes au NORD de chaque bac pour ne pas ombrer le reste. Récupération d'eau de pluie du toit de la maison (cuve sous la gouttière ouest).",
       "color": "#7A9E7E",
       "points": [
         {
@@ -260,14 +278,21 @@
         }
       ],
       "area": 93.82299910020359,
-      "tags": [],
-      "photos": []
+      "tags": [
+        "existant",
+        "zone"
+      ],
+      "photos": [
+        "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/52/Raised_vegetable_bed_at_Boreham%2C_Essex%2C_England.jpg/960px-Raised_vegetable_bed_at_Boreham%2C_Essex%2C_England.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+        "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/7b/-2020-07-01_Vegetable_garden_with_raised_beds%2C_Trimingham%2C_Norfolk.JPG/960px--2020-07-01_Vegetable_garden_with_raised_beds%2C_Trimingham%2C_Norfolk.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+        "https://upload.wikimedia.org/wikipedia/commons/4/43/Raised_vegetable_beds_for_disabled_access_-_geograph.org.uk_-_1411061.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled"
+      ]
     },
     {
       "id": "mp12t8v76vragtxx0ch",
       "name": "Arches",
       "category": "🌳 Arbres & Haies",
-      "notes": "",
+      "notes": "À CRÉER. Avis sur l'emplacement : BIEN PLACÉES pour séparer le jardin de la maison de l'espace technique, mais elles ne cachent pas le parking DEPUIS la terrasse.\n\n✔ Ce qui marche :\n• Elles prolongent vers le nord la ligne de haie qui borde déjà le jardin de la maison : un seul « fil » continu sépare désormais le domestique (maison, terrasse, potager surélevé) de l'espace technique et public (parking, hangar, accueil).\n• Elles mènent de la terrasse vers la mare et le jardin au sol : c'est un vrai chemin, pas un décor.\n• Avec le projet, elles deviennent l'allée du « ruisseau des arches » (eau épurée du filtre à roseaux).\n\n⚠ Ce qui coince :\n1. Vue depuis la terrasse : le parking est au NORD-EST de la terrasse, les arches au nord-NORD-OUEST. Le regard vers le parking passe à ≈ 10 m à l'est du pied des arches. Ce qui le coupera vraiment, c'est le filtre à roseaux (roseaux de 2 m, juste dans cet axe) + un court treillis planté entre l'angle de la maison et le filtre.\n2. Une allée d'arches est transparente en hiver si les grimpantes sont caduques. Pour un écran toute l'année : treillis côté EST (côté parking) avec des persistantes — chèvrefeuille de Henry (Lonicera henryi), clématite d'Armand, lierre sur les premiers poteaux — et, côté jardin, des caduques gourmandes (vigne, kiwaï, houblon, rosiers lianes).\n3. La branche perpendiculaire (vers l'accueil) ouvre une brèche dans l'écran : en faire une porte assumée (portillon, arche plus haute) entre l'espace public et le jardin privé, ou la supprimer.\n\nDimensions : 1,5 m de passage minimum, 2,2 m de haut sous les arches (grappes de raisin qui pendent), arches tous les 2–2,5 m, ancrées dans des plots béton (le vent d'ouest prend dans le feuillage).",
       "color": "#7A9E7E",
       "isLine": true,
       "isCurve": false,
@@ -303,10 +328,2371 @@
         }
       ],
       "area": 0,
-      "tags": [],
+      "tags": [
+        "existant"
+      ],
       "photos": [
-        "https://www.lesentreprisesdupaysage.fr/content/uploads/2023/03/arceau_jardin3.webp"
+        "https://www.lesentreprisesdupaysage.fr/content/uploads/2023/03/arceau_jardin3.webp",
+        "https://upload.wikimedia.org/wikipedia/commons/c/c9/Spring_flowers_under_arches%2C_Tessier_Gardens_-_geograph.org.uk_-_1200030.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+        "https://upload.wikimedia.org/wikipedia/commons/5/5a/Vine_pergola_in_Loseley_Park_gardens_-_geograph.org.uk_-_881305.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled"
       ]
+    },
+    {
+      "id": "mvclggcnwwvrlhsvlj",
+      "name": "Mare",
+      "category": "🌊 Eau & Bassin",
+      "notes": "Mare existante qui donne sur le fossé tout le long du nord de la parcelle\n\nMare existante sur le fossé nord : à garder en mare naturelle (berges en pente douce côté sud, ensoleillée, sans poissons → grenouilles et tritons = régulation des limaces du potager). Son trop-plein reste branché sur le fossé.\n\nPÂTURAGE :\nMême remarque que la mare n°2 : clôturer les berges tant que des animaux pâturent (piétinement, déjections), ou ne laisser qu'un abreuvoir empierré.",
+      "color": "#D4A5A5",
+      "isCircle": true,
+      "center": {
+        "lat": 49.22576594518967,
+        "lng": -0.9028543531894685
+      },
+      "radius": 3,
+      "area": 28.274333882308138,
+      "points": [],
+      "tags": [
+        "existant"
+      ],
+      "photos": [
+        "https://thumb.wikimedia.org/wikipedia/commons/thumb/2/24/Reeds_by_the_pond_in_Kew_Gardens_-_geograph.org.uk_-_2344170.jpg/960px-Reeds_by_the_pond_in_Kew_Gardens_-_geograph.org.uk_-_2344170.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+        "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/aa/Common_Frog_%28Rana_temporaria%29_by_a_garden_pond%2C_Melling_-_geograph.org.uk_-_3934346.jpg/960px-Common_Frog_%28Rana_temporaria%29_by_a_garden_pond%2C_Melling_-_geograph.org.uk_-_3934346.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail"
+      ]
+    },
+    {
+      "id": "cl-talus",
+      "name": "Talus boisé — chênaie",
+      "category": "🌳 Arbres & Haies",
+      "notes": "Zone 4 (permaculture) : le talus ouest à ≈ 13 % de pente.\n\nPOURQUOI ICI les grands arbres :\n• C'est la seule partie impropre aux tiny houses (accès remorque dangereux sur herbe mouillée en pente) et au potager (érosion).\n• Sol drainé par la pente : idéal pour les chênes, qui détestent l'eau stagnante du nord du plateau.\n• À l'ouest du plateau, des arbres de 20–25 m n'ombrent le hameau qu'en fin d'après-midi d'été (souhaitable : les tiny houses surchauffent vite) et jamais le potager ni la forêt-jardin.\n• Ils prolongent le cordon boisé de la rivière : corridor écologique continu.\n\nGestion : prairie de fauche tardive (1 fauche fin juillet, exporter le foin = paillage potager) en attendant que les arbres ferment le milieu. Tas de bois mort et pierres en lisière. Garder la « fenêtre de vue » libre (entre les deux groupes de chênes) vers la rivière.\n\nSOL & PÂTURAGE :\nSur la pente, le schiste est plus proche de la surface et le sol plus mince et caillouteux. Le chêne pédonculé préfère les sols profonds et frais (bas du talus) ; en haut de pente, mieux vaut le CHÊNE SESSILE (Quercus petraea), adapté aux sols acides minces et drainés → panacher les 6 chênes : sessiles en haut, pédonculés en bas.\nC'est la zone idéale pour garder des MOUTONS en écopâturage (ils remplacent la fauche), avec des protections sur les jeunes arbres. Les vaches, elles, abîment la pente (érosion par piétinement).",
+      "color": "#527A51",
+      "points": [
+        {
+          "lat": 49.225661151,
+          "lng": -0.904815657
+        },
+        {
+          "lat": 49.225698921,
+          "lng": -0.905119641
+        },
+        {
+          "lat": 49.225733993,
+          "lng": -0.905360353
+        },
+        {
+          "lat": 49.226110791,
+          "lng": -0.905246187
+        },
+        {
+          "lat": 49.22642464,
+          "lng": -0.904987594
+        },
+        {
+          "lat": 49.226386871,
+          "lng": -0.904815657
+        }
+      ],
+      "area": 2390.1,
+      "tags": [
+        "phase-1",
+        "arbres",
+        "zone"
+      ],
+      "photos": [
+        "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/a9/Langaa_egeskov_rimfrost.jpg/960px-Langaa_egeskov_rimfrost.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+        "https://upload.wikimedia.org/wikipedia/commons/8/84/Wildflower_Meadow_-_geograph.org.uk_-_81827.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled"
+      ]
+    },
+    {
+      "id": "cl-ripisylve",
+      "name": "Lisière ripicole — libre évolution",
+      "category": "🌳 Arbres & Haies",
+      "notes": "Bande de 8 m le long des arbres de la rivière : on n'y fait RIEN (ni fauche, ni nettoyage). Ronciers, bois mort, lierre : refuge pour hérissons, oiseaux, chauves-souris qui chassent ensuite les ravageurs de la forêt-jardin. Coupe uniquement des arbres dangereux.",
+      "color": "#3F714B",
+      "points": [
+        {
+          "lat": 49.225733993,
+          "lng": -0.905360353
+        },
+        {
+          "lat": 49.226110791,
+          "lng": -0.905246187
+        },
+        {
+          "lat": 49.22642464,
+          "lng": -0.904987594
+        },
+        {
+          "lat": 49.226385971,
+          "lng": -0.904911941
+        },
+        {
+          "lat": 49.226089209,
+          "lng": -0.905138898
+        },
+        {
+          "lat": 49.225747482,
+          "lng": -0.905242061
+        }
+      ],
+      "area": 616,
+      "tags": [
+        "phase-1",
+        "biodiversite"
+      ],
+      "photos": [
+        "https://upload.wikimedia.org/wikipedia/commons/1/16/Broadleaf_riparian_woodland_of_the_River_Gloy_-_geograph.org.uk_-_3095074.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+        "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/73/Riparian_terrace_woodland.jpg/960px-Riparian_terrace_woodland.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail"
+      ]
+    },
+    {
+      "id": "cl-hameau",
+      "name": "Hameau — 4 tiny houses autour d'une place",
+      "category": "⛺ Espace de vie",
+      "notes": "POURQUOI le hameau sur le rebord ouest du plateau :\n• Terrain encore quasi plat (pente 3–6 %), facile à atteindre en remorque par le chemin sud → pas de route à travers les plantations.\n• Vue dégagée sur la vallée et la rivière au couchant ; abri des vents d'ouest grâce au cordon boisé en contrebas (ses houppiers sont plus hauts que le plateau).\n• À 100–120 m de la maison : intimité réciproque réelle (la maison garde son jardin à l'est), mais réseaux encore raisonnables (une seule tranchée le long du chemin).\n• Les eaux grises descendent par gravité vers le filtre planté du talus (≈ 1,5 m de dénivelé).\n• Il est EN LISIÈRE de la forêt-jardin : les habitants vivent dans le verger, ce qui garantit l'entretien et la récolte.\n\nOrganisation « hameau » : 4 maisons en couronne autour d'une place commune, chacune orientée vitrage au sud/sud-ouest, séparées par des bosquets et plessis de noisetier → 20–25 m entre chaque maison, aucune ne voit directement dans une autre.\n\n⚠ Urbanisme : au-delà de 3 mois/an, l'installation de résidences mobiles/démontables relève du PLU (déclaration préalable ou permis d'aménager selon la commune). À valider en mairie AVANT tout réseau.\n\nSOL & RISQUES :\n• Radon (potentiel 3) : tiny houses sur roues ou sur pieux = plancher ventilé, c'est la bonne réponse ; pour la maison commune et l'accueil, vide sanitaire ventilé et aération régulière, mesure par dosimètre le premier hiver.\n• Sur le rebord du talus, le schiste peut être peu profond : sondage à la tarière avant de choisir pieux vissés ou plots.",
+      "color": "#C97B63",
+      "points": [
+        {
+          "lat": 49.225621583,
+          "lng": -0.904237948
+        },
+        {
+          "lat": 49.226197122,
+          "lng": -0.904237948
+        },
+        {
+          "lat": 49.226251079,
+          "lng": -0.904375497
+        },
+        {
+          "lat": 49.226314029,
+          "lng": -0.904623087
+        },
+        {
+          "lat": 49.226341007,
+          "lng": -0.904815657
+        },
+        {
+          "lat": 49.225661151,
+          "lng": -0.904815657
+        },
+        {
+          "lat": 49.225648561,
+          "lng": -0.904540557
+        },
+        {
+          "lat": 49.225603597,
+          "lng": -0.904375497
+        }
+      ],
+      "area": 3022,
+      "tags": [
+        "hameau",
+        "phase-2",
+        "zone"
+      ],
+      "photos": [
+        "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/31/Tiny_des_collines_%28DSC02070%29.jpg/960px-Tiny_des_collines_%28DSC02070%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+        "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/66/Cabin-Like_Tiny_Home_in_the_Woods.jpg/960px-Cabin-Like_Tiny_Home_in_the_Woods.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail"
+      ]
+    },
+    {
+      "id": "cl-foret-jardin",
+      "name": "Verger – forêt-jardin",
+      "category": "🌿 Végétation",
+      "notes": "POURQUOI ICI (bande nord du plateau) :\n• C'est la zone la plus lumineuse : loin de la haie sud des voisins, et la haie nord n'ombre que le champ.\n• Une fois la haie brise-vent nord épaissie, elle est abritée des vents froids de N–NE qui grillent les floraisons de printemps.\n• Elle est en aval de la noue : l'eau du plateau s'infiltre sous les arbres au lieu de partir au fossé.\n• Entre le potager (zone 2), la clairière des ateliers et le hameau (zone 3) : on la traverse tous les jours, donc on la récolte — et elle sert de support pédagogique aux ateliers du tiers-lieu (taille, greffe, guildes, cueillette).\n\nSTRUCTURE en gradins (les plus hauts au NORD, les plus bas au SUD vers le potager) :\n1. Canopée basse (6–8 m) le long de la haie nord : cerisier, pommier, poirier haute-tige + aulnes de Corse « nourrices » (fixent l'azote, recépés en BRF).\n2. Petits arbres (3–5 m) : néflier, cognassier, amélanchier, pommiers sur M106.\n3. Arbustes : cassissiers, groseilliers, argousier, éléagnus (fixateur d'azote, persistant).\n4. Herbacées vivaces : consoude (engrais), rhubarbe, oseille, poireau perpétuel, menthe en bac.\n5. Couvre-sol : fraisiers, trèfle blanc, ail des ours sous les arbres.\n6. Grimpantes : kiwaï, houblon, mûres sans épines sur les arbres morts/tuteurs.\n7. Rhizosphère : champignons (stropharia sur copeaux dans les allées).\n\nPlantation en lignes parallèles à la noue (courbes de niveau) → l'eau est répartie, et on garde des allées de 3 m pour la brouette. Paillage BRF épais dès la plantation (cet hiver : « à la Sainte-Catherine, tout bois prend racine », 25 novembre).\n\nSOL & PÂTURAGE :\n✔ Limon frais, assez profond, pH 5,7–6,1 : très bon pour pommiers, poiriers, noisetiers, cassis, groseilliers, kiwaï.\n⚠ Les pêchers et l'abricotier n'aiment pas le limon froid et humide : plantation sur butte (40 cm), que le piège à soleil et le mur de la maison commune complètent.\n⚠ Avec les animaux : une vache broute jusqu'à 2 m, un mouton écorce les jeunes troncs (surtout l'hiver). Tant qu'ils sont là : protections individuelles solides (grillage à mouton 1,2 m autour de chaque arbre, ou clôture de la zone). Plus tard (arbres de 5–7 ans) : des moutons peuvent tondre sous les hautes-tiges (sylvopastoralisme), jamais de vaches.",
+      "color": "#6F8B5C",
+      "points": [
+        {
+          "lat": 49.225828417,
+          "lng": -0.90313755
+        },
+        {
+          "lat": 49.225879676,
+          "lng": -0.903275099
+        },
+        {
+          "lat": 49.225971403,
+          "lng": -0.903550199
+        },
+        {
+          "lat": 49.22606223,
+          "lng": -0.903825298
+        },
+        {
+          "lat": 49.226153957,
+          "lng": -0.904100398
+        },
+        {
+          "lat": 49.226188129,
+          "lng": -0.904210438
+        },
+        {
+          "lat": 49.225936331,
+          "lng": -0.904210438
+        },
+        {
+          "lat": 49.225936331,
+          "lng": -0.903894073
+        },
+        {
+          "lat": 49.225855396,
+          "lng": -0.903845931
+        },
+        {
+          "lat": 49.225639568,
+          "lng": -0.903832176
+        },
+        {
+          "lat": 49.225603597,
+          "lng": -0.903797788
+        },
+        {
+          "lat": 49.225666547,
+          "lng": -0.903660239
+        },
+        {
+          "lat": 49.225733993,
+          "lng": -0.903495179
+        },
+        {
+          "lat": 49.225796942,
+          "lng": -0.903302609
+        }
+      ],
+      "area": 1859.6,
+      "tags": [
+        "phase-1",
+        "foret-jardin",
+        "zone"
+      ],
+      "photos": [
+        "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/b4/Alara_Permaculture_Forest_Garden_-_geograph.org.uk_-_6184172.jpg/960px-Alara_Permaculture_Forest_Garden_-_geograph.org.uk_-_6184172.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+        "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/6a/Forest_Garden_Maintenance.jpg/960px-Forest_Garden_Maintenance.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+        "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/ab/Agroforestry_contour_planting.jpg/960px-Agroforestry_contour_planting.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail"
+      ]
+    },
+    {
+      "id": "cl-potager",
+      "name": "Potager collectif — planches permanentes (≈ 1 300 m²)",
+      "category": "🥕 Potager",
+      "notes": "Zone 2 : potager partagé maison + hameau (~ 10–12 personnes).\n\nPOURQUOI ICI :\n• À 30 m de la maison et au départ du chemin : on y passe tous les jours (règle permaculture : ce qui demande le plus de soin le plus près).\n• Plein sud dégagé : il est à > 15 m de la haie sud, hors de son ombre de mai à septembre.\n• Partie haute et la plus sèche du plateau (71,5–72,5 m) : se ressuie plus vite au printemps en sol limoneux normand.\n• La limite nord suit la courbe de niveau 71,5 m : la noue qui la borde récupère l'eau des allées.\n\nConduite : planches de 1,20 m sur sol vivant (pas de labour), paillage foin du talus + BRF, rotations. Option 💡 : poulailler mobile (« chicken tractor ») qui passe sur les planches après récolte.\n\nClôturé (chevreuils et lapins probables avec la rivière et le champ) : voir « Clôture vivante du potager ».\n\nSOL & PÂTURAGE :\n✔ Limon riche en matière organique, pH ≈ 5,8 : idéal pour le maraîchage (on visera 6,2–6,5 avec un peu de chaux magnésienne si l'analyse le confirme).\n⚠ Le limon fait une croûte (« battance ») s'il reste nu sous la pluie : sol toujours couvert (paillage, engrais verts) — ce que prévoit le potager sur sol vivant.\n⚠ Ancienne prairie : les 2–3 premières années, larves de taupins, hannetons et tipules attaquent pommes de terre, carottes et salades. Avant de cultiver : bâche d'occultation 2–3 mois (ou passage de poules), courges et haricots en 1re année, racines ensuite.\n⚠ Retirer les animaux de cette zone au moins une saison avant les premières cultures et ne pas épandre de fumier frais sur les légumes mangés crus (risque E. coli).\nDécompacter à la grelinette (pas de labour) là où les vaches ont stationné.",
+      "color": "#D9A441",
+      "points": [
+        {
+          "lat": 49.225473201,
+          "lng": -0.90319257
+        },
+        {
+          "lat": 49.225783453,
+          "lng": -0.903178815
+        },
+        {
+          "lat": 49.225765468,
+          "lng": -0.903302609
+        },
+        {
+          "lat": 49.225702518,
+          "lng": -0.903495179
+        },
+        {
+          "lat": 49.225635072,
+          "lng": -0.903660239
+        },
+        {
+          "lat": 49.225572122,
+          "lng": -0.903797788
+        },
+        {
+          "lat": 49.225495683,
+          "lng": -0.903825298
+        },
+        {
+          "lat": 49.225446223,
+          "lng": -0.903618974
+        },
+        {
+          "lat": 49.225455216,
+          "lng": -0.903343874
+        }
+      ],
+      "area": 1174.5,
+      "tags": [
+        "phase-1",
+        "potager",
+        "zone"
+      ],
+      "photos": [
+        "https://upload.wikimedia.org/wikipedia/commons/3/39/Inside_a_polytunnel_-_geograph.org.uk_-_1614227.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+        "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/86/Chicken_tractor_in_use.jpg/960px-Chicken_tractor_in_use.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+        "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/d1/Kitchen_garden_at_Los_Poblanos.jpg/960px-Kitchen_garden_at_Los_Poblanos.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail"
+      ]
+    },
+    {
+      "id": "cl-lisiere-sud",
+      "name": "Lisière gourmande sud — petits fruits & ombre",
+      "category": "🌿 Végétation",
+      "notes": "Bande entre la haie des voisins et le chemin.\n\nPOURQUOI : elle est à l'ombre de la haie sud en hiver et au printemps (soleil bas), donc mauvaise pour les légumes mais parfaite pour ce qui aime la mi-ombre et la fraîcheur : cassissiers et groseilliers, rhubarbe, ail des ours, groseilliers à maquereau, bûches ensemencées de shiitakés/pleurotes, et le compost (qui préfère l'ombre).\n\nElle sert aussi de tampon visuel et sonore avec les bâtiments agricoles voisins.",
+      "color": "#976448",
+      "points": [
+        {
+          "lat": 49.225242086,
+          "lng": -0.903302609
+        },
+        {
+          "lat": 49.225405755,
+          "lng": -0.903302609
+        },
+        {
+          "lat": 49.225396763,
+          "lng": -0.903618974
+        },
+        {
+          "lat": 49.225455216,
+          "lng": -0.903894073
+        },
+        {
+          "lat": 49.225518165,
+          "lng": -0.904100398
+        },
+        {
+          "lat": 49.225495683,
+          "lng": -0.904100398
+        },
+        {
+          "lat": 49.225414748,
+          "lng": -0.9038308
+        },
+        {
+          "lat": 49.22532482,
+          "lng": -0.903550199
+        }
+      ],
+      "area": 387.1,
+      "tags": [
+        "phase-1",
+        "petits-fruits",
+        "zone"
+      ],
+      "photos": [
+        "https://thumb.wikimedia.org/wikipedia/commons/thumb/4/41/Blackcurrant_in_basket_2021_G1.jpg/960px-Blackcurrant_in_basket_2021_G1.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+        "https://upload.wikimedia.org/wikipedia/commons/2/24/Stachelbeere_%28Ribes_uva-crispa%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled"
+      ]
+    },
+    {
+      "id": "cl-haie-nord",
+      "name": "Haie brise-vent nord (côté champ)",
+      "category": "🌳 Arbres & Haies",
+      "notes": "LA haie prioritaire (à planter cet hiver).\n\nPOURQUOI :\n• Le champ nord est ouvert : les vents froids de N–NE (gelées tardives d'avril) y passent sans obstacle. Une haie brise-vent protège sur 10 à 15 fois sa hauteur.\n• Elle ne fait AUCUNE ombre à la parcelle (elle est au nord) → on peut la faire haute (8–15 m).\n• Tampon contre la dérive de pulvérisations agricoles si le champ est conventionnel.\n• Le fossé au pied = sol frais : essences de milieu humide.\n\nComposition (double rang en quinconce, 1 m sur le rang, 1,5 m entre rangs, en complément des arbres existants) :\n• Haut-jet : chêne pédonculé, aulne glutineux (bord de fossé), merisier, érable champêtre.\n• Cépées : noisetier, charme (garde ses feuilles sèches l'hiver), saule marsault, sureau.\n• Buissonnant : aubépine, prunellier, viorne obier, cornouiller sanguin, houx (persistant, coupe le vent d'hiver), églantier.\nPaillage, protections anti-chevreuil. En attendant qu'elle pousse (3–4 ans) : grillage à moutons doublé de lierre et chèvrefeuille côté champ, ou ganivelle.",
+      "color": "#2F5A3A",
+      "isLine": true,
+      "isCurve": false,
+      "thickness": 16,
+      "points": [
+        {
+          "lat": 49.225822122,
+          "lng": -0.903
+        },
+        {
+          "lat": 49.225896763,
+          "lng": -0.903244839
+        },
+        {
+          "lat": 49.226242086,
+          "lng": -0.904284715
+        },
+        {
+          "lat": 49.226397662,
+          "lng": -0.904987594
+        }
+      ],
+      "area": 0,
+      "tags": [
+        "phase-1",
+        "cloture",
+        "haie"
+      ],
+      "photos": [
+        "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/00/FieldWindbreaks.JPG/960px-FieldWindbreaks.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+        "https://upload.wikimedia.org/wikipedia/commons/e/eb/Mixed_hedgerow%2C_Marton_moor_-_geograph.org.uk_-_1131510.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+        "https://upload.wikimedia.org/wikipedia/commons/6/65/Hedge_laying_-_geograph.org.uk_-_380736.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled"
+      ]
+    },
+    {
+      "id": "cl-haie-sud",
+      "name": "Haie gourmande sud (côté voisins)",
+      "category": "🌳 Arbres & Haies",
+      "notes": "Renfort de la haie existante côté voisins (bâtiments agricoles visibles).\n\nPOURQUOI une haie BASSE (3–5 m) et non un écran haut : tout ce qu'on plante au sud ombre notre propre parcelle (à midi en décembre, une haie de 5 m fait 16 m d'ombre). On cherche donc l'intimité à hauteur d'yeux, pas la hauteur.\n\nComposition « gourmande » : noisetiers à fruits ('Merveille de Bollwiller', 'Fertile de Coutard' + pollinisateur), cornouiller mâle, néflier, sureau, amélanchier, éléagnus × ebbingei (persistant = écran d'hiver, fixe l'azote), poivrier du Sichuan (épineux = défensif).\nGestion : recépage des noisetiers par tiers tous les 7–8 ans → perches pour les plessis, tuteurs et piquets du site (autonomie en matériaux).",
+      "color": "#4E7A45",
+      "isLine": true,
+      "isCurve": false,
+      "thickness": 14,
+      "points": [
+        {
+          "lat": 49.225224101,
+          "lng": -0.903302609
+        },
+        {
+          "lat": 49.225394065,
+          "lng": -0.9038308
+        },
+        {
+          "lat": 49.225547842,
+          "lng": -0.904277837
+        },
+        {
+          "lat": 49.225639568,
+          "lng": -0.904508921
+        },
+        {
+          "lat": 49.225683633,
+          "lng": -0.904815657
+        }
+      ],
+      "area": 0,
+      "tags": [
+        "phase-1",
+        "cloture",
+        "haie"
+      ],
+      "photos": [
+        "https://upload.wikimedia.org/wikipedia/commons/4/41/Hazel_%28Corylus_avellana%29_-_geograph.org.uk_-_1189334.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+        "https://upload.wikimedia.org/wikipedia/commons/1/16/Hazel_Nuts_%28Corylus_avellana%29_-_geograph.org.uk_-_6559453.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+        "https://upload.wikimedia.org/wikipedia/commons/0/0c/Hazel_coppice_with_oak_standards_Hillcombe_Coppice_Dorset_-_geograph.org.uk_-_276247.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled"
+      ]
+    },
+    {
+      "id": "cl-cloture-potager",
+      "name": "Clôture vivante du potager (grillage + grimpantes)",
+      "category": "🌳 Arbres & Haies",
+      "notes": "Grillage de 1,80 m (anti-chevreuil) planté de grimpantes, chaque face selon son exposition :\n• Face SUD (le long du chemin, plein soleil) : vigne de table résistante (Muscat bleu, Vanessa) → raisin et ombre légère pour les marcheurs.\n• Face NORD (côté noue, fraîche) : houblon (repart chaque année, cônes pour bière/tisane) et mûres sans épines.\n• Face EST : kiwaï (Actinidia arguta, mâle + femelle), rustique à −25 °C.\n• Pied de grillage : capucines, consoude, ciboulette (barrière à limaces avec la mare).\nLe lierre est réservé aux clôtures loin du potager (il héberge des limaces) mais il est précieux ailleurs : floraison d'automne pour les pollinisateurs.",
+      "color": "#8C6D3F",
+      "isLine": true,
+      "isCurve": false,
+      "thickness": 4,
+      "points": [
+        {
+          "lat": 49.225473201,
+          "lng": -0.90319257
+        },
+        {
+          "lat": 49.225783453,
+          "lng": -0.903178815
+        },
+        {
+          "lat": 49.225765468,
+          "lng": -0.903302609
+        },
+        {
+          "lat": 49.225702518,
+          "lng": -0.903495179
+        },
+        {
+          "lat": 49.225635072,
+          "lng": -0.903660239
+        },
+        {
+          "lat": 49.225572122,
+          "lng": -0.903797788
+        },
+        {
+          "lat": 49.225495683,
+          "lng": -0.903825298
+        },
+        {
+          "lat": 49.225446223,
+          "lng": -0.903618974
+        },
+        {
+          "lat": 49.225455216,
+          "lng": -0.903343874
+        },
+        {
+          "lat": 49.225473201,
+          "lng": -0.90319257
+        }
+      ],
+      "area": 0,
+      "tags": [
+        "phase-1",
+        "cloture"
+      ],
+      "photos": [
+        "https://thumb.wikimedia.org/wikipedia/commons/thumb/c/c1/Humulus_lupulus_-_hops.jpg/960px-Humulus_lupulus_-_hops.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+        "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/09/Actinidia_arguta_fruit_-_hardy_kiwi_-_Kiwibeere_05.jpg/960px-Actinidia_arguta_fruit_-_hardy_kiwi_-_Kiwibeere_05.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+        "https://upload.wikimedia.org/wikipedia/commons/5/5a/Vine_pergola_in_Loseley_Park_gardens_-_geograph.org.uk_-_881305.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled"
+      ]
+    },
+    {
+      "id": "cl-benjes",
+      "name": "Haie sèche de Benjes (limite forêt-jardin / chemin)",
+      "category": "🌳 Arbres & Haies",
+      "notes": "Clôture « immédiate » et gratuite : deux rangées de piquets remplies des branches de taille et de débroussaillage. Elle délimite la forêt-jardin du chemin dès le jour 1, abrite oiseaux et hérissons, puis se transforme en haie vivante (les oiseaux y sèment). On la recharge chaque hiver avec les tailles.",
+      "color": "#7A5C3A",
+      "isLine": true,
+      "isCurve": false,
+      "thickness": 6,
+      "points": [
+        {
+          "lat": 49.225545144,
+          "lng": -0.903880318
+        },
+        {
+          "lat": 49.225648561,
+          "lng": -0.904210438
+        }
+      ],
+      "area": 0,
+      "tags": [
+        "phase-1",
+        "cloture"
+      ],
+      "photos": [
+        "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/70/Benjeshecke_%28Illingen%29_2020-05-21_%2801%29.jpg/960px-Benjeshecke_%28Illingen%29_2020-05-21_%2801%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+        "https://thumb.wikimedia.org/wikipedia/commons/thumb/4/41/Dead_hedge_in_Meephill_Copice_April_2019_3.jpg/960px-Dead_hedge_in_Meephill_Copice_April_2019_3.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail"
+      ]
+    },
+    {
+      "id": "cl-plessis1",
+      "name": "Plessis de noisetier & bosquet d'intimité 1",
+      "category": "🌳 Arbres & Haies",
+      "notes": "Écran entre deux tiny houses : plessis tressé avec les perches de noisetier des haies (matériau du site), doublé d'un bosquet (noisetiers en cépée, sureau, osier vivant, framboisiers sauvages). Hauteur 1,8–2 m : coupe la vue directe entre terrasses sans ombrer les toits.",
+      "color": "#8C6D3F",
+      "isLine": true,
+      "isCurve": false,
+      "thickness": 6,
+      "points": [
+        {
+          "lat": 49.225729496,
+          "lng": -0.904554312
+        },
+        {
+          "lat": 49.22583741,
+          "lng": -0.904595577
+        }
+      ],
+      "area": 0,
+      "tags": [
+        "hameau",
+        "cloture",
+        "phase-2"
+      ],
+      "photos": [
+        "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/1d/Braided_wattle_hurdle_fence_ivy_at_Riverside_Moorings%2C_Shoreham%2C_West_Sussex%2C_England_1.jpg/960px-Braided_wattle_hurdle_fence_ivy_at_Riverside_Moorings%2C_Shoreham%2C_West_Sussex%2C_England_1.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+        "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/0c/Wattle_hurdle_under_construction.JPG/960px-Wattle_hurdle_under_construction.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+        "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/a0/Coppiced_hazel_-_geograph.org.uk_-_5370785.jpg/960px-Coppiced_hazel_-_geograph.org.uk_-_5370785.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail"
+      ]
+    },
+    {
+      "id": "cl-plessis2",
+      "name": "Plessis de noisetier & bosquet d'intimité 2",
+      "category": "🌳 Arbres & Haies",
+      "notes": "Écran entre deux tiny houses : plessis tressé avec les perches de noisetier des haies (matériau du site), doublé d'un bosquet (noisetiers en cépée, sureau, osier vivant, framboisiers sauvages). Hauteur 1,8–2 m : coupe la vue directe entre terrasses sans ombrer les toits.",
+      "color": "#8C6D3F",
+      "isLine": true,
+      "isCurve": false,
+      "thickness": 6,
+      "points": [
+        {
+          "lat": 49.225954317,
+          "lng": -0.904609332
+        },
+        {
+          "lat": 49.225927338,
+          "lng": -0.904774392
+        }
+      ],
+      "area": 0,
+      "tags": [
+        "hameau",
+        "cloture",
+        "phase-2"
+      ],
+      "photos": [
+        "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/1d/Braided_wattle_hurdle_fence_ivy_at_Riverside_Moorings%2C_Shoreham%2C_West_Sussex%2C_England_1.jpg/960px-Braided_wattle_hurdle_fence_ivy_at_Riverside_Moorings%2C_Shoreham%2C_West_Sussex%2C_England_1.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+        "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/0c/Wattle_hurdle_under_construction.JPG/960px-Wattle_hurdle_under_construction.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail"
+      ]
+    },
+    {
+      "id": "cl-plessis3",
+      "name": "Plessis de noisetier & bosquet d'intimité 3",
+      "category": "🌳 Arbres & Haies",
+      "notes": "Écran entre deux tiny houses : plessis tressé avec les perches de noisetier des haies (matériau du site), doublé d'un bosquet (noisetiers en cépée, sureau, osier vivant, framboisiers sauvages). Hauteur 1,8–2 m : coupe la vue directe entre terrasses sans ombrer les toits.",
+      "color": "#8C6D3F",
+      "isLine": true,
+      "isCurve": false,
+      "thickness": 6,
+      "points": [
+        {
+          "lat": 49.226098201,
+          "lng": -0.904513047
+        },
+        {
+          "lat": 49.226197122,
+          "lng": -0.904595577
+        }
+      ],
+      "area": 0,
+      "tags": [
+        "hameau",
+        "cloture",
+        "phase-2"
+      ],
+      "photos": [
+        "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/1d/Braided_wattle_hurdle_fence_ivy_at_Riverside_Moorings%2C_Shoreham%2C_West_Sussex%2C_England_1.jpg/960px-Braided_wattle_hurdle_fence_ivy_at_Riverside_Moorings%2C_Shoreham%2C_West_Sussex%2C_England_1.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+        "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/0c/Wattle_hurdle_under_construction.JPG/960px-Wattle_hurdle_under_construction.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail"
+      ]
+    },
+    {
+      "id": "cl-noue",
+      "name": "Noue d'infiltration sur courbe de niveau (71,5 m)",
+      "category": "🌊 Eau & Bassin",
+      "notes": "Fossé large et peu profond (40 cm), PARFAITEMENT à niveau, creusé sur la courbe 71,5 m relevée par l'IGN (à repiqueter au niveau laser/à eau sur place).\n\nPOURQUOI : le plateau penche vers le nord-ouest ; aujourd'hui l'eau de pluie file au fossé nord. La noue l'arrête, la fait s'infiltrer, et réhydrate le sol sous la forêt-jardin, en aval. La terre extraite forme une butte côté aval où l'on plante la première ligne d'arbres (racines au sec en hiver, à l'eau en été → important en sol normand qui gorge l'hiver).\nElle est aussi alimentée à son extrémité est par le trop-plein du bassin de finition (eau épurée du filtre à roseaux). Le trop-plein part à l'ouest vers la rigole puis la mare n°2.\n\nSOL :\nLimon argileux + tassement par le bétail : l'infiltration sera modérée. Faire un test de percolation (trou de 30 cm rempli d'eau, mesurer la baisse en 1 h) avant de fixer la longueur ; décompacter le fond à la grelinette et planter la butte aval aussitôt (racines = drains vivants).",
+      "color": "#5A9FA1",
+      "isLine": true,
+      "isCurve": false,
+      "thickness": 10,
+      "points": [
+        {
+          "lat": 49.225814928,
+          "lng": -0.90311004
+        },
+        {
+          "lat": 49.225783453,
+          "lng": -0.903302609
+        },
+        {
+          "lat": 49.225720504,
+          "lng": -0.903495179
+        },
+        {
+          "lat": 49.225653058,
+          "lng": -0.903660239
+        },
+        {
+          "lat": 49.225590108,
+          "lng": -0.903797788
+        }
+      ],
+      "area": 0,
+      "tags": [
+        "phase-1",
+        "eau"
+      ],
+      "photos": [
+        "https://thumb.wikimedia.org/wikipedia/commons/thumb/4/4d/Agroforestry_alley_cropping_%26_Wisconsin_River%2C_Savanna_Institute_farm_2024.jpg/960px-Agroforestry_alley_cropping_%26_Wisconsin_River%2C_Savanna_Institute_farm_2024.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+        "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/59/Drainage_swale%2C_Field_End_Gardens_-_geograph.org.uk_-_7470767.jpg/960px-Drainage_swale%2C_Field_End_Gardens_-_geograph.org.uk_-_7470767.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail"
+      ]
+    },
+    {
+      "id": "cl-rigole",
+      "name": "Rigole de trop-plein → mare n°2",
+      "category": "🌊 Eau & Bassin",
+      "notes": "Rigole enherbée qui suit la pente naturelle vers le point bas du plateau, en bordure est de la clairière des ateliers (support pédagogique : on y montre le trajet de l'eau noue → rigole → mare → fossé). Pas japonais là où le sentier la croise.",
+      "color": "#7FB6B8",
+      "isLine": false,
+      "isCurve": true,
+      "thickness": 5,
+      "points": [
+        {
+          "lat": 49.225590108,
+          "lng": -0.903797788
+        },
+        {
+          "lat": 49.225657554,
+          "lng": -0.903832176
+        },
+        {
+          "lat": 49.225747482,
+          "lng": -0.903839053
+        },
+        {
+          "lat": 49.225855396,
+          "lng": -0.903852808
+        },
+        {
+          "lat": 49.225954317,
+          "lng": -0.903907828
+        },
+        {
+          "lat": 49.22601277,
+          "lng": -0.903976603
+        }
+      ],
+      "area": 0,
+      "tags": [
+        "phase-1",
+        "eau"
+      ],
+      "photos": []
+    },
+    {
+      "id": "cl-mare2",
+      "name": "Mare naturelle n°2 (point bas du plateau)",
+      "category": "🌊 Eau & Bassin",
+      "notes": "POURQUOI ICI : c'est le point le plus bas du plateau (≈ 70,0 m, coin nord-ouest) où l'eau converge déjà, sur sol argileux frais → la mare tiendra probablement l'eau sans bâche (test : trou de 50 cm rempli, observer 48 h).\n• Au cœur de la forêt-jardin : grenouilles, crapauds et carabes contre les limaces ; abreuvoir pour les oiseaux insectivores ; microclimat plus doux (moins de gel).\n• Ensoleillée par le sud (rien de haut au sud), le saule est placé au NORD pour ne pas l'ombrer.\nProfil : 1 berge en pente très douce (1/5), une zone à 80–100 cm, pas de poissons. Trop-plein vers le fossé nord.\n\nDifférence avec la proposition ChatGPT : sa mare était sur la partie la plus haute et sèche (72,4 m), au pied de la haie des voisins → ombragée et sans arrivée d'eau naturelle.\n\nSOL & PÂTURAGE :\nAvec ≈ 24 % d'argile et des cailloux de schiste, l'étanchéité naturelle n'est pas garantie : faire le test du trou rempli ; si l'eau baisse vite, corroyer le fond (argile compactée), sinon bâche EPDM.\nLes animaux piétinent les berges et enrichissent l'eau (déjections → algues) : clôturer la mare, avec au besoin un seul accès empierré pour l'abreuvement.",
+      "color": "#5A9FA1",
+      "isCircle": true,
+      "center": {
+        "lat": 49.226053237,
+        "lng": -0.903990358
+      },
+      "radius": 4.5,
+      "area": 63.6,
+      "points": [],
+      "tags": [
+        "phase-1",
+        "eau",
+        "biodiversite"
+      ],
+      "photos": [
+        "https://upload.wikimedia.org/wikipedia/commons/b/b9/Frogs_in_a_garden_pond_-_geograph.org.uk_-_4393452.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+        "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/aa/Common_Frog_%28Rana_temporaria%29_by_a_garden_pond%2C_Melling_-_geograph.org.uk_-_3934346.jpg/960px-Common_Frog_%28Rana_temporaria%29_by_a_garden_pond%2C_Melling_-_geograph.org.uk_-_3934346.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail"
+      ]
+    },
+    {
+      "id": "cl-phyto",
+      "name": "Filtre planté (eaux grises du hameau)",
+      "category": "🌊 Eau & Bassin",
+      "notes": "Phyto-épuration des eaux grises (douches, éviers) des 4 tiny houses + maison commune ; WC = toilettes sèches (pas d'eaux noires → filtre petit, ≈ 20–25 m²).\n\nPOURQUOI ICI : en contrebas du hameau (≈ 1,5 m plus bas) → écoulement par GRAVITÉ, sans pompe. En plein soleil (roseaux), dans la fenêtre de vue mais bas (ne la bouche pas). Loin du puits (> 140 m) et à distance de la rivière.\n⚠ Dossier SPANC obligatoire (assainissement non collectif) avant travaux.",
+      "color": "#4F8A8B",
+      "isCircle": true,
+      "center": {
+        "lat": 49.225999281,
+        "lng": -0.904870676
+      },
+      "radius": 3,
+      "area": 28.3,
+      "points": [],
+      "tags": [
+        "hameau",
+        "eau",
+        "phase-2"
+      ],
+      "photos": [
+        "https://thumb.wikimedia.org/wikipedia/commons/thumb/2/2b/Reed_bed_sewage_system%2C_Cardrona_-_geograph.org.uk_-_4329504.jpg/960px-Reed_bed_sewage_system%2C_Cardrona_-_geograph.org.uk_-_4329504.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail"
+      ]
+    },
+    {
+      "id": "cl-filtre-roseaux",
+      "name": "Filtre planté de roseaux (à la place de la fosse)",
+      "category": "🌊 Eau & Bassin",
+      "notes": "L'ancienne fosse devient le POINT DE DÉPART des chemins d'eau.\n\nPrincipe : la fosse existante est gardée comme décanteur (prétraitement), puis l'eau passe dans un filtre vertical planté de roseaux (Phragmites) ≈ 15–20 m² pour la maison (≈ 2,5–3 m²/EH ; moins si la maison passe aussi aux toilettes sèches : il ne reste que les eaux grises). Ensuite, l'eau épurée sort dans le ruisseau des arches.\n\nPOURQUOI ICI : c'est le point haut de la chaîne (73,1 m, relevé IGN). L'eau descend par gravité : bassin de finition 72,0 m → mare existante 71,85 m → noue 71,45 m → rigole → mare n°2 (70,2 m) → fossé.\n⚠ Dénivelé faible (≈ 1 m jusqu'au bassin) : soit filtre semi-enterré (surélevé de 50–60 cm en butte paysagée), soit petite pompe de relevage en sortie. Relevé topographique sur place indispensable.\n⚠ Remplacer/modifier un assainissement = dossier SPANC, et filtre agréé. Le rejet vers mares et noue (« zone de rejet végétalisée ») doit être accepté par le SPANC ; sinon, la noue sert d'infiltration. Eau épurée ≠ eau d'arrosage pour les légumes, ni de baignade.",
+      "color": "#4F8A8B",
+      "isCircle": true,
+      "center": {
+        "lat": 49.225405755,
+        "lng": -0.902931225
+      },
+      "radius": 2.3,
+      "area": 16.6,
+      "points": [],
+      "tags": [
+        "eau",
+        "assainissement",
+        "phase-1"
+      ],
+      "photos": [
+        "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/88/Reed_bed_sewage_system%2C_Cardrona_%282%29_-_geograph.org.uk_-_6384058.jpg/960px-Reed_bed_sewage_system%2C_Cardrona_%282%29_-_geograph.org.uk_-_6384058.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+        "https://upload.wikimedia.org/wikipedia/commons/8/80/Reed_filter_bed%2C_Biggin_sewage_works_-_geograph.org.uk_-_1862572.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+        "https://thumb.wikimedia.org/wikipedia/commons/thumb/4/43/Phragmites_australis_Vikmanshyttesj%C3%B6n.jpg/960px-Phragmites_australis_Vikmanshyttesj%C3%B6n.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail"
+      ]
+    },
+    {
+      "id": "cl-ruisseau",
+      "name": "Ruisseau des arches (eau épurée)",
+      "category": "🌊 Eau & Bassin",
+      "notes": "Rigole peu profonde (pente ≈ 3 %) qui longe le côté est de l'allée d'arches, du filtre à roseaux au bassin de finition. Fond en argile ou galets, berges plantées : iris des marais, menthe aquatique, salicaire, populage, reine-des-prés. Les plantes finissent l'épuration et l'oxygénation.\nVitrine du lieu : les visiteurs la longent depuis l'accueil. Passage busé sous le chemin carrossable, pas japonais pour le sentier.",
+      "color": "#5A9FA1",
+      "isLine": false,
+      "isCurve": true,
+      "thickness": 6,
+      "points": [
+        {
+          "lat": 49.225428237,
+          "lng": -0.902931225
+        },
+        {
+          "lat": 49.225468705,
+          "lng": -0.902986245
+        },
+        {
+          "lat": 49.225531655,
+          "lng": -0.902965613
+        },
+        {
+          "lat": 49.225594604,
+          "lng": -0.902931225
+        },
+        {
+          "lat": 49.225657554,
+          "lng": -0.902958735
+        },
+        {
+          "lat": 49.225689029,
+          "lng": -0.903
+        }
+      ],
+      "area": 0,
+      "tags": [
+        "eau",
+        "assainissement",
+        "phase-1"
+      ],
+      "photos": [
+        "https://thumb.wikimedia.org/wikipedia/commons/thumb/2/2b/Reed_bed_sewage_system%2C_Cardrona_-_geograph.org.uk_-_4329504.jpg/960px-Reed_bed_sewage_system%2C_Cardrona_-_geograph.org.uk_-_4329504.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+        "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/51/Iris_pseudacorus_LC0338.jpg/960px-Iris_pseudacorus_LC0338.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail"
+      ]
+    },
+    {
+      "id": "cl-bassin-finition",
+      "name": "Bassin de finition (zone de rejet végétalisée)",
+      "category": "🌊 Eau & Bassin",
+      "notes": "Petit bassin planté de 25–30 m², peu profond (40–60 cm), où l'eau épurée termine son traitement au soleil (UV) et dans les racines. C'est le « répartiteur » : un trop-plein à l'EST rejoint la mare existante, un trop-plein à l'OUEST alimente la noue de la forêt-jardin.\nTout à côté du sentier des visiteurs : panneau pédagogique sur le trajet de l'eau.",
+      "color": "#5A9FA1",
+      "isCircle": true,
+      "center": {
+        "lat": 49.225711511,
+        "lng": -0.903013755
+      },
+      "radius": 3,
+      "area": 28.3,
+      "points": [],
+      "tags": [
+        "eau",
+        "assainissement",
+        "phase-1"
+      ],
+      "photos": [
+        "https://upload.wikimedia.org/wikipedia/commons/b/b9/Frogs_in_a_garden_pond_-_geograph.org.uk_-_4393452.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+        "https://thumb.wikimedia.org/wikipedia/commons/thumb/4/43/Pond_reeds%2C_Merriments_gardens_-_geograph.org.uk_-_4601363.jpg/960px-Pond_reeds%2C_Merriments_gardens_-_geograph.org.uk_-_4601363.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail"
+      ]
+    },
+    {
+      "id": "cl-tp-mare",
+      "name": "Trop-plein → mare existante",
+      "category": "🌊 Eau & Bassin",
+      "notes": "Seuil réglable : en été on envoie l'eau vers la mare existante pour la garder en eau.",
+      "color": "#7FB6B8",
+      "isLine": true,
+      "isCurve": false,
+      "thickness": 4,
+      "points": [
+        {
+          "lat": 49.225720504,
+          "lng": -0.90297249
+        },
+        {
+          "lat": 49.225751978,
+          "lng": -0.902892711
+        }
+      ],
+      "area": 0,
+      "tags": [
+        "eau"
+      ],
+      "photos": []
+    },
+    {
+      "id": "cl-tp-noue",
+      "name": "Trop-plein → noue",
+      "category": "🌊 Eau & Bassin",
+      "notes": "Seuil réglable : en hiver, quand la mare est pleine, l'eau part dans la noue, s'infiltre sous la forêt-jardin et rejoint, si elle déborde, la rigole puis la mare n°2.",
+      "color": "#7FB6B8",
+      "isLine": true,
+      "isCurve": false,
+      "thickness": 4,
+      "points": [
+        {
+          "lat": 49.225729496,
+          "lng": -0.903048142
+        },
+        {
+          "lat": 49.225814928,
+          "lng": -0.90311004
+        }
+      ],
+      "area": 0,
+      "tags": [
+        "eau"
+      ],
+      "photos": []
+    },
+    {
+      "id": "cl-chemin",
+      "name": "Chemin principal carrossable (3,5 m, enherbé renforcé)",
+      "category": "🛤 Chemin & Terrasse",
+      "notes": "Un seul axe roulant, du parking au hameau, le long de la bande SUD.\n\nDépart : il sort du parking par son angle NORD-OUEST, passe au-dessus des arches puis longe le potager. Il ne passe donc PAS entre la terrasse et les arches : il y roulerait sur le filtre à roseaux (ancienne fosse) et frôlerait la terrasse familiale. Le ruisseau des arches est franchi par un passage busé.\n\nPOURQUOI au sud et pas en boucle :\n• La bande sud est de toute façon ombrée par la haie des voisins : on y met le chemin plutôt que des cultures.\n• Il laisse d'un seul tenant toute la moitié nord, la plus lumineuse, pour le potager et la forêt-jardin.\n• Il reste sur le plateau (pente < 3 %) : une remorque de tiny house n'y risque rien, même sur herbe mouillée.\n• Les réseaux (eau, électricité, fibre) sont enterrés dans la même tranchée, en bordure : on ne creuse qu'une fois et jamais sous les arbres.\nConstruction : décaissement 20 cm, géotextile, tout-venant concassé + dalles gazon alvéolées sur les 2 virages. Usage quotidien piéton/vélo/brouette ; véhicules seulement pour les livraisons (broyat, bois) et les déménagements.",
+      "color": "#9A7653",
+      "isLine": true,
+      "isCurve": false,
+      "thickness": 16,
+      "points": [
+        {
+          "lat": 49.225603597,
+          "lng": -0.902697391
+        },
+        {
+          "lat": 49.22566205,
+          "lng": -0.90294498
+        },
+        {
+          "lat": 49.225630576,
+          "lng": -0.90311004
+        },
+        {
+          "lat": 49.225513669,
+          "lng": -0.903130672
+        },
+        {
+          "lat": 49.225459712,
+          "lng": -0.90316506
+        },
+        {
+          "lat": 49.225432734,
+          "lng": -0.90324759
+        },
+        {
+          "lat": 49.225432734,
+          "lng": -0.903343874
+        },
+        {
+          "lat": 49.225423741,
+          "lng": -0.903618974
+        },
+        {
+          "lat": 49.225477698,
+          "lng": -0.903894073
+        },
+        {
+          "lat": 49.22554964,
+          "lng": -0.904127908
+        },
+        {
+          "lat": 49.225639568,
+          "lng": -0.904320477
+        }
+      ],
+      "area": 0,
+      "tags": [
+        "phase-1",
+        "circulation"
+      ],
+      "photos": []
+    },
+    {
+      "id": "cl-retournement",
+      "name": "Aire de retournement & dépose",
+      "category": "🛤 Chemin & Terrasse",
+      "notes": "Diamètre 14 m pour faire demi-tour avec un petit tracteur ou un 4×4 + remorque. Seul endroit où un véhicule entre dans le hameau ; les voitures des habitants restent au parking de la maison (hameau sans voiture = calme et sécurité des enfants). Sert aussi à décharger le bois et le broyat.",
+      "color": "#C79A62",
+      "isCircle": true,
+      "center": {
+        "lat": 49.225657554,
+        "lng": -0.904347987
+      },
+      "radius": 7,
+      "area": 153.9,
+      "points": [],
+      "tags": [
+        "hameau",
+        "circulation",
+        "phase-2"
+      ],
+      "photos": []
+    },
+    {
+      "id": "cl-reseaux",
+      "name": "Tranchée réseaux (eau, électricité, fibre)",
+      "category": "🛤 Chemin & Terrasse",
+      "notes": "Tracé de principe (départ côté ouest de la maison, à confirmer selon l'arrivée des compteurs ; jamais au travers du filtre à roseaux) : sous l'accotement sud du chemin (jamais sous les arbres), puis le long de la limite forêt-jardin jusqu'à la maison commune, qui sert de point de distribution vers les 4 maisons (compteurs divisionnaires).\nPrévoir des fourreaux en attente (TH3, TH4, éclairage) dès la première tranchée.",
+      "color": "#7D7D7D",
+      "isLine": true,
+      "isCurve": false,
+      "thickness": 3,
+      "points": [
+        {
+          "lat": 49.225414748,
+          "lng": -0.90308253
+        },
+        {
+          "lat": 49.22543723,
+          "lng": -0.90316506
+        },
+        {
+          "lat": 49.225414748,
+          "lng": -0.90324759
+        },
+        {
+          "lat": 49.225414748,
+          "lng": -0.903343874
+        },
+        {
+          "lat": 49.225405755,
+          "lng": -0.903618974
+        },
+        {
+          "lat": 49.225459712,
+          "lng": -0.903894073
+        },
+        {
+          "lat": 49.225531655,
+          "lng": -0.904127908
+        },
+        {
+          "lat": 49.225603597,
+          "lng": -0.904224193
+        },
+        {
+          "lat": 49.225927338,
+          "lng": -0.904224193
+        },
+        {
+          "lat": 49.225963309,
+          "lng": -0.904265458
+        }
+      ],
+      "area": 0,
+      "tags": [
+        "hameau",
+        "reseaux",
+        "phase-2"
+      ],
+      "photos": []
+    },
+    {
+      "id": "cl-sentier",
+      "name": "Sentier des visiteurs & de la forêt-jardin (copeaux)",
+      "category": "🛤 Chemin & Terrasse",
+      "notes": "Sentier qui part de l'ACCUEIL : visiteurs et habitants suivent le même fil accueil → bassin de finition → potager → verger–forêt-jardin → clairière des ateliers → mare → hameau (portillon). Il passe DEVANT le piège à soleil et le long de la mare : on récolte et on observe en marchant. Largeur 1,2 m, copeaux sur carton.",
+      "color": "#B3925F",
+      "isLine": false,
+      "isCurve": true,
+      "thickness": 5,
+      "points": [
+        {
+          "lat": 49.225585612,
+          "lng": -0.90288996
+        },
+        {
+          "lat": 49.225621583,
+          "lng": -0.902931225
+        },
+        {
+          "lat": 49.22567554,
+          "lng": -0.90308253
+        },
+        {
+          "lat": 49.225792446,
+          "lng": -0.90313755
+        },
+        {
+          "lat": 49.225810432,
+          "lng": -0.903343874
+        },
+        {
+          "lat": 49.22577446,
+          "lng": -0.903550199
+        },
+        {
+          "lat": 49.225801439,
+          "lng": -0.903756524
+        },
+        {
+          "lat": 49.225891367,
+          "lng": -0.903852808
+        },
+        {
+          "lat": 49.225981295,
+          "lng": -0.903866563
+        },
+        {
+          "lat": 49.226008273,
+          "lng": -0.903962848
+        },
+        {
+          "lat": 49.225999281,
+          "lng": -0.904100398
+        },
+        {
+          "lat": 49.225981295,
+          "lng": -0.904210438
+        }
+      ],
+      "area": 0,
+      "tags": [
+        "circulation",
+        "phase-1"
+      ],
+      "photos": []
+    },
+    {
+      "id": "cl-belvedere-sentier",
+      "name": "Sentier du belvédère",
+      "category": "🛤 Chemin & Terrasse",
+      "notes": "Descend en biais (pente adoucie) de la place du hameau vers la rivière, entre les deux groupes de chênes.",
+      "color": "#B3925F",
+      "isLine": false,
+      "isCurve": true,
+      "thickness": 4,
+      "points": [
+        {
+          "lat": 49.225972302,
+          "lng": -0.904430517
+        },
+        {
+          "lat": 49.225990288,
+          "lng": -0.904678107
+        },
+        {
+          "lat": 49.226053237,
+          "lng": -0.904788147
+        },
+        {
+          "lat": 49.226035252,
+          "lng": -0.905008226
+        },
+        {
+          "lat": 49.225990288,
+          "lng": -0.905173286
+        }
+      ],
+      "area": 0,
+      "tags": [
+        "hameau"
+      ],
+      "photos": []
+    },
+    {
+      "id": "cl-belvedere",
+      "name": "Banc du belvédère",
+      "category": "🛤 Chemin & Terrasse",
+      "notes": "Point de vue sur la rivière au couchant, dans la « fenêtre » laissée libre entre les chênes.",
+      "color": "#B3925F",
+      "isCircle": true,
+      "center": {
+        "lat": 49.225981295,
+        "lng": -0.905214551
+      },
+      "radius": 2,
+      "area": 12.6,
+      "points": [],
+      "tags": [
+        "hameau"
+      ],
+      "photos": [
+        "https://upload.wikimedia.org/wikipedia/commons/b/be/Bench_by_the_river_-_geograph.org.uk_-_355609.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+        "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/90/Bench_by_River_Tay.jpg/960px-Bench_by_River_Tay.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail"
+      ]
+    },
+    {
+      "id": "cl-place",
+      "name": "Place du hameau (clairière commune)",
+      "category": "⛺ Espace de vie",
+      "notes": "Clairière de 16 m : feu de camp, grande table, pergola de vigne. Les 4 maisons s'ouvrent dessus mais à 20–25 m de distance (vie collective choisie, pas subie). Ouverte à l'ouest vers la fenêtre de vue sur la rivière.",
+      "color": "#E0B47A",
+      "isCircle": true,
+      "center": {
+        "lat": 49.225972302,
+        "lng": -0.904485537
+      },
+      "radius": 8,
+      "area": 201.1,
+      "points": [],
+      "tags": [
+        "hameau",
+        "phase-2"
+      ],
+      "photos": [
+        "https://upload.wikimedia.org/wikipedia/commons/5/5a/Vine_pergola_in_Loseley_Park_gardens_-_geograph.org.uk_-_881305.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled"
+      ]
+    },
+    {
+      "id": "cl-commune",
+      "name": "Maison commune (cuisine, sanitaires, buanderie)",
+      "category": "🛖 Structure",
+      "notes": "≈ 40 m² : cuisine d'été/hiver partagée, douches, toilettes sèches, buanderie, congélateur collectif, stockage des récoltes.\n\nPOURQUOI ICI : charnière entre forêt-jardin (on y arrive par le sentier, les bras chargés) et place du hameau. Point d'arrivée des réseaux.\n• Son toit (≈ 50 m²) alimente une cuve de 5 m³ : arrosage des myrtilliers (qui exigent de l'eau de pluie non calcaire) et sanitaires.\n• Son mur SUD porte l'abricotier palissé ; son côté NORD offre la mi-ombre au poivrier de Tasmanie.",
+      "color": "#B89162",
+      "points": [
+        {
+          "lat": 49.225967806,
+          "lng": -0.904237948
+        },
+        {
+          "lat": 49.225967806,
+          "lng": -0.904347987
+        },
+        {
+          "lat": 49.22601277,
+          "lng": -0.904347987
+        },
+        {
+          "lat": 49.22601277,
+          "lng": -0.904237948
+        }
+      ],
+      "area": 40,
+      "tags": [
+        "hameau",
+        "phase-2"
+      ],
+      "photos": [
+        "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/6d/Rainwater_harvesting_tank_%285981896147%29.jpg/960px-Rainwater_harvesting_tank_%285981896147%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail"
+      ]
+    },
+    {
+      "id": "cl-th1",
+      "name": "Tiny house 1 (sud-est)",
+      "category": "⛺ Espace de vie",
+      "notes": "La plus proche de l'arrivée : idéale pour une personne âgée, à mobilité réduite ou le « gardien » du hameau. Vitrage plein sud vers le sentier fruitier, terrasse à l'ouest.\n\nCommun aux 4 : cercle = maison (≈ 7,2 × 2,55 m) + terrasse. Grand côté orienté est-ouest, vitrages au sud, débord de toit/pergola pour l'été. Raccordée à la maison commune (eau, élec), eaux grises → filtre planté, toilettes sèches. Pas sous un grand arbre (chutes de branches, humidité du bardage).",
+      "color": "#C97B63",
+      "isCircle": true,
+      "center": {
+        "lat": 49.225801439,
+        "lng": -0.904430517
+      },
+      "radius": 5,
+      "area": 78.5,
+      "points": [],
+      "tags": [
+        "hameau",
+        "tiny-house",
+        "phase-2"
+      ],
+      "photos": [
+        "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/63/Tiny_des_collines_%28DSC02109%29.jpg/960px-Tiny_des_collines_%28DSC02109%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+        "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/77/Tiny_des_collines_%28DSC02049%29.jpg/960px-Tiny_des_collines_%28DSC02049%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+        "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/7e/Tiny_des_collines_%28DSC02129%29.jpg/960px-Tiny_des_collines_%28DSC02129%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail"
+      ]
+    },
+    {
+      "id": "cl-th2",
+      "name": "Tiny house 2 (sud-ouest, vue vallée)",
+      "category": "⛺ Espace de vie",
+      "notes": "Sur le rebord du talus : terrasse sur pilotis vissés côté ouest avec vue rivière. Ombre des chênes en fin d'après-midi d'été (évite la surchauffe). Châssis calé sur vérins (pente ≈ 6 %).\n\nCommun aux 4 : cercle = maison (≈ 7,2 × 2,55 m) + terrasse. Grand côté orienté est-ouest, vitrages au sud, débord de toit/pergola pour l'été. Raccordée à la maison commune (eau, élec), eaux grises → filtre planté, toilettes sèches. Pas sous un grand arbre (chutes de branches, humidité du bardage).",
+      "color": "#C97B63",
+      "isCircle": true,
+      "center": {
+        "lat": 49.225855396,
+        "lng": -0.904719372
+      },
+      "radius": 5,
+      "area": 78.5,
+      "points": [],
+      "tags": [
+        "hameau",
+        "tiny-house",
+        "phase-2"
+      ],
+      "photos": [
+        "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/63/Tiny_des_collines_%28DSC02109%29.jpg/960px-Tiny_des_collines_%28DSC02109%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+        "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/77/Tiny_des_collines_%28DSC02049%29.jpg/960px-Tiny_des_collines_%28DSC02049%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+        "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/7e/Tiny_des_collines_%28DSC02129%29.jpg/960px-Tiny_des_collines_%28DSC02129%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail"
+      ]
+    },
+    {
+      "id": "cl-th3",
+      "name": "Tiny house 3 (nord-ouest, vue vallée)",
+      "category": "⛺ Espace de vie",
+      "notes": "Pendant de TH2 au nord de la fenêtre de vue. Bosquet d'intimité vers la place. À 24 m du chêne le plus proche (couronne adulte ≈ 10 m de rayon : pas de branches au-dessus du toit).\n\nCommun aux 4 : cercle = maison (≈ 7,2 × 2,55 m) + terrasse. Grand côté orienté est-ouest, vitrages au sud, débord de toit/pergola pour l'été. Raccordée à la maison commune (eau, élec), eaux grises → filtre planté, toilettes sèches. Pas sous un grand arbre (chutes de branches, humidité du bardage).",
+      "color": "#C97B63",
+      "isCircle": true,
+      "center": {
+        "lat": 49.226107194,
+        "lng": -0.904733127
+      },
+      "radius": 5,
+      "area": 78.5,
+      "points": [],
+      "tags": [
+        "hameau",
+        "tiny-house",
+        "phase-3"
+      ],
+      "photos": [
+        "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/63/Tiny_des_collines_%28DSC02109%29.jpg/960px-Tiny_des_collines_%28DSC02109%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+        "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/77/Tiny_des_collines_%28DSC02049%29.jpg/960px-Tiny_des_collines_%28DSC02049%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+        "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/7e/Tiny_des_collines_%28DSC02129%29.jpg/960px-Tiny_des_collines_%28DSC02129%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail"
+      ]
+    },
+    {
+      "id": "cl-th4",
+      "name": "Tiny house 4 (nord, lisière)",
+      "category": "⛺ Espace de vie",
+      "notes": "Adossée à la haie brise-vent nord : la plus abritée et la plus intime. Vitrage sud vers la place ; regard sur la mare et le saule.\n\nCommun aux 4 : cercle = maison (≈ 7,2 × 2,55 m) + terrasse. Grand côté orienté est-ouest, vitrages au sud, débord de toit/pergola pour l'été. Raccordée à la maison commune (eau, élec), eaux grises → filtre planté, toilettes sèches. Pas sous un grand arbre (chutes de branches, humidité du bardage).",
+      "color": "#C97B63",
+      "isCircle": true,
+      "center": {
+        "lat": 49.226206115,
+        "lng": -0.904430517
+      },
+      "radius": 5,
+      "area": 78.5,
+      "points": [],
+      "tags": [
+        "hameau",
+        "tiny-house",
+        "phase-3"
+      ],
+      "photos": [
+        "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/63/Tiny_des_collines_%28DSC02109%29.jpg/960px-Tiny_des_collines_%28DSC02109%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+        "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/77/Tiny_des_collines_%28DSC02049%29.jpg/960px-Tiny_des_collines_%28DSC02049%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+        "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/7e/Tiny_des_collines_%28DSC02129%29.jpg/960px-Tiny_des_collines_%28DSC02129%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail"
+      ]
+    },
+    {
+      "id": "cl-serre",
+      "name": "Serre tunnel 8 × 6 m",
+      "category": "🛖 Structure",
+      "notes": "Dans l'angle nord-est du potager : plein soleil (aucun obstacle au sud), à l'abri de la cabane de semis côté nord, à 40 m de la maison. Axe est-ouest = meilleure lumière d'hiver. Arrosage par la cuve de la cabane voisine. Tomates, poivrons, semis de printemps, salades d'hiver. Les semis passent ensuite à la pépinière voisine (endurcissement) avant plantation ou vente à l'accueil.",
+      "color": "#D8D3C4",
+      "points": [
+        {
+          "lat": 49.225657554,
+          "lng": -0.90322008
+        },
+        {
+          "lat": 49.225657554,
+          "lng": -0.903330119
+        },
+        {
+          "lat": 49.225711511,
+          "lng": -0.903330119
+        },
+        {
+          "lat": 49.225711511,
+          "lng": -0.90322008
+        }
+      ],
+      "area": 48,
+      "tags": [
+        "phase-1",
+        "potager",
+        "stockage"
+      ],
+      "photos": [
+        "https://upload.wikimedia.org/wikipedia/commons/3/37/Polytunnel_%27greenhouse%27_-_geograph.org.uk_-_1062225.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled"
+      ]
+    },
+    {
+      "id": "cl-cabane-potager",
+      "name": "Cabane 1 — semis & outils du potager",
+      "category": "🛖 Structure",
+      "notes": "Contient : petit outillage, semences (côté nord = frais et sombre), table de rempotage, terreau. Placée au NORD de la serre : elle la protège du vent de N–NE sans lui faire d'ombre, et son toit remplit la cuve qui arrose la serre.\n\nPrincipe commun des cabanes : 1) à moins de 30 s à pied de là où l'outil sert ; 2) accessibles à la brouette depuis un chemin ; 3) chaque toit récupère l'eau (gouttière → cuve IBC 1 m³) ; 4) toit végétalisé ou support de grimpante ; 5) murs = support de nichoirs, gîtes à chauves-souris et hôtel à insectes ; 6) < 20 m² (déclaration préalable si > 5 m²).",
+      "color": "#B89162",
+      "points": [
+        {
+          "lat": 49.225716007,
+          "lng": -0.90322008
+        },
+        {
+          "lat": 49.225716007,
+          "lng": -0.903302609
+        },
+        {
+          "lat": 49.225742986,
+          "lng": -0.903302609
+        },
+        {
+          "lat": 49.225742986,
+          "lng": -0.90322008
+        }
+      ],
+      "area": 18,
+      "tags": [
+        "phase-1",
+        "stockage"
+      ],
+      "photos": [
+        "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/58/Shed_with_a_Green_Roof_-_geograph.org.uk_-_1993896.jpg/960px-Shed_with_a_Green_Roof_-_geograph.org.uk_-_1993896.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail"
+      ]
+    },
+    {
+      "id": "cl-compost",
+      "name": "Pôle compost & broyat",
+      "category": "🛖 Structure",
+      "notes": "3 bacs palettes (apport / maturation / mûr) + aire de dépôt de broyat (BRF des élagueurs du coin, gratuit).\n\nPOURQUOI ICI : à l'ombre de la haie sud (le compost se dessèche au soleil), au bord du chemin carrossable (un camion peut vider le broyat), à 10 m du potager et de la forêt-jardin qui le consomment.\n\nPrincipe commun des cabanes : 1) à moins de 30 s à pied de là où l'outil sert ; 2) accessibles à la brouette depuis un chemin ; 3) chaque toit récupère l'eau (gouttière → cuve IBC 1 m³) ; 4) toit végétalisé ou support de grimpante ; 5) murs = support de nichoirs, gîtes à chauves-souris et hôtel à insectes ; 6) < 20 m² (déclaration préalable si > 5 m²).",
+      "color": "#92734F",
+      "isCircle": true,
+      "center": {
+        "lat": 49.225360791,
+        "lng": -0.903522689
+      },
+      "radius": 3,
+      "area": 28.3,
+      "points": [],
+      "tags": [
+        "phase-1",
+        "stockage"
+      ],
+      "photos": [
+        "https://thumb.wikimedia.org/wikipedia/commons/thumb/2/20/Richmond_Community_Garden_-_compost_bins%2C_Richmond%2C_Christchurch%2C_New_Zealand.jpg/960px-Richmond_Community_Garden_-_compost_bins%2C_Richmond%2C_Christchurch%2C_New_Zealand.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail"
+      ]
+    },
+    {
+      "id": "cl-clairiere",
+      "name": "Clairière des ateliers — tiers-lieu (≈ 800 m²)",
+      "category": "⛺ Espace de vie",
+      "notes": "Espace PUBLIC du lieu : ateliers (permaculture, greffe, vannerie de noisetier, cuisine sauvage), marchés de plants, concerts, chantiers participatifs.\n\nPOURQUOI ICI :\n• Accessible directement depuis le chemin carrossable (entrée par une ouverture dans la haie de Benjes) : depuis l'accueil, les visiteurs marchent ≈ 110 m par le sentier sans traverser ni le jardin de la maison ni le hameau.\n• Au contact des trois supports pédagogiques : potager (est), verger–forêt-jardin (nord), mare et rigole (eau) — on fait l'atelier « sur le terrain ».\n• Ensoleillée (rien de haut au sud), mais la halle au nord offre un repli à l'abri de la pluie, indispensable en Normandie.\n• La lisière ouest (plessis + bosquet) marque la frontière avec le hameau privé : public ↔ privé clairement lisible sans clôture hostile.\n\nAménagement : prairie tondue au centre (cercle de 20 m pour 30–40 personnes), lisières de petits fruits et aromatiques « à goûter », bancs en rondins, tableau d'ardoise sous la halle. La moitié ouest sert d'aire de bivouac (4 tentes) lors des stages et chantiers.",
+      "color": "#E8C872",
+      "points": [
+        {
+          "lat": 49.225603597,
+          "lng": -0.903866563
+        },
+        {
+          "lat": 49.225563129,
+          "lng": -0.903907828
+        },
+        {
+          "lat": 49.225657554,
+          "lng": -0.904210438
+        },
+        {
+          "lat": 49.225927338,
+          "lng": -0.904210438
+        },
+        {
+          "lat": 49.225927338,
+          "lng": -0.903894073
+        },
+        {
+          "lat": 49.225855396,
+          "lng": -0.903852808
+        },
+        {
+          "lat": 49.225729496,
+          "lng": -0.903839053
+        }
+      ],
+      "area": 921.2,
+      "tags": [
+        "tiers-lieu",
+        "phase-2",
+        "zone"
+      ],
+      "photos": [
+        "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/8b/Wildflower_meadow%2C_Gibson_Street%2C_Glasgow_University.jpg/960px-Wildflower_meadow%2C_Gibson_Street%2C_Glasgow_University.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail"
+      ]
+    },
+    {
+      "id": "cl-halle",
+      "name": "Halle des ateliers + réserve (bois, ouverte)",
+      "category": "🛖 Structure",
+      "notes": "Charpente bois ouverte ≈ 12 × 5,5 m (toit, pas de murs sauf la réserve fermée de 12 m² côté ouest) : repli pluie des ateliers, tables, établis de greffe/vannerie, outils pédagogiques, caisses de récolte, échelles de cueillette.\n\nPOURQUOI au NORD de la clairière : elle ne lui fait pas d'ombre, et son mur fermé côté ouest/nord coupe les vents d'ouest. Son toit (≈ 70 m²) remplit une cuve qui arrose la clairière et les jeunes arbres.\n+ Toilettes sèches publiques accolées (séparées de celles du hameau). ⚠ Accueil du public = ERP possible selon l'usage : à voir avec la mairie.\n\nPrincipe commun des cabanes : 1) à moins de 30 s à pied de là où l'outil sert ; 2) accessibles à la brouette depuis un chemin ; 3) chaque toit récupère l'eau (gouttière → cuve IBC 1 m³) ; 4) toit végétalisé ou support de grimpante ; 5) murs = support de nichoirs, gîtes à chauves-souris et hôtel à insectes ; 6) < 20 m² (déclaration préalable si > 5 m²).",
+      "color": "#B89162",
+      "points": [
+        {
+          "lat": 49.225859892,
+          "lng": -0.903921583
+        },
+        {
+          "lat": 49.225859892,
+          "lng": -0.904086643
+        },
+        {
+          "lat": 49.225909353,
+          "lng": -0.904086643
+        },
+        {
+          "lat": 49.225909353,
+          "lng": -0.903921583
+        }
+      ],
+      "area": 66,
+      "tags": [
+        "tiers-lieu",
+        "stockage",
+        "phase-2"
+      ],
+      "photos": [
+        "https://upload.wikimedia.org/wikipedia/commons/f/f4/Green_Roof_Shed.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled"
+      ]
+    },
+    {
+      "id": "cl-lisiere-hameau",
+      "name": "Lisière hameau / tiers-lieu (plessis + bosquet)",
+      "category": "🌳 Arbres & Haies",
+      "notes": "Frontière douce entre l'espace public (clairière des ateliers) et l'espace privé (hameau) : plessis de noisetier ajouré 1,6 m + bosquet de sureaux, cornouillers et noisetiers. Un seul passage, avec un portillon : les habitants passent, les visiteurs comprennent qu'ils sortent de l'espace public.",
+      "color": "#8C6D3F",
+      "isLine": true,
+      "isCurve": false,
+      "thickness": 6,
+      "points": [
+        {
+          "lat": 49.22567554,
+          "lng": -0.904251703
+        },
+        {
+          "lat": 49.225783453,
+          "lng": -0.904265458
+        },
+        {
+          "lat": 49.225891367,
+          "lng": -0.904251703
+        }
+      ],
+      "area": 0,
+      "tags": [
+        "hameau",
+        "tiers-lieu",
+        "cloture",
+        "phase-2"
+      ],
+      "photos": [
+        "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/9b/Highdown_Gardens%2C_Worthing%2C_woven_branch_wattle_fence.jpg/960px-Highdown_Gardens%2C_Worthing%2C_woven_branch_wattle_fence.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail"
+      ]
+    },
+    {
+      "id": "cl-cabane-hameau",
+      "name": "Cabane 3 — atelier & bûcher du hameau",
+      "category": "🛖 Structure",
+      "notes": "Bûcher pour les poêles des tiny houses (bois issu du recépage des haies), vélos, outils partagés, matériel des tiny houses (vérins, cales, tuyaux).\n\nPOURQUOI ICI : à côté de l'aire de retournement (livraison du bois en remorque), à l'entrée du hameau, côté sud (ombre de la haie = bois au sec et à l'air). Façade sud ouverte pour sécher le bois.\n\nPrincipe commun des cabanes : 1) à moins de 30 s à pied de là où l'outil sert ; 2) accessibles à la brouette depuis un chemin ; 3) chaque toit récupère l'eau (gouttière → cuve IBC 1 m³) ; 4) toit végétalisé ou support de grimpante ; 5) murs = support de nichoirs, gîtes à chauves-souris et hôtel à insectes ; 6) < 20 m² (déclaration préalable si > 5 m²).",
+      "color": "#B89162",
+      "points": [
+        {
+          "lat": 49.22567554,
+          "lng": -0.904526802
+        },
+        {
+          "lat": 49.22567554,
+          "lng": -0.904623087
+        },
+        {
+          "lat": 49.225716007,
+          "lng": -0.904623087
+        },
+        {
+          "lat": 49.225716007,
+          "lng": -0.904526802
+        }
+      ],
+      "area": 31.5,
+      "tags": [
+        "hameau",
+        "stockage",
+        "phase-2"
+      ],
+      "photos": [
+        "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/68/Shed_with_green_roof_at_Lyngen_fjord%2C_2012_June.jpg/960px-Shed_with_green_roof_at_Lyngen_fjord%2C_2012_June.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail"
+      ]
+    },
+    {
+      "id": "cl-humanure",
+      "name": "Compost des toilettes sèches (2 bacs, 2 ans)",
+      "category": "🛖 Structure",
+      "notes": "Reçoit les seaux de TOUTES les toilettes sèches (accueil, halle/bivouac, hameau), apportés en brouette ou remorque vélo par le chemin, 1 fois par semaine. Deux bacs alternés : chacun se remplit 1 an puis repose 1 an. À l'écart des cultures potagères, loin du puits (> 130 m), près de la cabane du hameau. Le compost mûr sert aux arbres (talus, haies), pas aux légumes racines.",
+      "color": "#92734F",
+      "isCircle": true,
+      "center": {
+        "lat": 49.225702518,
+        "lng": -0.904760637
+      },
+      "radius": 2,
+      "area": 12.6,
+      "points": [],
+      "tags": [
+        "hameau",
+        "phase-2"
+      ],
+      "photos": [
+        "https://thumb.wikimedia.org/wikipedia/commons/thumb/4/44/Composting_toilet_in_Poland.jpg/960px-Composting_toilet_in_Poland.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail"
+      ]
+    },
+    {
+      "id": "mvcovxcfczkl6u82p4",
+      "name": "PARKING ET HANGAR",
+      "category": "🛖 Structure",
+      "notes": "Zone existante (tracé fourni).\n\nRÔLE DANS LE PROJET : c'est l'arrivée de tous les visiteurs. Le portail donne directement dessus.\n• Parking visiteurs : 8–10 places enherbées (dalles alvéolées) dans la partie ouverte ; le hangar garde le matériel lourd (tracteur, remorque, broyeur).\n• Les voitures s'arrêtent ICI : rien ne roule plus loin, sauf les livraisons et les déménagements de tiny houses (chemin carrossable qui part de l'angle nord-ouest).\n• De l'angle ouest, on voit directement l'accueil et le ruisseau des arches : orientation évidente sans panneau.",
+      "color": "#7A9E7E",
+      "isLine": true,
+      "isCurve": false,
+      "thickness": 4,
+      "points": [
+        {
+          "lat": 49.225333274043294,
+          "lng": -0.9026464819908142
+        },
+        {
+          "lat": 49.225438376694434,
+          "lng": -0.9029401838779451
+        },
+        {
+          "lat": 49.22567573269241,
+          "lng": -0.9027323126792909
+        },
+        {
+          "lat": 49.22555223764757,
+          "lng": -0.9023728966712953
+        },
+        {
+          "lat": 49.225335025755975,
+          "lng": -0.9026478230953218
+        }
+      ],
+      "area": 0,
+      "tags": [
+        "existant",
+        "accueil"
+      ],
+      "photos": []
+    },
+    {
+      "id": "cl-portail",
+      "name": "Portail — entrée des visiteurs",
+      "category": "🛖 Structure",
+      "notes": "Entrée unique depuis la route. Panneau d'accueil (nom du lieu, horaires des ateliers, « parking à droite, accueil tout droit »). Le chemin des visiteurs ne longe ni la maison ni la terrasse : portail → parking → accueil.",
+      "color": "#C17F4A",
+      "isCircle": true,
+      "center": {
+        "lat": 49.225338309,
+        "lng": -0.90266713
+      },
+      "radius": 1.2,
+      "area": 4.5,
+      "points": [],
+      "tags": [
+        "existant",
+        "accueil"
+      ],
+      "photos": []
+    },
+    {
+      "id": "cl-accueil",
+      "name": "Accueil visiteurs — kiosque & boutique de plants",
+      "category": "⛺ Espace de vie",
+      "notes": "Petit bâtiment bois ≈ 28 m² + auvent : plan du lieu, programme des ateliers, inscriptions, vente des plants de la pépinière et des surplus du potager, café/tisane du jardin.\n\nPOURQUOI ICI :\n• Au bord ouest du parking : c'est le premier endroit que voit le visiteur qui sort de sa voiture.\n• Au départ du sentier des visiteurs, qui mène à la clairière des ateliers sans traverser le jardin privé de la maison.\n• À côté du ruisseau des arches et du filtre à roseaux : on accueille les gens par la vitrine du projet (« ici l'eau de la maison est épurée par les plantes et nourrit les mares »).\n• Toilettes sèches juste à côté, à 39 m du puits (au-delà des 35 m recommandés).\n\n⚠ Recevoir du public = ERP (5e catégorie probable) : accessibilité PMR (cheminement stabilisé depuis le parking), extincteur, à valider avec la mairie.",
+      "color": "#E0A458",
+      "points": [
+        {
+          "lat": 49.225536151,
+          "lng": -0.902924348
+        },
+        {
+          "lat": 49.225536151,
+          "lng": -0.902848695
+        },
+        {
+          "lat": 49.225581115,
+          "lng": -0.902848695
+        },
+        {
+          "lat": 49.225581115,
+          "lng": -0.902924348
+        }
+      ],
+      "area": 27.5,
+      "tags": [
+        "accueil",
+        "tiers-lieu",
+        "phase-2"
+      ],
+      "photos": [
+        "https://upload.wikimedia.org/wikipedia/commons/f/f4/Green_Roof_Shed.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+        "https://upload.wikimedia.org/wikipedia/commons/5/5a/Vine_pergola_in_Loseley_Park_gardens_-_geograph.org.uk_-_881305.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+        "https://upload.wikimedia.org/wikipedia/commons/2/25/Converted_Barn_-_Wilstone_Little_Farm_-_Farm_Shop_-_geograph.org.uk_-_1205000.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled"
+      ]
+    },
+    {
+      "id": "cl-ts-accueil",
+      "name": "Toilettes sèches — accueil (PMR)",
+      "category": "🛖 Structure",
+      "notes": "Cabine à sciure accessible PMR, avec lave-mains (eau de pluie du toit de l'accueil). Seaux vidés au compost des toilettes sèches.\nPlacée contre l'accueil, côté parking : c'est la première demande des visiteurs. À 39 m du puits (> 35 m).",
+      "color": "#92734F",
+      "isCircle": true,
+      "center": {
+        "lat": 49.225516367,
+        "lng": -0.90288996
+      },
+      "radius": 1.2,
+      "area": 4.5,
+      "points": [],
+      "tags": [
+        "accueil",
+        "toilettes-seches",
+        "phase-2"
+      ],
+      "photos": [
+        "https://thumb.wikimedia.org/wikipedia/commons/thumb/4/44/Composting_toilet_in_Poland.jpg/960px-Composting_toilet_in_Poland.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail"
+      ]
+    },
+    {
+      "id": "cl-ts-bivouac",
+      "name": "Toilettes sèches — halle & bivouac",
+      "category": "🛖 Structure",
+      "notes": "Deux cabines contre le pignon ouest de la halle : servent aux ateliers et aux campeurs. Lave-mains alimenté par la cuve de la halle. Seaux vers le compost des toilettes sèches (même chemin).",
+      "color": "#92734F",
+      "isCircle": true,
+      "center": {
+        "lat": 49.225891367,
+        "lng": -0.90412103
+      },
+      "radius": 1.2,
+      "area": 4.5,
+      "points": [],
+      "tags": [
+        "tiers-lieu",
+        "toilettes-seches",
+        "phase-2"
+      ],
+      "photos": [
+        "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/bc/Throne_over_the_woods_style_composting_toilet_at_campsite_32_in_Bowron_Lakes_Provincial_Park%2C_BC_%28DSCF2871%29.jpg/960px-Throne_over_the_woods_style_composting_toilet_at_campsite_32_in_Bowron_Lakes_Provincial_Park%2C_BC_%28DSCF2871%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail"
+      ]
+    },
+    {
+      "id": "cl-tente1",
+      "name": "Emplacement tente 1",
+      "category": "⛺ Espace de vie",
+      "notes": "Plateforme de 5 m de diamètre, tondue ras, légèrement bombée (copeaux sous la toile), pour stagiaires, wwoofers et bénévoles des chantiers.\n\nPOURQUOI ICI (moitié ouest de la clairière des ateliers) : terrain plat et ressuyé (≈ 70,5 m, au-dessus de la mare), pas de grand arbre au-dessus (chutes de branches), halle à 10 m pour s'abriter de la pluie, toilettes sèches à côté, sacs déchargés depuis le chemin. La lisière en plessis les sépare du hameau privé ; elles restent dans l'espace « public ».",
+      "color": "#D9B26F",
+      "isCircle": true,
+      "center": {
+        "lat": 49.225666547,
+        "lng": -0.904059133
+      },
+      "radius": 2.5,
+      "area": 19.6,
+      "points": [],
+      "tags": [
+        "tiers-lieu",
+        "camping",
+        "phase-2"
+      ],
+      "photos": [
+        "https://upload.wikimedia.org/wikipedia/commons/8/84/Wildflower_Meadow_-_geograph.org.uk_-_81827.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled"
+      ]
+    },
+    {
+      "id": "cl-tente2",
+      "name": "Emplacement tente 2",
+      "category": "⛺ Espace de vie",
+      "notes": "Plateforme de 5 m de diamètre, tondue ras, légèrement bombée (copeaux sous la toile), pour stagiaires, wwoofers et bénévoles des chantiers.\n\nPOURQUOI ICI (moitié ouest de la clairière des ateliers) : terrain plat et ressuyé (≈ 70,5 m, au-dessus de la mare), pas de grand arbre au-dessus (chutes de branches), halle à 10 m pour s'abriter de la pluie, toilettes sèches à côté, sacs déchargés depuis le chemin. La lisière en plessis les sépare du hameau privé ; elles restent dans l'espace « public ».",
+      "color": "#D9B26F",
+      "isCircle": true,
+      "center": {
+        "lat": 49.225702518,
+        "lng": -0.904141663
+      },
+      "radius": 2.5,
+      "area": 19.6,
+      "points": [],
+      "tags": [
+        "tiers-lieu",
+        "camping",
+        "phase-2"
+      ],
+      "photos": [
+        "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/50/Tent_Camping.JPG/960px-Tent_Camping.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail"
+      ]
+    },
+    {
+      "id": "cl-tente3",
+      "name": "Emplacement tente 3",
+      "category": "⛺ Espace de vie",
+      "notes": "Plateforme de 5 m de diamètre, tondue ras, légèrement bombée (copeaux sous la toile), pour stagiaires, wwoofers et bénévoles des chantiers.\n\nPOURQUOI ICI (moitié ouest de la clairière des ateliers) : terrain plat et ressuyé (≈ 70,5 m, au-dessus de la mare), pas de grand arbre au-dessus (chutes de branches), halle à 10 m pour s'abriter de la pluie, toilettes sèches à côté, sacs déchargés depuis le chemin. La lisière en plessis les sépare du hameau privé ; elles restent dans l'espace « public ».",
+      "color": "#D9B26F",
+      "isCircle": true,
+      "center": {
+        "lat": 49.22577446,
+        "lng": -0.904155418
+      },
+      "radius": 2.5,
+      "area": 19.6,
+      "points": [],
+      "tags": [
+        "tiers-lieu",
+        "camping",
+        "phase-2"
+      ],
+      "photos": [
+        "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/74/Tent_Capsite_at_Big_Meadows_Campground_Shenandoah_2022-06-19_12-22-56_1.jpg/960px-Tent_Capsite_at_Big_Meadows_Campground_Shenandoah_2022-06-19_12-22-56_1.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail"
+      ]
+    },
+    {
+      "id": "cl-tente4",
+      "name": "Emplacement tente 4",
+      "category": "⛺ Espace de vie",
+      "notes": "Plateforme de 5 m de diamètre, tondue ras, légèrement bombée (copeaux sous la toile), pour stagiaires, wwoofers et bénévoles des chantiers.\n\nPOURQUOI ICI (moitié ouest de la clairière des ateliers) : terrain plat et ressuyé (≈ 70,5 m, au-dessus de la mare), pas de grand arbre au-dessus (chutes de branches), halle à 10 m pour s'abriter de la pluie, toilettes sèches à côté, sacs déchargés depuis le chemin. La lisière en plessis les sépare du hameau privé ; elles restent dans l'espace « public ».",
+      "color": "#D9B26F",
+      "isCircle": true,
+      "center": {
+        "lat": 49.22583741,
+        "lng": -0.904169173
+      },
+      "radius": 2.5,
+      "area": 19.6,
+      "points": [],
+      "tags": [
+        "tiers-lieu",
+        "camping",
+        "phase-2"
+      ],
+      "photos": []
+    },
+    {
+      "id": "cl-pepiniere",
+      "name": "Pépinière (multiplication & vente)",
+      "category": "🥕 Potager",
+      "notes": "≈ 100 m² : tables de culture sous ombrière 30 %, jauge de pleine terre pour les arbres racines nues, bacs de bouturage (sable), aire de rempotage.\n\nPOURQUOI ICI :\n• Dans l'enceinte clôturée du potager (pas de chevreuils ni lapins sur les jeunes plants), contre le chemin carrossable (livraison de terreau, départ des commandes).\n• À 20 m de la serre (semis) et à 30 m de l'accueil où se vendent les plants.\n• Point de départ des plantations du site : haies, forêt-jardin et plessis seront multipliés ICI (boutures de saule, noisetier, cassis, groseillier, figuier ; semis de chênes et châtaignes du lieu) → autonomie en plants et activité pour le tiers-lieu (ateliers bouturage/greffe).\nArrosage : eau de pluie de la cabane de semis et de la serre, jamais l'eau épurée.",
+      "color": "#A8B85C",
+      "points": [
+        {
+          "lat": 49.225482194,
+          "lng": -0.903206325
+        },
+        {
+          "lat": 49.225468705,
+          "lng": -0.903343874
+        },
+        {
+          "lat": 49.225567626,
+          "lng": -0.903343874
+        },
+        {
+          "lat": 49.225567626,
+          "lng": -0.903206325
+        }
+      ],
+      "area": 102.5,
+      "tags": [
+        "potager",
+        "pepiniere",
+        "phase-1"
+      ],
+      "photos": [
+        "https://upload.wikimedia.org/wikipedia/commons/d/d3/Raspberry_canes_and_polytunnels_-_geograph.org.uk_-_68426.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled"
+      ]
+    },
+    {
+      "id": "cl-chene1",
+      "name": "Chêne 1",
+      "category": "🌳 Arbres & Haies",
+      "notes": "Chêne pédonculé (Quercus robur), indigène du bocage. Groupe sud.\nSur le talus drainé, à l'ouest de tout : ombre seulement le soir d'été sur le hameau, jamais sur le potager. 12–18 m entre troncs (bosquet, ils montent droit). Plant forestier de 2 ans, protection anti-chevreuil, paillage. Le cercle = tronc, pas la couronne adulte (≈ 20 m de diamètre).",
+      "color": "#527A51",
+      "isCircle": true,
+      "center": {
+        "lat": 49.225747482,
+        "lng": -0.904884431
+      },
+      "radius": 2.5,
+      "area": 19.6,
+      "points": [],
+      "tags": [
+        "arbres",
+        "phase-1"
+      ],
+      "photos": [
+        "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/77/Ch%C3%AAne%2C_colza%2C_Jura_%28horizontal%29.jpg/960px-Ch%C3%AAne%2C_colza%2C_Jura_%28horizontal%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail"
+      ]
+    },
+    {
+      "id": "cl-chene2",
+      "name": "Chêne 2",
+      "category": "🌳 Arbres & Haies",
+      "notes": "Chêne pédonculé (Quercus robur), indigène du bocage. Groupe sud.\nSur le talus drainé, à l'ouest de tout : ombre seulement le soir d'été sur le hameau, jamais sur le potager. 12–18 m entre troncs (bosquet, ils montent droit). Plant forestier de 2 ans, protection anti-chevreuil, paillage. Le cercle = tronc, pas la couronne adulte (≈ 20 m de diamètre).",
+      "color": "#527A51",
+      "isCircle": true,
+      "center": {
+        "lat": 49.225765468,
+        "lng": -0.905063246
+      },
+      "radius": 2.5,
+      "area": 19.6,
+      "points": [],
+      "tags": [
+        "arbres",
+        "phase-1"
+      ],
+      "photos": [
+        "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/86/Oak_Sapling%2C_Benhall_Woods.jpg/960px-Oak_Sapling%2C_Benhall_Woods.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail"
+      ]
+    },
+    {
+      "id": "cl-chene3",
+      "name": "Chêne 3",
+      "category": "🌳 Arbres & Haies",
+      "notes": "Chêne pédonculé (Quercus robur), indigène du bocage. Groupe sud — borde la fenêtre de vue.\nSur le talus drainé, à l'ouest de tout : ombre seulement le soir d'été sur le hameau, jamais sur le potager. 12–18 m entre troncs (bosquet, ils montent droit). Plant forestier de 2 ans, protection anti-chevreuil, paillage. Le cercle = tronc, pas la couronne adulte (≈ 20 m de diamètre).",
+      "color": "#527A51",
+      "isCircle": true,
+      "center": {
+        "lat": 49.225882374,
+        "lng": -0.905008226
+      },
+      "radius": 2.5,
+      "area": 19.6,
+      "points": [],
+      "tags": [
+        "arbres",
+        "phase-1"
+      ],
+      "photos": [
+        "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/94/Oak_sapling_-_geograph.org.uk_-_7651076.jpg/960px-Oak_sapling_-_geograph.org.uk_-_7651076.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail"
+      ]
+    },
+    {
+      "id": "cl-chene4",
+      "name": "Chêne 4",
+      "category": "🌳 Arbres & Haies",
+      "notes": "Chêne pédonculé (Quercus robur), indigène du bocage. Groupe nord — borde la fenêtre de vue.\nSur le talus drainé, à l'ouest de tout : ombre seulement le soir d'été sur le hameau, jamais sur le potager. 12–18 m entre troncs (bosquet, ils montent droit). Plant forestier de 2 ans, protection anti-chevreuil, paillage. Le cercle = tronc, pas la couronne adulte (≈ 20 m de diamètre).",
+      "color": "#527A51",
+      "isCircle": true,
+      "center": {
+        "lat": 49.226161151,
+        "lng": -0.904939451
+      },
+      "radius": 2.5,
+      "area": 19.6,
+      "points": [],
+      "tags": [
+        "arbres",
+        "phase-1"
+      ],
+      "photos": []
+    },
+    {
+      "id": "cl-chene5",
+      "name": "Chêne 5",
+      "category": "🌳 Arbres & Haies",
+      "notes": "Chêne pédonculé (Quercus robur), indigène du bocage. Groupe nord.\nSur le talus drainé, à l'ouest de tout : ombre seulement le soir d'été sur le hameau, jamais sur le potager. 12–18 m entre troncs (bosquet, ils montent droit). Plant forestier de 2 ans, protection anti-chevreuil, paillage. Le cercle = tronc, pas la couronne adulte (≈ 20 m de diamètre).",
+      "color": "#527A51",
+      "isCircle": true,
+      "center": {
+        "lat": 49.226089209,
+        "lng": -0.905145776
+      },
+      "radius": 2.5,
+      "area": 19.6,
+      "points": [],
+      "tags": [
+        "arbres",
+        "phase-1"
+      ],
+      "photos": []
+    },
+    {
+      "id": "cl-chene6",
+      "name": "Chêne 6",
+      "category": "🌳 Arbres & Haies",
+      "notes": "Chêne pédonculé (Quercus robur), indigène du bocage. Groupe nord.\nSur le talus drainé, à l'ouest de tout : ombre seulement le soir d'été sur le hameau, jamais sur le potager. 12–18 m entre troncs (bosquet, ils montent droit). Plant forestier de 2 ans, protection anti-chevreuil, paillage. Le cercle = tronc, pas la couronne adulte (≈ 20 m de diamètre).",
+      "color": "#527A51",
+      "isCircle": true,
+      "center": {
+        "lat": 49.226296043,
+        "lng": -0.904870676
+      },
+      "radius": 2.5,
+      "area": 19.6,
+      "points": [],
+      "tags": [
+        "arbres",
+        "phase-1"
+      ],
+      "photos": []
+    },
+    {
+      "id": "cl-chataignier",
+      "name": "Châtaignier 1 — arbre de l'accueil",
+      "category": "🌳 Arbres & Haies",
+      "notes": "Sur la pelouse entre l'accueil, le parking gravillonné et les garages. Variété proposée : 'Bouche de Bétizac' (hybride greffé, port érigé, gros fruits, assez tolérant à l'encre), à confirmer avec le pépiniériste.\n\nPOURQUOI ICI :\n• Point le plus haut et le plus sec de la parcelle (≈ 72,8 m, relevé IGN) : le châtaignier exige un sol drainé ; en sol frais (vers la mare, le fossé nord), il risque la maladie de l'encre.\n• Aucune ombre sur les cultures : potager, serre et pépinière sont à plus de 30 m à l'ouest ; l'ombre du matin tombe sur les arches et l'accueil, celle de l'après-midi vers les garages. Au nord de la maison, il ne lui prend jamais le soleil.\n• Ombre d'été sur le parking et « arbre de l'accueil » : le premier que voient les visiteurs.\n• À ≈ 15 m du filtre à roseaux : ses racines ne le gêneront pas.\n\n⚠ CONTRAINTES :\n• Place limitée : tronc à ≈ 6–7 m de l'accueil et du mur des garages → arbre GREFFÉ, formé en gobelet et contenu à 10–12 m d'envergure par une taille tous les 3–4 ans. Grilles sur les gouttières de l'accueil (sa cuve d'eau de pluie).\n• Bogues piquantes : îlot planté de 4–5 m de diamètre au pied (couvre-sol, banc circulaire), bordé de rondins ; pas de voiture sur ses racines (le tassement l'affaiblit).\n• Le parking repose peut-être sur un remblai calcaire, que le châtaignier ne supporte pas : test de pH, puis grande fosse (1,5 × 1,5 m) remplie de terre du terrain.\n• Pollinisation : 'Bouche de Bétizac' ne produit pas de pollen fertile ; il lui faut un pollinisateur → voir « Châtaignier 2 — pollinisateur ».\n\nSOL :\npH du secteur ≈ 5,7–6,1 (SoilGrids) : convient au châtaignier (5,5–6,5). Le risque reste le remblai du parking, peut-être calcaire : vérifier avant de planter.",
+      "color": "#6F8B5C",
+      "isCircle": true,
+      "center": {
+        "lat": 49.225495683,
+        "lng": -0.902766165
+      },
+      "radius": 3,
+      "area": 28.3,
+      "points": [],
+      "tags": [
+        "arbres",
+        "accueil",
+        "phase-1"
+      ],
+      "photos": [
+        "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/af/Afgevallen_kastanje_van_een_Tamme_kastanje_%28Castanea_sativa%29_17-10-2021_%28d.j.b.%29_01.jpg/960px-Afgevallen_kastanje_van_een_Tamme_kastanje_%28Castanea_sativa%29_17-10-2021_%28d.j.b.%29_01.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail"
+      ]
+    },
+    {
+      "id": "cl-saule",
+      "name": "Saule pleureur",
+      "category": "🌳 Arbres & Haies",
+      "notes": "POURQUOI ICI : au bord nord de la mare n°2, sur le point le plus humide du plateau, il pompe l'excès d'eau d'hiver. Placé au NORD de la mare pour ne pas l'ombrer.\nÀ > 25 m de toute construction, canalisation et du puits (racines très envahissantes, bois cassant) : TH4 à 21 m de son tronc, couronne adulte ≈ 8 m de rayon → OK.\n\nDifférence avec la proposition ChatGPT : elle le plaçait à ≈ 20 m de la maison et à 21 m du puits, en contradiction avec sa propre note.",
+      "color": "#64855D",
+      "isCircle": true,
+      "center": {
+        "lat": 49.22612518,
+        "lng": -0.904155418
+      },
+      "radius": 2.5,
+      "area": 19.6,
+      "points": [],
+      "tags": [
+        "arbres",
+        "phase-1"
+      ],
+      "photos": [
+        "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/11/Salix_babylonica_%28Saule_pleureur%29_-_20150810_10h23_%2811045%29.jpg/960px-Salix_babylonica_%28Saule_pleureur%29_-_20150810_10h23_%2811045%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail"
+      ]
+    },
+    {
+      "id": "cl-piege-soleil",
+      "name": "Piège à soleil (fer à cheval ouvert au sud)",
+      "category": "🌳 Arbres & Haies",
+      "notes": "Arc d'arbustes persistants et caducs (éléagnus, argousier, noisetiers, houx) ouvert vers le SUD, sur le potager (cultures basses → rien ne bloque le soleil).\n\nPOURQUOI : l'arc coupe les vents N, NE, O et piège la chaleur ; on gagne plusieurs degrés au printemps → condition indispensable pour des pêchers en Normandie (floraison précoce, cloque favorisée par l'humidité).",
+      "color": "#4E7A45",
+      "isLine": false,
+      "isCurve": true,
+      "thickness": 10,
+      "points": [
+        {
+          "lat": 49.225801439,
+          "lng": -0.903687749
+        },
+        {
+          "lat": 49.225891367,
+          "lng": -0.903687749
+        },
+        {
+          "lat": 49.225936331,
+          "lng": -0.903605219
+        },
+        {
+          "lat": 49.225936331,
+          "lng": -0.903495179
+        },
+        {
+          "lat": 49.225891367,
+          "lng": -0.903412649
+        },
+        {
+          "lat": 49.225801439,
+          "lng": -0.903412649
+        }
+      ],
+      "area": 0,
+      "tags": [
+        "foret-jardin",
+        "phase-1"
+      ],
+      "photos": []
+    },
+    {
+      "id": "cl-pecher1",
+      "name": "Pêcher 1",
+      "category": "🌳 Arbres & Haies",
+      "notes": "Variété tolérante à la cloque ('Charles Ingouf', 'Amsden' ou pêche de vigne). Dans le piège à soleil. Les pêchers vivent 15–20 ans : prévoir leur remplacement.",
+      "color": "#C8A84B",
+      "isCircle": true,
+      "center": {
+        "lat": 49.22583741,
+        "lng": -0.903508934
+      },
+      "radius": 1.8,
+      "area": 10.2,
+      "points": [],
+      "tags": [
+        "foret-jardin",
+        "fruitiers",
+        "phase-1"
+      ],
+      "photos": [
+        "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/32/MONTREUIL_-_Le_clos_des_peches.jpg/960px-MONTREUIL_-_Le_clos_des_peches.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail"
+      ]
+    },
+    {
+      "id": "cl-pecher2",
+      "name": "Pêcher 2",
+      "category": "🌳 Arbres & Haies",
+      "notes": "Second pêcher, autre variété pour étaler la récolte. Dans le piège à soleil. Les pêchers vivent 15–20 ans : prévoir leur remplacement.",
+      "color": "#C8A84B",
+      "isCircle": true,
+      "center": {
+        "lat": 49.22583741,
+        "lng": -0.903591464
+      },
+      "radius": 1.8,
+      "area": 10.2,
+      "points": [],
+      "tags": [
+        "foret-jardin",
+        "fruitiers",
+        "phase-1"
+      ],
+      "photos": []
+    },
+    {
+      "id": "cl-abricotier",
+      "name": "Abricotier palissé (mur sud maison commune)",
+      "category": "🌳 Arbres & Haies",
+      "notes": "L'abricotier est le plus difficile en Normandie (floraison en mars = gel, moniliose avec l'humidité). En espalier contre un mur sud : le mur restitue la chaleur la nuit, le débord de toit abrite les fleurs de la pluie, et on peut le voiler en cas de gel. Méthode des « murs à pêches » de Montreuil. Variété tardive ('Bergeron', 'Polonais').",
+      "color": "#C8A84B",
+      "isCircle": true,
+      "center": {
+        "lat": 49.225954317,
+        "lng": -0.904292968
+      },
+      "radius": 1.5,
+      "area": 7.1,
+      "points": [],
+      "tags": [
+        "hameau",
+        "fruitiers",
+        "phase-2"
+      ],
+      "photos": [
+        "https://upload.wikimedia.org/wikipedia/commons/1/10/Montreuil-murs-a-peches-06.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled"
+      ]
+    },
+    {
+      "id": "cl-cerisier",
+      "name": "Cerisier",
+      "category": "🌳 Arbres & Haies",
+      "notes": "Sur la partie la plus haute et sèche de la forêt-jardin (71 m) : le cerisier craint l'asphyxie racinaire en sol gorgé. Côté nord = n'ombre ni le potager ni le piège à soleil. Variété autofertile ('Stella', 'Sunburst') vu qu'il est seul ; filet contre les merles.",
+      "color": "#C8A84B",
+      "isCircle": true,
+      "center": {
+        "lat": 49.225873381,
+        "lng": -0.903330119
+      },
+      "radius": 2,
+      "area": 12.6,
+      "points": [],
+      "tags": [
+        "foret-jardin",
+        "fruitiers",
+        "phase-1"
+      ],
+      "photos": [
+        "https://thumb.wikimedia.org/wikipedia/commons/thumb/f/fb/Cherry_tree_blossom_2020_G2.jpg/960px-Cherry_tree_blossom_2020_G2.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail"
+      ]
+    },
+    {
+      "id": "cl-pommier",
+      "name": "Pommier",
+      "category": "🌳 Arbres & Haies",
+      "notes": "Haute-tige ou demi-tige (porte-greffe M106/franc) : le pommier supporte les sols frais normands. Variétés résistantes à la tavelure ('Reine des reinettes', 'Bénédictin', 'Reinette de Caux'). Penser à un 2e pommier ou à un pommier d'ornement pollinisateur (dans la haie).",
+      "color": "#C8A84B",
+      "isCircle": true,
+      "center": {
+        "lat": 49.225963309,
+        "lng": -0.903742769
+      },
+      "radius": 2,
+      "area": 12.6,
+      "points": [],
+      "tags": [
+        "foret-jardin",
+        "fruitiers",
+        "phase-1"
+      ],
+      "photos": [
+        "https://upload.wikimedia.org/wikipedia/commons/4/4d/Young_apple_trees_bearing_fruit_-_geograph.org.uk_-_1476095.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled"
+      ]
+    },
+    {
+      "id": "cl-poirier",
+      "name": "Poirier",
+      "category": "🌳 Arbres & Haies",
+      "notes": "Dans la partie plus basse et fraîche : le poirier sur franc tolère mieux les sols lourds que le cerisier. À 9 m du pommier, 6 m de la rigole (racines profondes qui aiment l'eau en été). Variétés : 'Beurré Hardy', 'Conférence' (partiellement autofertile).",
+      "color": "#C8A84B",
+      "isCircle": true,
+      "center": {
+        "lat": 49.225882374,
+        "lng": -0.903770279
+      },
+      "radius": 2,
+      "area": 12.6,
+      "points": [],
+      "tags": [
+        "foret-jardin",
+        "fruitiers",
+        "phase-1"
+      ],
+      "photos": [
+        "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/55/Fruit_on_a_pear_tree_-_geograph.org.uk_-_7001175.jpg/960px-Fruit_on_a_pear_tree_-_geograph.org.uk_-_7001175.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail"
+      ]
+    },
+    {
+      "id": "cl-cassis1",
+      "name": "Cassissier 1",
+      "category": "🌿 Végétation",
+      "notes": "Dans la lisière sud : cassissiers et groseilliers donnent bien en mi-ombre et préfèrent la fraîcheur (le plein soleil normand d'août les brûle). Au bord du chemin = récolte facile, à 15 m du compost. Espacement 1,5 m.",
+      "color": "#976448",
+      "isCircle": true,
+      "center": {
+        "lat": 49.225378777,
+        "lng": -0.903687749
+      },
+      "radius": 1.3,
+      "area": 5.3,
+      "points": [],
+      "tags": [
+        "petits-fruits",
+        "phase-1"
+      ],
+      "photos": [
+        "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/05/Ribes_nigrum_a1.JPG/960px-Ribes_nigrum_a1.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail"
+      ]
+    },
+    {
+      "id": "cl-cassis2",
+      "name": "Cassissier 2",
+      "category": "🌿 Végétation",
+      "notes": "Dans la lisière sud : cassissiers et groseilliers donnent bien en mi-ombre et préfèrent la fraîcheur (le plein soleil normand d'août les brûle). Au bord du chemin = récolte facile, à 15 m du compost. Espacement 1,5 m.",
+      "color": "#976448",
+      "isCircle": true,
+      "center": {
+        "lat": 49.225392266,
+        "lng": -0.903742769
+      },
+      "radius": 1.3,
+      "area": 5.3,
+      "points": [],
+      "tags": [
+        "petits-fruits",
+        "phase-1"
+      ],
+      "photos": []
+    },
+    {
+      "id": "cl-gros1",
+      "name": "Groseillier 1",
+      "category": "🌿 Végétation",
+      "notes": "Dans la lisière sud : cassissiers et groseilliers donnent bien en mi-ombre et préfèrent la fraîcheur (le plein soleil normand d'août les brûle). Au bord du chemin = récolte facile, à 15 m du compost. Espacement 1,5 m.",
+      "color": "#976448",
+      "isCircle": true,
+      "center": {
+        "lat": 49.225410252,
+        "lng": -0.903797788
+      },
+      "radius": 1.3,
+      "area": 5.3,
+      "points": [],
+      "tags": [
+        "petits-fruits",
+        "phase-1"
+      ],
+      "photos": [
+        "https://thumb.wikimedia.org/wikipedia/commons/thumb/f/fd/Redcurrant_in_basket_2018_G1.jpg/960px-Redcurrant_in_basket_2018_G1.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail"
+      ]
+    },
+    {
+      "id": "cl-gros2",
+      "name": "Groseillier 2",
+      "category": "🌿 Végétation",
+      "notes": "Dans la lisière sud : cassissiers et groseilliers donnent bien en mi-ombre et préfèrent la fraîcheur (le plein soleil normand d'août les brûle). Au bord du chemin = récolte facile, à 15 m du compost. Espacement 1,5 m.",
+      "color": "#976448",
+      "isCircle": true,
+      "center": {
+        "lat": 49.225428237,
+        "lng": -0.903852808
+      },
+      "radius": 1.3,
+      "area": 5.3,
+      "points": [],
+      "tags": [
+        "petits-fruits",
+        "phase-1"
+      ],
+      "photos": [
+        "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/b1/Redcurrant_%28Ribes_rubrum%29_fruits.jpg/960px-Redcurrant_%28Ribes_rubrum%29_fruits.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail"
+      ]
+    },
+    {
+      "id": "cl-framboisiers",
+      "name": "Rang de framboisiers (2 variétés)",
+      "category": "🌿 Végétation",
+      "notes": "Le long du chemin, côté nord (plein soleil) : les framboisiers drageonnent partout → coincés entre le chemin tondu et la haie de Benjes, ils ne peuvent pas envahir. Une variété remontante ('Héritage') + une non remontante ('Malling Promise'). Palissage sur 2 fils.",
+      "color": "#B0475A",
+      "isLine": true,
+      "isCurve": false,
+      "thickness": 6,
+      "points": [
+        {
+          "lat": 49.225513669,
+          "lng": -0.903907828
+        },
+        {
+          "lat": 49.225603597,
+          "lng": -0.904182928
+        }
+      ],
+      "area": 0,
+      "tags": [
+        "petits-fruits",
+        "phase-1"
+      ],
+      "photos": [
+        "https://upload.wikimedia.org/wikipedia/commons/e/e7/Raspberry_canes_-_geograph.org.uk_-_82487.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled"
+      ]
+    },
+    {
+      "id": "cl-myrtilles",
+      "name": "Myrtilliers en bac acide",
+      "category": "🌿 Végétation",
+      "notes": "Le myrtillier exige un pH 4,5–5,5 et de l'eau NON calcaire : en Normandie, sol et eau du réseau sont souvent trop riches en calcium. Donc : bac/planche de terre de bruyère + écorces de pin, arrosé avec l'eau de pluie de la maison commune (cuve juste à côté). Deux variétés pour la pollinisation croisée.\n\nSOL :\npH du terrain ≈ 5,8 : encore trop haut pour le myrtillier (4,5–5,5) → le bac acide reste nécessaire.",
+      "color": "#6488A8",
+      "isCircle": true,
+      "center": {
+        "lat": 49.225936331,
+        "lng": -0.904224193
+      },
+      "radius": 2,
+      "area": 12.6,
+      "points": [],
+      "tags": [
+        "petits-fruits",
+        "hameau",
+        "phase-2"
+      ],
+      "photos": [
+        "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/a0/Blueray_Blueberry_Bush.JPG/960px-Blueray_Blueberry_Bush.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail"
+      ]
+    },
+    {
+      "id": "cl-poivrier",
+      "name": "Poivrier (de Tasmanie ou du Sichuan)",
+      "category": "🌿 Végétation",
+      "notes": "Identifier l'espèce d'abord :\n• Poivrier de Tasmanie (Drimys/Tasmannia lanceolata) : rustique ≈ −10 °C, aime la mi-ombre, l'humidité et un sol acide → ici, au nord de la maison commune, à côté des myrtilliers (même terre, même eau de pluie). Il faut un pied mâle + femelle pour les baies.\n• Poivre du Sichuan (Zanthoxylum) : plein soleil, épineux → plutôt dans la haie sud.\n(Le vrai poivre, Piper nigrum, est tropical : serre chauffée uniquement.)",
+      "color": "#76965A",
+      "isCircle": true,
+      "center": {
+        "lat": 49.226035252,
+        "lng": -0.904251703
+      },
+      "radius": 1.5,
+      "area": 7.1,
+      "points": [],
+      "tags": [
+        "hameau",
+        "phase-2"
+      ],
+      "photos": [
+        "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/0f/Tasmannia_lanceolata.jpg/960px-Tasmannia_lanceolata.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+        "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/d3/Zanthoxylum_piperitum_Fruits_et_graines.jpg/960px-Zanthoxylum_piperitum_Fruits_et_graines.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail"
+      ]
+    },
+    {
+      "id": "cl-chataignier2",
+      "name": "Châtaignier 2 — pollinisateur (lisière sud)",
+      "category": "🌳 Arbres & Haies",
+      "color": "#6F8B5C",
+      "isCircle": true,
+      "center": {
+        "lat": 49.225306835,
+        "lng": -0.903467669
+      },
+      "radius": 3,
+      "area": 28.3,
+      "points": [],
+      "tags": [
+        "arbres",
+        "petits-fruits",
+        "phase-1"
+      ],
+      "photos": [
+        "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/af/Afgevallen_kastanje_van_een_Tamme_kastanje_%28Castanea_sativa%29_17-10-2021_%28d.j.b.%29_01.jpg/960px-Afgevallen_kastanje_van_een_Tamme_kastanje_%28Castanea_sativa%29_17-10-2021_%28d.j.b.%29_01.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail"
+      ],
+      "notes": "Variété proposée : 'Marigoule' (hybride, bon pollinisateur de 'Bouche de Bétizac', floraison au même moment, tolérant à l'encre), à confirmer avec le pépiniériste.\n\nPOURQUOI ICI :\n• À ≈ 55 m du châtaignier de l'accueil. Le plus près possible : entre les deux, il n'y a que des cultures, des bâtiments ou des sols trop frais. On reste dans la portée du pollen (vent et insectes) ; au-delà d'environ 50 m, la récolte baisse un peu. Pour l'assurer, on peut greffer un rameau de 'Marigoule' sur le châtaignier de l'accueil.\n• Sol haut et sec (≈ 72,4 m) : pas de risque d'encre.\n• Dans la lisière sud, déjà prévue pour l'ombre : son ombrage protège le pôle compost voisin (7 m) du dessèchement.\n• Il domine la haie gourmande sud sans la remplacer et fait écran avec les bâtiments agricoles voisins.\n\n⚠ OMBRE À SURVEILLER :\n• En été, à midi, son ombre s'arrête sur le chemin ; au printemps et à l'automne, elle mord les 2–3 m sud du potager vers midi → y mettre des cultures de mi-ombre (salades, blettes) ou une allée.\n• Après ~16 h 30 en été, l'ombre atteint l'angle ouest du jardin surélevé (déjà prévu pour la mi-ombre).\n• À ≈ 6 m de la limite sud : couronne à contenir côté voisins (élagage tous les 3–4 ans)."
     }
   ],
   "zoneVisible": {
@@ -318,6 +2704,330 @@
     "mp12omq9uu4jjfhshk": true,
     "mp12pywhtuahwfn799": true,
     "mp12rsxo5ptjwmg2ifs": true,
-    "mp12t8v76vragtxx0ch": true
+    "mp12t8v76vragtxx0ch": true,
+    "mvci9gev3psw12zrwte": true,
+    "mvckoa6tmgltcztp8w": true,
+    "fj26101701": true,
+    "fj26101702": true,
+    "fj26101703": true,
+    "fj26101704": true,
+    "fj26101705": true,
+    "fj26101706": true,
+    "fj26101707": true,
+    "fj26101708": true,
+    "fj26101709": true,
+    "fj26101710": true,
+    "fj26101711": true,
+    "fj26101712": true,
+    "fj26101713": true,
+    "fj26101714": true,
+    "fj26101715": true,
+    "fj26101716": true,
+    "fj26101717": true,
+    "fj26101718": true,
+    "fj26101719": true,
+    "fj26101720": true,
+    "fj26101721": true,
+    "fj26101722": true,
+    "fj26101723": true,
+    "fj26101724": true,
+    "fj26101725": true,
+    "fj26101726": true,
+    "fj26101727": true,
+    "fj26101728": true,
+    "fj26101729": true,
+    "fj26101730": true,
+    "fj26101731": true,
+    "fj26101732": true,
+    "fj26101733": true,
+    "fj26101734": true,
+    "mvclggcnwwvrlhsvlj": true,
+    "eco26101701": true,
+    "eco26101702": true,
+    "eco26101703": true,
+    "eco26101704": true,
+    "eco26101705": true,
+    "eco26101706": true,
+    "eco26101707": true,
+    "eco26101708": true,
+    "eco26101709": true,
+    "eco26101710": true,
+    "eco26101711": true,
+    "eco26101712": true,
+    "eco26101713": true,
+    "eco26101714": true,
+    "eco26101715": true,
+    "eco26101716": true,
+    "eco26101717": true,
+    "eco26101718": true,
+    "eco26101719": true,
+    "eco26101720": true,
+    "eco26101721": true,
+    "eco26101722": true,
+    "eco26101723": true,
+    "eco26101724": true,
+    "eco26101725": true,
+    "eco26101726": true,
+    "eco26101727": true,
+    "eco26101728": true,
+    "eco26101729": true,
+    "eco26101730": true,
+    "eco26101731": true,
+    "cl-talus": true,
+    "cl-ripisylve": true,
+    "cl-hameau": true,
+    "cl-foret-jardin": true,
+    "cl-potager": true,
+    "cl-lisiere-sud": true,
+    "cl-haie-nord": true,
+    "cl-haie-sud": true,
+    "cl-cloture-potager": true,
+    "cl-benjes": true,
+    "cl-plessis1": true,
+    "cl-plessis2": true,
+    "cl-plessis3": true,
+    "cl-noue": true,
+    "cl-rigole": true,
+    "cl-mare2": true,
+    "cl-phyto": true,
+    "cl-chemin": true,
+    "cl-retournement": true,
+    "cl-reseaux": true,
+    "cl-sentier": true,
+    "cl-belvedere-sentier": true,
+    "cl-belvedere": true,
+    "cl-place": true,
+    "cl-commune": true,
+    "cl-th1": true,
+    "cl-th2": true,
+    "cl-th3": true,
+    "cl-th4": true,
+    "cl-serre": true,
+    "cl-cabane-potager": true,
+    "cl-compost": true,
+    "cl-clairiere": true,
+    "cl-halle": true,
+    "cl-lisiere-hameau": true,
+    "cl-ecran-terrasse": true,
+    "cl-cabane-hameau": true,
+    "cl-humanure": true,
+    "cl-chene1": true,
+    "cl-chene2": true,
+    "cl-chene3": true,
+    "cl-chene4": true,
+    "cl-chene5": true,
+    "cl-chene6": true,
+    "cl-chataignier": true,
+    "cl-saule": true,
+    "cl-piege-soleil": true,
+    "cl-pecher1": true,
+    "cl-pecher2": true,
+    "cl-abricotier": true,
+    "cl-cerisier": true,
+    "cl-pommier": true,
+    "cl-poirier": true,
+    "cl-cassis1": true,
+    "cl-cassis2": true,
+    "cl-gros1": true,
+    "cl-gros2": true,
+    "cl-framboisiers": true,
+    "cl-myrtilles": true,
+    "cl-poivrier": true,
+    "mvcovxcfczkl6u82p4": true,
+    "cl-filtre-roseaux": true,
+    "cl-ruisseau": true,
+    "cl-bassin-finition": true,
+    "cl-tp-mare": true,
+    "cl-tp-noue": true,
+    "cl-portail": true,
+    "cl-accueil": true,
+    "cl-ts-accueil": true,
+    "cl-ts-bivouac": true,
+    "cl-tente1": true,
+    "cl-tente2": true,
+    "cl-tente3": true,
+    "cl-tente4": true,
+    "cl-pepiniere": true
+  },
+  "visite": {
+    "titre": "Visite de l'éco-lieu",
+    "etapes": [
+      {
+        "titre": "Bienvenue : lire le terrain",
+        "texte": "1,55 ha en lanière : la maison et la route à l'est, la rivière en contrebas à l'ouest, des voisins au sud, un champ au nord.\n\nOn lit le lieu d'est en ouest, du plus soigné au plus sauvage : maison → accueil → potager → verger–forêt-jardin → clairière des ateliers → hameau → talus boisé → rivière.\n\nLe plateau (70–74 m) penche doucement vers le nord-ouest ; le dernier tiers plonge vers la rivière (≈ 13 %).",
+        "zones": [
+          "mp0zhluw3ehx4vuruns"
+        ]
+      },
+      {
+        "titre": "Le portail et le parking",
+        "texte": "Les visiteurs entrent par le portail et se garent ici. Les voitures s'arrêtent là : le reste du lieu se parcourt à pied. Le hangar garde le matériel lourd (tracteur, broyeur, remorque).",
+        "zones": [
+          "cl-portail",
+          "mvcovxcfczkl6u82p4"
+        ]
+      },
+      {
+        "titre": "L'accueil",
+        "texte": "Premier arrêt : plan du lieu, programme des ateliers, vente de plants de la pépinière, toilettes sèches accessibles. Le sentier des visiteurs part d'ici et évite le jardin privé de la maison.\n\nSur la pelouse voisine, un châtaignier greffé donnera de l'ombre au parking : c'est l'arbre de l'accueil.",
+        "zones": [
+          "cl-accueil",
+          "cl-ts-accueil",
+          "cl-chataignier"
+        ]
+      },
+      {
+        "titre": "La maison et son jardin (privé)",
+        "texte": "Le jardin familial, au plus près de la cuisine : terrasse, potager surélevé (à créer), massifs, cabane des enfants, puits. On le voit depuis le sentier, on n'y entre pas.",
+        "zones": [
+          "mp10v1ihxbktw8y63ya",
+          "mp12rsxo5ptjwmg2ifs",
+          "mp12omq9uu4jjfhshk",
+          "mp12pywhtuahwfn799",
+          "mp0zi5cdj7j45j3g5s"
+        ]
+      },
+      {
+        "titre": "L'eau de la maison devient une ressource",
+        "texte": "L'ancienne fosse devient un filtre planté de roseaux. L'eau épurée coule ensuite dans un petit ruisseau planté le long de l'allée d'arches : les plantes finissent le travail.\n\nC'est le point de départ de tous les chemins d'eau du lieu.",
+        "zones": [
+          "cl-filtre-roseaux",
+          "cl-ruisseau",
+          "mp12t8v76vragtxx0ch"
+        ]
+      },
+      {
+        "titre": "Le bassin de finition et la mare",
+        "texte": "Le bassin répartit l'eau : vers la mare existante en été pour la garder en eau, vers la noue de la forêt-jardin en hiver. Grenouilles et tritons y régulent les limaces du potager.",
+        "zones": [
+          "cl-bassin-finition",
+          "mvclggcnwwvrlhsvlj",
+          "cl-tp-mare",
+          "cl-tp-noue"
+        ]
+      },
+      {
+        "titre": "Le potager collectif, la serre et la pépinière",
+        "texte": "Le potager partagé (≈ 1 300 m²) sur la partie la plus haute et la plus sèche du plateau. La serre et la cabane de semis au nord-est, la pépinière au sud-est, contre le chemin.\n\nLa clôture anti-chevreuils porte une grimpante par face : vigne au sud, houblon au nord, kiwaï à l'est.",
+        "zones": [
+          "cl-potager",
+          "cl-serre",
+          "cl-cabane-potager",
+          "cl-pepiniere",
+          "cl-cloture-potager"
+        ]
+      },
+      {
+        "titre": "La noue : arrêter l'eau",
+        "texte": "Un fossé large et parfaitement à niveau, sur la courbe 71,5 m : l'eau qui filait au fossé nord s'infiltre maintenant sous les arbres. Le trop-plein suit une rigole jusqu'au point bas du plateau.",
+        "zones": [
+          "cl-noue",
+          "cl-rigole"
+        ]
+      },
+      {
+        "titre": "Le verger – forêt-jardin",
+        "texte": "La bande nord, la plus lumineuse, plantée en étages : grands fruitiers au nord, arbustes, vivaces et couvre-sols vers le sud.\n\nLe « piège à soleil », un arc d'arbustes ouvert au sud, garde la chaleur pour les pêchers.",
+        "zones": [
+          "cl-foret-jardin",
+          "cl-piege-soleil",
+          "cl-pecher1",
+          "cl-pecher2",
+          "cl-cerisier",
+          "cl-pommier",
+          "cl-poirier"
+        ]
+      },
+      {
+        "titre": "La lisière sud et le compost",
+        "texte": "La bande ombrée par la haie des voisins : trop sombre pour les légumes en hiver, parfaite pour les cassis, groseilles, rhubarbe, champignons sur bûches… et le compost, qui préfère l'ombre.\n\nLe second châtaignier, pollinisateur de celui de l'accueil, ombrage le compost.",
+        "zones": [
+          "cl-lisiere-sud",
+          "cl-compost",
+          "cl-cassis1",
+          "cl-cassis2",
+          "cl-gros1",
+          "cl-gros2",
+          "cl-chataignier2"
+        ]
+      },
+      {
+        "titre": "La clairière des ateliers",
+        "texte": "L'espace public du tiers-lieu : ateliers, marchés de plants, chantiers participatifs. La halle au nord abrite de la pluie ; la moitié ouest accueille quelques tentes lors des stages.",
+        "zones": [
+          "cl-clairiere",
+          "cl-halle",
+          "cl-ts-bivouac",
+          "cl-tente1",
+          "cl-tente2",
+          "cl-tente3",
+          "cl-tente4"
+        ]
+      },
+      {
+        "titre": "La mare n°2 et le saule",
+        "texte": "Au point le plus bas du plateau, là où l'eau converge naturellement. Le saule pleureur est au nord pour ne pas lui faire d'ombre.",
+        "zones": [
+          "cl-mare2",
+          "cl-saule"
+        ]
+      },
+      {
+        "titre": "Le hameau",
+        "texte": "Quatre tiny houses autour d'une place, sur le rebord du plateau face à la vallée. Elles sont séparées par des bosquets et des plessis de noisetier. La maison commune (cuisine, douches, buanderie) fait la charnière avec la forêt-jardin.\n\nEspace privé : on y entre par un seul portillon.",
+        "zones": [
+          "cl-hameau",
+          "cl-place",
+          "cl-commune",
+          "cl-th1",
+          "cl-th2",
+          "cl-th3",
+          "cl-th4",
+          "cl-myrtilles",
+          "cl-abricotier",
+          "cl-poivrier"
+        ]
+      },
+      {
+        "titre": "Les coulisses du hameau",
+        "texte": "Ce qu'on ne voit pas mais qui fait tourner le lieu : l'aire de retournement des véhicules, la cabane-bûcher, le filtre planté des eaux grises, le compost des toilettes sèches et la tranchée des réseaux.",
+        "zones": [
+          "cl-retournement",
+          "cl-cabane-hameau",
+          "cl-phyto",
+          "cl-humanure",
+          "cl-reseaux"
+        ]
+      },
+      {
+        "titre": "Les clôtures vivantes",
+        "texte": "Ici, pas de clôtures en grillage nu : une haie brise-vent haute au nord (elle n'ombre que le champ), une haie basse et gourmande au sud (pour ne pas ombrer le jardin), une haie sèche faite des tailles, et des plessis tressés avec les noisetiers du lieu.",
+        "zones": [
+          "cl-haie-nord",
+          "cl-haie-sud",
+          "cl-benjes",
+          "cl-lisiere-hameau",
+          "cl-plessis1",
+          "cl-plessis2",
+          "cl-plessis3"
+        ]
+      },
+      {
+        "titre": "Le talus, les chênes et le belvédère",
+        "texte": "Le talus raide vers la rivière accueille les grands arbres : six chênes, qui prolongent le bois de la rivière. Entre les deux groupes de chênes, une fenêtre de vue mène au banc du belvédère.\n\nFin de la visite : la rivière, au couchant.",
+        "zones": [
+          "cl-talus",
+          "cl-chene1",
+          "cl-chene2",
+          "cl-chene3",
+          "cl-chene4",
+          "cl-chene5",
+          "cl-chene6",
+          "cl-belvedere-sentier",
+          "cl-belvedere",
+          "cl-ripisylve"
+        ]
+      }
+    ]
   }
 }

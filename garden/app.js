@@ -38,6 +38,19 @@ const zoneVisible = {};
 let filterText = '';
 let filterCategory = '';
 let filterTag = '';
+let filterMap = false; // appliquer les filtres aussi à la carte
+try { filterMap = localStorage.getItem('jardin-filter-map') === '1'; } catch {}
+
+// Mode visite (lecture seule : carte + panneau)
+let visitMode = false;
+
+// Visite guidée : { titre, etapes: [{ titre, texte, zones: [ids] }] } (champ « visite » du JSON)
+let tour = null;
+let tourStep = -1;     // étape affichée, -1 = visite guidée fermée
+let tourIds = null;    // Set des zones de l'étape courante
+
+// Chargement groupé : évite de reconstruire la liste à chaque zone
+let batching = false;
 
 // Layer registry  zoneId → { layer, label }
 const layerMap = {};
@@ -96,6 +109,50 @@ function calcArea(latlngs) {
 
 function fmtArea(a) {
   return a >= 10000 ? (a / 10000).toFixed(2) + ' ha' : Math.round(a) + ' m²';
+}
+
+function esc(s) {
+  return String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+}
+
+// Ray-casting pour tester si un point est dans un polygone
+function pointInPolygon(latlng, points) {
+  let inside = false;
+  const x = latlng.lat, y = latlng.lng;
+  for (let i = 0, j = points.length - 1; i < points.length; j = i++) {
+    const xi = points[i].lat, yi = points[i].lng;
+    const xj = points[j].lat, yj = points[j].lng;
+    if (((yi > y) !== (yj > y)) && (x < (xj - xi) * (y - yi) / (yj - yi) + xi))
+      inside = !inside;
+  }
+  return inside;
+}
+
+// Position de l'étiquette : centroïde pour un polygone, milieu du tracé pour une ligne
+function labelLatLng(zone, layer) {
+  if (zone.isCircle) return L.latLng(zone.center);
+  const pts = (zone.isLine || zone.isCurve) ? layer.getLatLngs() : zone.points;
+  if (zone.isLine || zone.isCurve) {
+    const k = Math.cos(pts[0].lat * Math.PI / 180);
+    const seg = pts.slice(1).map((p, i) => Math.hypot(p.lat - pts[i].lat, (p.lng - pts[i].lng) * k));
+    let half = seg.reduce((s, d) => s + d, 0) / 2;
+    for (let i = 0; i < seg.length; i++) {
+      if (half <= seg[i] && seg[i] > 0) {
+        const t = half / seg[i];
+        return L.latLng(pts[i].lat + (pts[i+1].lat - pts[i].lat) * t, pts[i].lng + (pts[i+1].lng - pts[i].lng) * t);
+      }
+      half -= seg[i];
+    }
+    return pts[pts.length - 1];
+  }
+  let a = 0, cx = 0, cy = 0;
+  for (let i = 0, j = pts.length - 1; i < pts.length; j = i++) {
+    const f = pts[j].lng * pts[i].lat - pts[i].lng * pts[j].lat;
+    a += f; cx += (pts[j].lng + pts[i].lng) * f; cy += (pts[j].lat + pts[i].lat) * f;
+  }
+  if (Math.abs(a) < 1e-14) return layer.getBounds().getCenter();
+  const c = L.latLng(cy / (3 * a), cx / (3 * a));
+  return pointInPolygon(c, pts) ? c : layer.getBounds().getCenter();
 }
 
 // Catmull-Rom spline through control points
@@ -278,10 +335,12 @@ function startVertexEdit(zoneId) {
     marker.on('dragend', () => {
       map.dragging.enable();
       try {
-        const c = layerMap[zoneId].layer.getBounds().getCenter();
-        layerMap[zoneId].label.setLatLng(c);
+        const entry = layerMap[zoneId];
+        entry.labelPos = labelLatLng(zone, entry.layer);
+        entry.bounds = entry.layer.getBounds();
+        entry.label.setLatLng(entry.labelPos);
       } catch(e) {}
-      renderSidebar();
+      renderSidebar(); scheduleLabels();
     });
 
     vertexMarkers.push(marker);
@@ -349,8 +408,7 @@ function createZone(data) {
   if (!(id in zoneVisible)) zoneVisible[id] = true;
   zones.push(zone);
   renderZoneOnMap(zone);
-  renderSidebar();
-  updateStats();
+  if (!batching) { renderSidebar(); updateStats(); scheduleLabels(); }
   return zone;
 }
 
@@ -361,88 +419,68 @@ function renderZoneOnMap(zone) {
     if (layerMap[zone.id].label) map.removeLayer(layerMap[zone.id].label);
   }
 
-  const visible = zoneVisible[zone.id] !== false;
-  let layer, center;
+  let layer;
 
   if (zone.isCircle) {
     layer = L.circle(zone.center, { radius: zone.radius, color: zone.color, fillColor: zone.color, fillOpacity: 0.3, weight: 2.5 });
-    center = L.latLng(zone.center);
   } else if (zone.isLine) {
     layer = L.polyline(zone.points, { color: zone.color, weight: zone.thickness || 4, opacity: 0.9, lineJoin: 'round', lineCap: 'round' });
-    center = layer.getBounds().getCenter();
   } else if (zone.isCurve) {
     layer = L.polyline(bezierPoints(zone.points), { color: zone.color, weight: zone.thickness || 4, opacity: 0.9, lineJoin: 'round', lineCap: 'round' });
-    center = layer.getBounds().getCenter();
   } else {
     layer = L.polygon(zone.points, { color: zone.color, fillColor: zone.color, fillOpacity: 0.3, weight: 2.5 });
-    center = layer.getBounds().getCenter();
   }
 
-  if (visible) layer.addTo(map);
+  if (isShownOnMap(zone)) layer.addTo(map);
 
-  // Label
+  // Nom au survol : utile quand l'étiquette est réduite à son icône ou masquée
+  layer.bindTooltip(esc(zone.name || 'Zone'), { sticky: true, direction: 'top', offset: [0, -10], className: 'zone-tip' });
+
+  // Label (son affichage complet / icône / masqué est géré par updateLabels)
+  const labelPos = labelLatLng(zone, layer);
   const catIcon = zone.category ? (CAT_ICON[zone.category] || '') : '';
-  const labelHtml = `<div class="zone-label-wrap">${catIcon ? `<div class="zone-cat-icon">${catIcon}</div>` : ''}<div class="zone-label-inner">${zone.name || 'Zone'}</div></div>`;
-  const label = L.marker(center, {
+  const labelHtml = `<div class="zone-label-wrap">${catIcon ? `<div class="zone-cat-icon">${catIcon}</div>` : ''}<div class="zone-label-inner">${esc(zone.name || 'Zone')}</div></div>`;
+  const label = L.marker(labelPos, {
     icon: L.divIcon({ html: labelHtml, className: 'zone-label', iconSize: null, iconAnchor: [0, 0] }),
     interactive: false,
-    opacity: visible ? 1 : 0,
+    keyboard: false,
   }).addTo(map);
+  label.getElement().dataset.mode = 'hidden';
 
-
-  // Ray-casting pour tester si un point est dans un polygone
-function pointInPolygon(latlng, points) {
-  let inside = false;
-  const x = latlng.lat, y = latlng.lng;
-  for (let i = 0, j = points.length - 1; i < points.length; j = i++) {
-    const xi = points[i].lat, yi = points[i].lng;
-    const xj = points[j].lat, yj = points[j].lng;
-    if (((yi > y) !== (yj > y)) && (x < (xj - xi) * (y - yi) / (yj - yi) + xi))
-      inside = !inside;
-  }
-  return inside;
-}
-
-  // Events — only on visible; but we always attach (layer may be off-map when hidden)
-layer.on('click', e => {
+  layer.on('click', e => {
     if (currentMode !== 'select') return;
     L.DomEvent.stopPropagation(e);
     // Trouver toutes les zones sous le curseur, sélectionner la plus petite
     const hit = zones.filter(z => {
-      if (!layerMap[z.id] || zoneVisible[z.id] === false) return false;
-      const lyr = layerMap[z.id].layer;
+      if (!layerMap[z.id] || !isShownOnMap(z)) return false;
       if (z.isCircle) {
         return z.center && e.latlng.distanceTo(L.latLng(z.center)) <= z.radius;
       } else if (z.isLine || z.isCurve) {
         return z.id === zone.id; // lignes : pas de surface, on prend celle cliquée
       } else {
-        return lyr.getBounds().contains(e.latlng) &&
-               L.Polygon.prototype.contains
-                 ? lyr.contains ? lyr.contains(e.latlng)
-                 : pointInPolygon(e.latlng, z.points)
-                 : pointInPolygon(e.latlng, z.points);
+        return layerMap[z.id].layer.getBounds().contains(e.latlng) && pointInPolygon(e.latlng, z.points);
       }
     });
     // Trier par surface croissante, prendre la plus petite
     const smallest = hit.sort((a, b) => (a.area || 0) - (b.area || 0))[0];
     const targetId = smallest ? smallest.id : zone.id;
-    if (currentMode === 'select'){
-      selectZone(targetId);
-      openModal(targetId);
-    }
+    selectZone(targetId);
+    if (visitMode) openFiche(targetId); else openModal(targetId);
   });
 
   layer.on('contextmenu', e => {
     L.DomEvent.stopPropagation(e); L.DomEvent.preventDefault(e);
+    if (visitMode) return;
     showCtxMenu(e.originalEvent.clientX, e.originalEvent.clientY, zone.id);
   });
 
   layer.on('dblclick', e => {
     L.DomEvent.stopPropagation(e);
-    if (!zone.isCircle) startVertexEdit(zone.id);
+    if (!visitMode && !zone.isCircle) startVertexEdit(zone.id);
   });
 
-  layerMap[zone.id] = { layer, label };
+  layerMap[zone.id] = { layer, label, labelPos, bounds: layer.getBounds() };
+  if (tourIds || zone.id === selectedZoneId) applyStyle(zone);
 }
 
 function updateZone(id, data) {
@@ -450,7 +488,7 @@ function updateZone(id, data) {
   if (idx === -1) return;
   zones[idx] = { ...zones[idx], ...data };
   renderZoneOnMap(zones[idx]);
-  renderSidebar(); updateStats();
+  renderSidebar(); updateStats(); scheduleLabels();
 }
 
 function deleteZone(id) {
@@ -463,29 +501,117 @@ function deleteZone(id) {
   delete zoneVisible[id];
   zones = zones.filter(z => z.id !== id);
   if (selectedZoneId === id) { selectedZoneId = null; }
-  renderSidebar(); updateStats();
+  renderSidebar(); updateStats(); scheduleLabels();
   showToast('🗑 Zone supprimée');
+}
+
+// Une zone est dessinée si elle n'est pas masquée (👁) et, quand l'option
+// « Appliquer à la carte » est cochée, si elle passe les filtres du panneau.
+function isShownOnMap(z) {
+  if (tourIds && tourIds.has(z.id)) return true; // une étape de visite montre toujours ses zones
+  return zoneVisible[z.id] !== false && (!filterMap || matchesFilter(z));
+}
+
+function applyZoneDisplay(z) {
+  const entry = layerMap[z.id];
+  if (!entry) return;
+  const shown = isShownOnMap(z), has = map.hasLayer(entry.layer);
+  if (shown && !has) entry.layer.addTo(map);
+  if (!shown && has) map.removeLayer(entry.layer);
+}
+
+function syncMapVisibility() {
+  zones.forEach(applyZoneDisplay);
+  scheduleLabels();
 }
 
 function toggleZoneVisibility(id, e) {
   e.stopPropagation();
-  zoneVisible[id] = !zoneVisible[id];
-  const visible = zoneVisible[id];
-  if (layerMap[id]) {
-    if (visible) { layerMap[id].layer.addTo(map); layerMap[id].label.setOpacity(1); }
-    else { map.removeLayer(layerMap[id].layer); layerMap[id].label.setOpacity(0); }
+  zoneVisible[id] = zoneVisible[id] === false;
+  const z = zones.find(z => z.id === id);
+  if (z) applyZoneDisplay(z);
+  renderSidebar(); scheduleLabels();
+}
+
+// ═══════════════════════════════════════════════════
+//  LABELS — anti-chevauchement
+// ═══════════════════════════════════════════════════
+// Chaque étiquette est affichée en entier, réduite à son icône ou masquée,
+// par ordre de priorité : zone sélectionnée, puis les zones les plus grandes
+// à l'écran (les très grandes zones de contexte passent en dernier).
+const labelMeasure = document.createElement('canvas').getContext('2d');
+const labelWidthCache = new Map(); // nom → largeur en px
+let labelTimer = null;
+
+function labelTextWidth(name) {
+  if (!labelWidthCache.has(name)) {
+    labelMeasure.font = '500 12px "DM Sans", sans-serif';
+    labelWidthCache.set(name, labelMeasure.measureText(name).width);
   }
-  renderSidebar();
+  return labelWidthCache.get(name);
+}
+
+function scheduleLabels() {
+  if (labelTimer) return;
+  labelTimer = setTimeout(() => { labelTimer = null; updateLabels(); }, 30);
+}
+
+function updateLabels() {
+  const size = map.getSize();
+  const diag = Math.hypot(size.x, size.y);
+  const items = [];
+  zones.forEach(z => {
+    const entry = layerMap[z.id];
+    const el = entry && entry.label.getElement();
+    if (!el) return;
+    if (!isShownOnMap(z) || (tourIds && !tourIds.has(z.id))) { el.dataset.mode = 'hidden'; return; }
+    const p = map.latLngToContainerPoint(entry.labelPos);
+    if (p.x < -50 || p.y < -50 || p.x > size.x + 50 || p.y > size.y + 50) { el.dataset.mode = 'hidden'; return; }
+    let prio;
+    if (z.id === selectedZoneId) prio = Infinity;
+    else if (tourIds && tourIds.has(z.id) && tourIds.size <= 3) prio = 1e9;
+    else {
+      const a = map.latLngToContainerPoint(entry.bounds.getNorthWest());
+      const b = map.latLngToContainerPoint(entry.bounds.getSouthEast());
+      const span = Math.hypot(b.x - a.x, b.y - a.y);
+      prio = span > 0.6 * diag ? -1 : span;
+    }
+    items.push({ z, el, p, prio });
+  });
+  items.sort((a, b) => b.prio - a.prio);
+
+  const placed = [];
+  const free = r => !placed.some(q => r.x1 < q.x2 && r.x2 > q.x1 && r.y1 < q.y2 && r.y2 > q.y1);
+  const box = (p, w, h) => ({ x1: p.x - w / 2 - 2, x2: p.x + w / 2 + 2, y1: p.y - h / 2 - 1, y2: p.y + h / 2 + 1 });
+  items.forEach(({ z, el, p }) => {
+    const hasIcon = !!CAT_ICON[z.category];
+    const full = box(p, labelTextWidth(z.name || 'Zone') + 16, hasIcon ? 43 : 20);
+    if (free(full)) { placed.push(full); el.dataset.mode = 'full'; return; }
+    const icon = box(p, 22, 22);
+    if (hasIcon && free(icon)) { placed.push(icon); el.dataset.mode = 'icon'; return; }
+    el.dataset.mode = 'hidden';
+  });
+}
+
+map.on('zoomend moveend resize', scheduleLabels);
+
+// Style d'une zone selon son état : normal, sélectionnée, ou estompée pendant la visite guidée
+function applyStyle(z) {
+  const entry = layerMap[z.id];
+  if (!entry) return;
+  const linear = z.isLine || z.isCurve;
+  const dim = tourIds && !tourIds.has(z.id);
+  if (z.id === selectedZoneId) entry.layer.setStyle(linear ? { weight: (z.thickness || 4) + 3, opacity: 1 } : { weight: 3.5, opacity: 1, fillOpacity: 0.45 });
+  else if (dim) entry.layer.setStyle(linear ? { weight: z.thickness || 4, opacity: 0.18 } : { weight: 1, opacity: 0.25, fillOpacity: 0.05 });
+  else if (tourIds) entry.layer.setStyle(linear ? { weight: (z.thickness || 4) + 2, opacity: 1 } : { weight: 3.5, opacity: 1, fillOpacity: 0.42 });
+  else entry.layer.setStyle(linear ? { weight: z.thickness || 4, opacity: 0.9 } : { weight: 2.5, opacity: 1, fillOpacity: 0.3 });
 }
 
 function selectZone(id) {
   stopVertexEdit(); deselectZone();
   selectedZoneId = id;
-  if (layerMap[id]) {
-    const _z = zones.find(z => z.id === id);
-    if (_z && (_z.isLine || _z.isCurve)) layerMap[id].layer.setStyle({ weight: (_z.thickness || 4) + 3, opacity: 1 });
-    else layerMap[id].layer.setStyle({ weight: 3.5, fillOpacity: 0.45 });
-  }
+  const _z = zones.find(z => z.id === id);
+  if (_z) applyStyle(_z);
   document.querySelectorAll('.zone-card').forEach(c => c.classList.toggle('selected', c.dataset.id === id));
   document.getElementById('btn-delete-selected').style.display = '';
   document.getElementById('btn-edit-selected').style.display = '';
@@ -500,17 +626,13 @@ function selectZone(id) {
   }
   const card = document.querySelector(`.zone-card[data-id="${id}"]`);
   if (card) card.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  scheduleLabels();
 }
 
 function deselectZone() {
-  if (selectedZoneId && layerMap[selectedZoneId]) {
-    const z = zones.find(z => z.id === selectedZoneId);
-    if (z) {
-      if (z.isLine || z.isCurve) layerMap[selectedZoneId].layer.setStyle({ weight: z.thickness || 4, opacity: 0.9 });
-      else if (!z.isCircle) layerMap[selectedZoneId].layer.setStyle({ weight: 2.5, fillOpacity: 0.3 });
-    }
-  }
+  const prev = zones.find(z => z.id === selectedZoneId);
   selectedZoneId = null;
+  if (prev) applyStyle(prev);
   document.querySelectorAll('.zone-card').forEach(c => c.classList.remove('selected'));
   if (currentMode !== 'line' && currentMode !== 'curve') document.getElementById('thickness-group').style.display = 'none';
 }
@@ -540,30 +662,46 @@ function refreshFilterChips() {
   document.getElementById('filter-clear').classList.toggle('visible', !!(filterText || filterCategory || filterTag));
 }
 
-function setFilterCat(cat) { filterCategory = filterCategory === cat ? '' : cat; refreshFilterChips(); renderSidebar(); }
-function setFilterTag(tag) { filterTag = filterTag === tag ? '' : tag; refreshFilterChips(); renderSidebar(); }
+function onFiltersChanged() {
+  renderSidebar();
+  if (filterMap) syncMapVisibility();
+}
 
+function setFilterCat(cat) { filterCategory = filterCategory === cat ? '' : cat; onFiltersChanged(); }
+function setFilterTag(tag) { filterTag = filterTag === tag ? '' : tag; onFiltersChanged(); }
+
+let searchTimer = null;
 document.getElementById('filter-search').addEventListener('input', e => {
   filterText = e.target.value.toLowerCase();
-  document.getElementById('filter-clear').classList.toggle('visible', !!(filterText || filterCategory || filterTag));
-  renderSidebar();
+  clearTimeout(searchTimer);
+  searchTimer = setTimeout(onFiltersChanged, 120);
 });
 document.getElementById('filter-clear').addEventListener('click', () => {
   filterText = ''; filterCategory = ''; filterTag = '';
   document.getElementById('filter-search').value = '';
-  refreshFilterChips(); renderSidebar();
+  onFiltersChanged();
 });
 
+const filterMapBox = document.getElementById('filter-map');
+filterMapBox.checked = filterMap;
+filterMapBox.addEventListener('change', () => {
+  filterMap = filterMapBox.checked;
+  try { localStorage.setItem('jardin-filter-map', filterMap ? '1' : '0'); } catch {}
+  syncMapVisibility();
+});
+
+function matchesFilter(z) {
+  if (filterCategory && z.category !== filterCategory) return false;
+  if (filterTag && !(z.tags || []).includes(filterTag)) return false;
+  if (filterText) {
+    const hay = [z.name, z.category, z.notes, ...(z.tags || [])].join(' ').toLowerCase();
+    if (!hay.includes(filterText)) return false;
+  }
+  return true;
+}
+
 function getFilteredZones() {
-  return zones.filter(z => {
-    if (filterCategory && z.category !== filterCategory) return false;
-    if (filterTag && !(z.tags || []).includes(filterTag)) return false;
-    if (filterText) {
-      const hay = [z.name, z.category, z.notes, ...(z.tags || [])].join(' ').toLowerCase();
-      if (!hay.includes(filterText)) return false;
-    }
-    return true;
-  });
+  return zones.filter(matchesFilter);
 }
 
 // ═══════════════════════════════════════════════════
@@ -591,28 +729,30 @@ function renderSidebar() {
     return;
   }
 
-  list.innerHTML = '';
+  const frag = document.createDocumentFragment();
   filtered.forEach(z => {
     const visible = zoneVisible[z.id] !== false;
     const card = document.createElement('div');
     card.className = 'zone-card' + (z.id === selectedZoneId ? ' selected' : '') + (!visible ? ' hidden-zone' : '');
     card.dataset.id = z.id;
+    card.title = 'Double-clic : ouvrir la fiche';
 
     const areaLabel = z.isLine ? '╱ ligne' : z.isCurve ? '〜 courbe' : fmtArea(z.area || 0);
     const tagsHtml = z.tags && z.tags.length
-      ? `<div style="padding:0 12px 8px;display:flex;gap:4px;flex-wrap:wrap">${z.tags.map(t => `<span style="font-size:0.68rem;background:var(--parchment);border-radius:10px;padding:1px 7px;color:var(--ink-soft)">#${t}</span>`).join('')}</div>` : '';
+      ? `<div style="padding:0 12px 8px;display:flex;gap:4px;flex-wrap:wrap">${z.tags.map(t => `<span style="font-size:0.68rem;background:var(--parchment);border-radius:10px;padding:1px 7px;color:var(--ink-soft)">#${esc(t)}</span>`).join('')}</div>` : '';
+    // Vignettes en chargement paresseux : seules celles visibles dans le panneau sont téléchargées
     const photosHtml = z.photos && z.photos.length
-      ? `<div class="zone-card-photos">${z.photos.slice(0,5).map(p => `<img class="zone-thumb" src="${p}" alt="">`).join('')}</div>` : '';
+      ? `<div class="zone-card-photos">${z.photos.slice(0,5).map(p => `<img class="zone-thumb" src="${esc(p)}" alt="" loading="lazy" decoding="async">`).join('')}</div>` : '';
 
     card.innerHTML = `
       <div class="zone-card-head">
         <button class="zone-vis-toggle${!visible ? ' hidden' : ''}" title="${visible ? 'Masquer' : 'Afficher'}" onclick="toggleZoneVisibility('${z.id}', event)">${visible ? '👁' : '🙈'}</button>
         <div class="zone-color-badge" style="background:${z.color}"></div>
-        <div class="zone-card-title">${z.name || '<em>Sans nom</em>'}</div>
+        <div class="zone-card-title">${z.name ? esc(z.name) : '<em>Sans nom</em>'}</div>
         <div class="zone-card-area">${areaLabel}</div>
       </div>
-      ${z.category ? `<div class="zone-card-preview" style="padding-bottom:4px">${z.category}</div>` : ''}
-      ${z.notes ? `<div class="zone-card-preview">${z.notes}</div>` : ''}
+      ${z.category ? `<div class="zone-card-preview" style="margin-bottom:4px">${esc(z.category)}</div>` : ''}
+      ${z.notes ? `<div class="zone-card-preview">${esc(z.notes.slice(0, 220))}</div>` : ''}
       ${tagsHtml}${photosHtml}
     `;
 
@@ -620,14 +760,20 @@ function renderSidebar() {
       if (ev.target.closest('.zone-vis-toggle')) return;
       if (currentMode === 'select') {
         selectZone(z.id);
-        if (layerMap[z.id]) { try { map.fitBounds(layerMap[z.id].layer.getBounds(), { padding: [60,60] }); } catch(e){} }
+        if (layerMap[z.id] && isShownOnMap(z)) { try { map.fitBounds(layerMap[z.id].layer.getBounds(), { padding: [60,60], maxZoom: 20 }); } catch(e){} }
       } else {
         openModal(z.id);
       }
     });
 
-    list.appendChild(card);
+    card.addEventListener('dblclick', ev => {
+      if (ev.target.closest('.zone-vis-toggle')) return;
+      if (visitMode) openFiche(z.id); else openModal(z.id);
+    });
+
+    frag.appendChild(card);
   });
+  list.replaceChildren(frag);
 }
 
 // ═══════════════════════════════════════════════════
@@ -810,8 +956,8 @@ function removePhoto(i) { tempPhotos.splice(i, 1); renderPhotos(); }
 //  LIGHTBOX
 // ═══════════════════════════════════════════════════
 let lightboxPhotos = [], lightboxIndex = 0;
-function openLightbox(idx) {
-  lightboxPhotos = [...tempPhotos];
+function openLightbox(idx, photos) {
+  lightboxPhotos = [...(photos || tempPhotos)];
   lightboxIndex = idx;
   renderLightbox();
   document.getElementById('lightbox').classList.add('open');
@@ -868,6 +1014,7 @@ document.querySelectorAll('.color-dot').forEach(dot => dot.addEventListener('cli
 // ═══════════════════════════════════════════════════
 document.getElementById('btn-toggle-sidebar').addEventListener('click', () => {
   document.getElementById('sidebar').classList.toggle('collapsed');
+  setTimeout(() => { map.invalidateSize(); scheduleLabels(); }, 320);
 });
 
 // ═══════════════════════════════════════════════════
@@ -882,7 +1029,7 @@ function serializeZones() {
 }
 
 document.getElementById('btn-save').addEventListener('click', saveData);
-document.getElementById('btn-export-pdf').addEventListener('click', exportPDF);
+document.getElementById('btn-export-pdf').addEventListener('click', () => exportPDF());
 document.getElementById('btn-import').addEventListener('click', () => document.getElementById('import-input').click());
 document.getElementById('import-input').addEventListener('change', e => {
   const file = e.target.files[0]; if (!file) return;
@@ -892,7 +1039,7 @@ document.getElementById('import-input').addEventListener('change', e => {
 });
 
 function saveData() {
-  const data = { version: 1, savedAt: new Date().toISOString(), mapCenter: map.getCenter(), mapZoom: map.getZoom(), zones: serializeZones(), zoneVisible };
+  const data = { version: 1, savedAt: new Date().toISOString(), mapCenter: map.getCenter(), mapZoom: map.getZoom(), zones: serializeZones(), zoneVisible, ...(tour ? { visite: tour } : {}) };
   const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
   const a = document.createElement('a');
   a.href = URL.createObjectURL(blob);
@@ -904,32 +1051,179 @@ function saveData() {
 
 function loadData(data) {
   stopVertexEdit();
+  if (tourStep >= 0) closeTour();
+  tour = data.visite && Array.isArray(data.visite.etapes) && data.visite.etapes.length ? data.visite : null;
   zones.forEach(z => { if (layerMap[z.id]) { map.removeLayer(layerMap[z.id].layer); if (layerMap[z.id].label) map.removeLayer(layerMap[z.id].label); delete layerMap[z.id]; } });
   zones = [];
   if (data.mapCenter) map.setView(data.mapCenter, data.mapZoom || 18);
   // Restore visibility state
   Object.assign(zoneVisible, data.zoneVisible || {});
-  (data.zones || []).forEach(z => {
-    const pts = (z.points || []).map(p => L.latLng(p.lat, p.lng));
-    const ctr = z.center ? L.latLng(z.center.lat, z.center.lng) : undefined;
-    createZone({ ...z, points: pts, center: ctr });
-  });
+  batching = true;
+  try {
+    (data.zones || []).forEach(z => {
+      const pts = (z.points || []).map(p => L.latLng(p.lat, p.lng));
+      const ctr = z.center ? L.latLng(z.center.lat, z.center.lng) : undefined;
+      createZone({ ...z, points: pts, center: ctr });
+    });
+  } finally { batching = false; }
+  renderSidebar(); updateStats(); scheduleLabels();
 }
 
+// mon-jardin.json fait foi ; la sauvegarde du navigateur ne sert que s'il est absent
+// (avant, les deux étaient chargés l'un après l'autre).
 window.addEventListener('load', async () => {
-  try {
-    const saved = localStorage.getItem('jardin-planner-backup');
-    if (saved) { loadData(JSON.parse(saved)); showToast('✨ Projet restauré'); }
-  } catch {}
+  let loaded = false;
   try {
     const res = await fetch('./mon-jardin.json');
-    if (res.ok) { loadData(await res.json()); showToast('🌿 Projet chargé'); }
+    if (res.ok) { loadData(await res.json()); showToast('🌿 Projet chargé'); loaded = true; }
   } catch {}
+  if (!loaded) {
+    try {
+      const saved = localStorage.getItem('jardin-planner-backup');
+      if (saved) { loadData(JSON.parse(saved)); showToast('✨ Projet restauré'); }
+    } catch {}
+  }
+  if (location.hash === '#visite') setVisitMode(true);
+  if (location.hash === '#visite-guidee') startTour();
 });
+
+// ═══════════════════════════════════════════════════
+//  MODE VISITE + FICHE EN LECTURE SEULE
+// ═══════════════════════════════════════════════════
+function setVisitMode(on) {
+  visitMode = on;
+  if (on) { setMode('select'); closeModal(); closeCtxMenu(); }
+  else { closeFiche(); closeTour(); if (document.fullscreenElement) document.exitFullscreen().catch(() => {}); }
+  document.body.classList.toggle('visit', on);
+  history.replaceState(null, '', on ? '#visite' : location.pathname + location.search);
+  map.invalidateSize();
+  scheduleLabels();
+}
+
+function toggleFullscreen() {
+  if (document.fullscreenElement) document.exitFullscreen().catch(() => {});
+  else document.documentElement.requestFullscreen().catch(() => showToast('⚠️ Plein écran refusé par le navigateur'));
+}
+
+document.addEventListener('fullscreenchange', () => {
+  document.getElementById('visit-fullscreen').textContent = document.fullscreenElement ? '🗗 Quitter le plein écran' : '⛶ Plein écran';
+  setTimeout(() => { map.invalidateSize(); scheduleLabels(); }, 100);
+});
+
+document.getElementById('btn-visit').addEventListener('click', () => setVisitMode(true));
+document.getElementById('visit-exit').addEventListener('click', () => setVisitMode(false));
+document.getElementById('visit-fullscreen').addEventListener('click', toggleFullscreen);
+document.getElementById('visit-panel').addEventListener('click', () => {
+  document.getElementById('sidebar').classList.toggle('collapsed');
+  setTimeout(() => { map.invalidateSize(); scheduleLabels(); }, 320);
+});
+
+function openFiche(id) {
+  const z = zones.find(z => z.id === id);
+  if (!z) return;
+  document.getElementById('fiche-color').style.background = z.color;
+  document.getElementById('fiche-title').textContent = z.name || 'Sans nom';
+  document.getElementById('fiche-area').textContent = z.isLine ? 'ligne' : z.isCurve ? 'courbe' : fmtArea(z.area || 0);
+  document.getElementById('fiche-meta').innerHTML =
+    (z.category ? `<span class="fiche-cat">${esc(z.category)}</span>` : '') +
+    (z.tags || []).map(t => `<span class="fiche-tag">#${esc(t)}</span>`).join('');
+  const photos = z.photos || [];
+  const ph = document.getElementById('fiche-photos');
+  ph.innerHTML = photos.map((p, i) => `<img src="${esc(p)}" alt="" loading="lazy" decoding="async" data-i="${i}">`).join('');
+  ph.style.display = photos.length ? '' : 'none';
+  ph.onclick = e => { const img = e.target.closest('img'); if (img) openLightbox(+img.dataset.i, photos); };
+  document.getElementById('fiche-notes').textContent = z.notes || 'Pas encore de notes.';
+  document.getElementById('fiche-overlay').classList.add('open');
+  document.getElementById('fiche').scrollTop = 0;
+}
+
+function closeFiche() { document.getElementById('fiche-overlay').classList.remove('open'); }
+
+// ═══════════════════════════════════════════════════
+//  VISITE GUIDÉE
+// ═══════════════════════════════════════════════════
+// Sans parcours écrit dans le JSON, on en fabrique un : les zones étiquetées « zone »
+// (ou, à défaut, les surfaces), d'est en ouest, avec le début de leurs notes.
+function tourSteps() {
+  if (tour) return tour.etapes;
+  let base = zones.filter(z => (z.tags || []).includes('zone'));
+  if (!base.length) base = zones.filter(z => !z.isLine && !z.isCurve && (z.area || 0) > 50);
+  return base
+    .map(z => ({ z, lng: layerMap[z.id] ? layerMap[z.id].labelPos.lng : 0 }))
+    .sort((a, b) => b.lng - a.lng)
+    .map(({ z }) => ({ titre: z.name, texte: (z.notes || '').split('\n\n')[0], zones: [z.id] }));
+}
+
+function startTour() {
+  if (!tourSteps().length) { showToast('Aucune étape de visite'); return; }
+  if (!visitMode) setVisitMode(true);
+  closeFiche();
+  document.getElementById('tour-panel').classList.add('open');
+  showTourStep(0);
+}
+
+function closeTour() {
+  if (tourStep < 0) return;
+  tourStep = -1; tourIds = null;
+  document.getElementById('tour-panel').classList.remove('open');
+  zones.forEach(applyStyle);
+  syncMapVisibility();
+}
+
+function showTourStep(i) {
+  const steps = tourSteps();
+  tourStep = Math.max(0, Math.min(i, steps.length - 1));
+  const step = steps[tourStep];
+  const stepZones = (step.zones || []).map(id => zones.find(z => z.id === id)).filter(Boolean);
+  tourIds = new Set(stepZones.map(z => z.id));
+  deselectZone();
+  zones.forEach(applyStyle);
+  syncMapVisibility();
+
+  document.getElementById('tour-count').textContent = `Étape ${tourStep + 1} / ${steps.length}`;
+  document.getElementById('tour-title').textContent = step.titre || (stepZones[0] && stepZones[0].name) || '';
+  document.getElementById('tour-text').textContent = step.texte || '';
+  document.getElementById('tour-text').scrollTop = 0;
+  document.getElementById('tour-dots').innerHTML = steps.map((s, k) =>
+    `<button class="tour-dot${k === tourStep ? ' active' : ''}" title="${esc(s.titre || '')}" data-k="${k}"></button>`).join('');
+  const photos = stepZones.flatMap(z => z.photos || []);
+  const ph = document.getElementById('tour-photos');
+  ph.innerHTML = photos.slice(0, 6).map((p, k) => `<img src="${esc(p)}" alt="" loading="lazy" decoding="async" data-i="${k}">`).join('');
+  ph.style.display = photos.length ? '' : 'none';
+  ph.onclick = e => { const img = e.target.closest('img'); if (img) openLightbox(+img.dataset.i, photos); };
+  document.getElementById('tour-zones').innerHTML = stepZones.map(z =>
+    `<button class="tour-zone" data-id="${z.id}"><span class="zone-color-badge" style="background:${z.color}"></span>${esc(z.name)}</button>`).join('');
+  document.getElementById('tour-prev').disabled = tourStep === 0;
+  document.getElementById('tour-next').textContent = tourStep === steps.length - 1 ? 'Terminer ✓' : 'Suivant ▶';
+
+  if (stepZones.length) {
+    const b = L.latLngBounds([]);
+    stepZones.forEach(z => b.extend(layerMap[z.id].bounds));
+    const panel = document.getElementById('tour-panel');
+    map.flyToBounds(b, { paddingTopLeft: [40, 60], paddingBottomRight: [40, panel.offsetHeight + 30], maxZoom: 20, duration: 0.8 });
+  }
+  scheduleLabels();
+}
+
+document.getElementById('visit-tour').addEventListener('click', () => tourStep >= 0 ? closeTour() : startTour());
+document.getElementById('btn-tour').addEventListener('click', startTour);
+document.getElementById('tour-close').addEventListener('click', closeTour);
+document.getElementById('tour-prev').addEventListener('click', () => showTourStep(tourStep - 1));
+document.getElementById('tour-next').addEventListener('click', () => {
+  if (tourStep >= tourSteps().length - 1) closeTour(); else showTourStep(tourStep + 1);
+});
+document.getElementById('tour-dots').addEventListener('click', e => {
+  const d = e.target.closest('.tour-dot'); if (d) showTourStep(+d.dataset.k);
+});
+document.getElementById('tour-zones').addEventListener('click', e => {
+  const b = e.target.closest('.tour-zone'); if (b) openFiche(b.dataset.id);
+});
+document.getElementById('fiche-close').addEventListener('click', closeFiche);
+document.getElementById('fiche-overlay').addEventListener('click', e => { if (e.target.id === 'fiche-overlay') closeFiche(); });
 
 setInterval(() => {
   if (zones.length === 0) return;
-  try { localStorage.setItem('jardin-planner-backup', JSON.stringify({ version:1, savedAt: new Date().toISOString(), mapCenter: map.getCenter(), mapZoom: map.getZoom(), zones: serializeZones(), zoneVisible })); } catch {}
+  try { localStorage.setItem('jardin-planner-backup', JSON.stringify({ version:1, savedAt: new Date().toISOString(), mapCenter: map.getCenter(), mapZoom: map.getZoom(), zones: serializeZones(), zoneVisible, ...(tour ? { visite: tour } : {}) })); } catch {}
 }, 120000);
 
 // ═══════════════════════════════════════════════════
@@ -965,6 +1259,24 @@ document.addEventListener('keydown', e => {
     if (e.key === 'Escape') closeHelp();
     return;
   }
+  // Fiche (lecture seule)
+  if (document.getElementById('fiche-overlay').classList.contains('open')) {
+    if (e.key === 'Escape') closeFiche();
+    return;
+  }
+  // Mode visite : pas de raccourcis d'édition
+  if (visitMode) {
+    if (e.target.tagName === 'INPUT') return;
+    if (e.key === 'f') toggleFullscreen();
+    if (tourStep >= 0) {
+      if (e.key === 'ArrowRight') document.getElementById('tour-next').click();
+      if (e.key === 'ArrowLeft' && tourStep > 0) showTourStep(tourStep - 1);
+      if (e.key === 'Escape') closeTour();
+      return;
+    }
+    if (e.key === 'Escape' && !document.fullscreenElement) setVisitMode(false);
+    return;
+  }
   // Vertex edit escape
   if (vertexEditMode && e.key === 'Escape') { stopVertexEdit(); return; }
   // Drawing escape
@@ -982,392 +1294,4 @@ document.addEventListener('keydown', e => {
   if ((e.key === 'Delete' || e.key === 'Backspace') && selectedZoneId && !vertexEditMode) { e.preventDefault(); deleteZone(selectedZoneId); }
 });
 
-// ═══════════════════════════════════════════════════
-//  PDF EXPORT — Rapport de projet jardin
-// ═══════════════════════════════════════════════════
-
-async function exportPDF() {
-  showToast('📄 Génération du rapport… patience');
-
-  // Dynamic load of jsPDF + html2canvas via CDN
-  await loadScript('https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js');
-  await loadScript('https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js');
-
-  const { jsPDF } = window.jspdf;
-  const doc = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' });
-
-  const W = 210, H = 297;
-  const MARGIN = 18;
-  const CONTENT_W = W - MARGIN * 2;
-
-  // ── Palette / style helpers ──
-  const COL = {
-    ink:      [42, 37, 25],
-    inkSoft:  [92, 82, 68],
-    cream:    [245, 240, 232],
-    parchment:[237, 229, 208],
-    sage:     [122, 158, 126],
-    sageDark: [78, 116, 82],
-    terra:    [193, 127, 74],
-    white:    [255, 255, 255],
-  };
-
-  const setFont = (style, size, color) => {
-    doc.setFont('helvetica', style);
-    doc.setFontSize(size);
-    doc.setTextColor(...(color || COL.ink));
-  };
-
-  // Convert hex color string to [r,g,b]
-  function hexToRgb(hex) {
-    const r = parseInt(hex.slice(1,3),16);
-    const g = parseInt(hex.slice(3,5),16);
-    const b = parseInt(hex.slice(5,7),16);
-    return [r,g,b];
-  }
-
-  // Draw a filled rounded rect
-  function roundRect(x, y, w, h, r, fillColor, strokeColor) {
-    doc.setFillColor(...fillColor);
-    if (strokeColor) doc.setDrawColor(...strokeColor); else doc.setDrawColor(0,0,0,0);
-    doc.roundedRect(x, y, w, h, r, r, strokeColor ? 'FD' : 'F');
-  }
-
-  // ─────────────────────────────────────────────
-  //  PAGE 1 — COVER
-  // ─────────────────────────────────────────────
-  // Background
-  doc.setFillColor(...COL.ink);
-  doc.rect(0, 0, W, H, 'F');
-
-  // Decorative sage band
-  doc.setFillColor(...COL.sage);
-  doc.rect(0, H * 0.38, W, H * 0.28, 'F');
-
-  // Cream lower strip
-  doc.setFillColor(...COL.cream);
-  doc.rect(0, H * 0.66, W, H * 0.34, 'F');
-
-  // Title
-  setFont('bold', 32, COL.cream);
-  doc.text('Carnet de Projet', W / 2, 72, { align: 'center' });
-  setFont('italic', 20, [232, 201, 154]);
-  doc.text('Jardin', W / 2, 84, { align: 'center' });
-
-  // Divider line
-  doc.setDrawColor(...COL.sage);
-  doc.setLineWidth(0.4);
-  doc.line(MARGIN + 30, 90, W - MARGIN - 30, 90);
-
-  // Stats on sage band
-  const totalArea = zones.reduce((s, z) => s + (z.area || 0), 0);
-  const polygones = zones.filter(z => !z.isCircle && !z.isLine && !z.isCurve).length;
-  const cercles   = zones.filter(z => z.isCircle).length;
-  const lignes    = zones.filter(z => z.isLine || z.isCurve).length;
-
-  setFont('bold', 28, COL.white);
-  doc.text(String(zones.length), W / 2, H * 0.47, { align: 'center' });
-  setFont('normal', 10, COL.cream);
-  doc.text('zones tracées', W / 2, H * 0.47 + 6, { align: 'center' });
-
-  // 3 mini stats
-  const stats = [
-    { label: fmtArea(totalArea), sub: 'surface totale' },
-    { label: polygones + ' poly · ' + cercles + ' cercles', sub: 'zones surfaciques' },
-    { label: lignes + ' tracé' + (lignes > 1 ? 's' : ''), sub: 'lignes & courbes' },
-  ];
-  stats.forEach((s, i) => {
-    const x = MARGIN + (CONTENT_W / 3) * i + CONTENT_W / 6;
-    setFont('bold', 11, COL.white);
-    doc.text(s.label, x, H * 0.56, { align: 'center' });
-    setFont('normal', 8, COL.cream);
-    doc.text(s.sub, x, H * 0.56 + 4.5, { align: 'center' });
-  });
-
-  // Date & footer
-  setFont('normal', 9, COL.inkSoft);
-  doc.text('Généré le ' + new Date().toLocaleDateString('fr-FR', { day:'numeric', month:'long', year:'numeric' }),
-    W / 2, H * 0.76, { align: 'center' });
-
-  setFont('normal', 8, [150, 140, 125]);
-  doc.text('Jardin Planner · jardin-planner.html', W / 2, H - 12, { align: 'center' });
-
-  // ─────────────────────────────────────────────
-  //  CAPTURE MAP
-  // ─────────────────────────────────────────────
-  showToast('📷 Capture de la carte…');
-  let mapImageData = null;
-  try {
-    const mapEl = document.getElementById('map');
-    const canvas = await html2canvas(mapEl, { useCORS: true, allowTaint: true, scale: 1.5, logging: false });
-    mapImageData = canvas.toDataURL('image/jpeg', 0.88);
-  } catch(e) { console.warn('Map capture failed', e); }
-
-  // ─────────────────────────────────────────────
-  //  PAGE 2 — VUE D'ENSEMBLE CARTE
-  // ─────────────────────────────────────────────
-  doc.addPage();
-  doc.setFillColor(...COL.cream);
-  doc.rect(0, 0, W, H, 'F');
-
-  // Header bar
-  doc.setFillColor(...COL.ink);
-  doc.rect(0, 0, W, 18, 'F');
-  setFont('bold', 11, COL.cream);
-  doc.text('Vue d\'ensemble du jardin', MARGIN, 12);
-  setFont('normal', 8, [180,170,155]);
-  doc.text('Carte satellite', W - MARGIN, 12, { align: 'right' });
-
-  if (mapImageData) {
-    // Map image fills most of the page
-    const imgY = 24, imgH = H - imgY - 28;
-    roundRect(MARGIN - 1, imgY - 1, CONTENT_W + 2, imgH + 2, 3, COL.parchment);
-    doc.addImage(mapImageData, 'JPEG', MARGIN, imgY, CONTENT_W, imgH, '', 'FAST');
-    // Shadow border
-    doc.setDrawColor(...COL.inkSoft);
-    doc.setLineWidth(0.3);
-    doc.roundedRect(MARGIN, imgY, CONTENT_W, imgH, 2, 2, 'S');
-  } else {
-    roundRect(MARGIN, 24, CONTENT_W, H - 52, 3, COL.parchment);
-    setFont('italic', 11, COL.inkSoft);
-    doc.text('(Capture de carte non disponible)', W / 2, H / 2, { align: 'center' });
-  }
-
-  // Legend strip at bottom
-  roundRect(MARGIN, H - 26, CONTENT_W, 16, 2, COL.ink);
-  setFont('normal', 7.5, COL.cream);
-  const visZones = zones.slice(0, 8);
-  visZones.forEach((z, i) => {
-    const x = MARGIN + 6 + i * (CONTENT_W / 8);
-    const col = z.color ? hexToRgb(z.color) : COL.sage;
-    doc.setFillColor(...col);
-    doc.roundedRect(x, H - 22, 3, 3, 0.5, 0.5, 'F');
-    doc.setTextColor(...COL.cream);
-    doc.setFontSize(5.5);
-    const label = (z.name || 'Zone').substring(0, 10);
-    doc.text(label, x + 4.5, H - 20.3);
-  });
-
-  // Page number
-  setFont('normal', 7.5, COL.inkSoft);
-  doc.text('2', W - MARGIN, H - 6, { align: 'right' });
-
-  // ─────────────────────────────────────────────
-  //  PAGES 3+ — FICHES DE ZONES
-  // ─────────────────────────────────────────────
-  const ZONES_PER_PAGE = 2;
-  const pagesNeeded = Math.ceil(zones.length / ZONES_PER_PAGE);
-  let pageNum = 3;
-
-  for (let pg = 0; pg < pagesNeeded; pg++) {
-    doc.addPage();
-    doc.setFillColor(...COL.cream);
-    doc.rect(0, 0, W, H, 'F');
-
-    // Header
-    doc.setFillColor(...COL.ink);
-    doc.rect(0, 0, W, 18, 'F');
-    setFont('bold', 11, COL.cream);
-    doc.text('Fiches des zones', MARGIN, 12);
-    setFont('normal', 8, [180,170,155]);
-    doc.text(`Page ${pageNum} / ${pagesNeeded + 2}`, W - MARGIN, 12, { align: 'right' });
-
-    const zoneSlice = zones.slice(pg * ZONES_PER_PAGE, (pg + 1) * ZONES_PER_PAGE);
-    const cardH = (H - 30) / ZONES_PER_PAGE;
-
-    for (let ci = 0; ci < zoneSlice.length; ci++) {
-      const z = zoneSlice[ci];
-      const cardY = 22 + ci * cardH;
-      const innerH = cardH - 6;
-
-      // Card background
-      roundRect(MARGIN, cardY, CONTENT_W, innerH, 3, COL.white, COL.parchment);
-
-      // Color accent left bar
-      const zCol = z.color ? hexToRgb(z.color) : COL.sage;
-      doc.setFillColor(...zCol);
-      doc.roundedRect(MARGIN, cardY, 4, innerH, 2, 2, 'F');
-
-      // Zone number badge
-      roundRect(MARGIN + 8, cardY + 5, 7, 7, 1, zCol);
-      setFont('bold', 7, COL.white);
-      doc.text(String(zones.indexOf(z) + 1), MARGIN + 11.5, cardY + 10, { align: 'center' });
-
-      // Title row
-      setFont('bold', 13, COL.ink);
-      doc.text(z.name || 'Zone sans nom', MARGIN + 18, cardY + 11);
-
-      // Category & type badge
-      if (z.category) {
-        const cat = z.category;
-        const tw = doc.getTextWidth(cat) + 6;
-        roundRect(MARGIN + 18, cardY + 13.5, tw, 6, 1.5, zCol);
-        setFont('normal', 6.5, COL.white);
-        doc.text(cat, MARGIN + 21, cardY + 17.5);
-      }
-
-      // Area / type chip
-      const areaLabel = z.isLine ? '╱ ligne' : z.isCurve ? '〜 courbe' : fmtArea(z.area || 0);
-      setFont('bold', 8.5, [100,90,75]);
-      doc.text(areaLabel, W - MARGIN - 5, cardY + 11, { align: 'right' });
-
-      // Separator
-      doc.setDrawColor(...COL.parchment);
-      doc.setLineWidth(0.3);
-      doc.line(MARGIN + 6, cardY + 21, W - MARGIN - 5, cardY + 21);
-
-      // Notes
-      let curY = cardY + 27;
-      if (z.notes) {
-        setFont('bold', 7.5, COL.sageDark);
-        doc.text('NOTES & IDÉES', MARGIN + 8, curY);
-        curY += 4.5;
-        setFont('normal', 8.5, COL.ink);
-        const lines = doc.splitTextToSize(z.notes, CONTENT_W * 0.55);
-        const maxLines = Math.min(lines.length, 5);
-        doc.text(lines.slice(0, maxLines), MARGIN + 8, curY);
-        curY += maxLines * 4.5 + 3;
-      }
-
-      // Tags
-      if (z.tags && z.tags.length) {
-        setFont('bold', 7, COL.inkSoft);
-        doc.text('ÉTIQUETTES', MARGIN + 8, curY);
-        curY += 4;
-        let tx = MARGIN + 8;
-        z.tags.forEach(tag => {
-          const tw = doc.getTextWidth('#' + tag) + 5;
-          if (tx + tw > W - MARGIN - 5) { tx = MARGIN + 8; curY += 6; }
-          roundRect(tx, curY - 4, tw, 5, 1.2, COL.parchment);
-          setFont('normal', 6.5, COL.inkSoft);
-          doc.text('#' + tag, tx + 2.5, curY);
-          tx += tw + 2;
-        });
-        curY += 5;
-      }
-
-      // Photos moodboard (right column)
-      if (z.photos && z.photos.length > 0) {
-        const photoX = MARGIN + CONTENT_W * 0.6;
-        const photoW = CONTENT_W * 0.38;
-        const photoAreaH = innerH - 24;
-        const cols = 3, rows = Math.min(2, Math.ceil(z.photos.length / cols));
-        const thumbW = (photoW - (cols - 1) * 2) / cols;
-        const thumbH = Math.min(thumbW, (photoAreaH - (rows - 1) * 2) / rows);
-
-        setFont('bold', 7, COL.inkSoft);
-        doc.text('PHOTOS', photoX, cardY + 27);
-
-        let photoY = cardY + 30;
-        let photoCount = 0;
-
-        for (let row = 0; row < rows; row++) {
-          for (let col = 0; col < cols; col++) {
-            if (photoCount >= z.photos.length) break;
-            const src = z.photos[photoCount];
-            const px = photoX + col * (thumbW + 2);
-            const py = photoY + row * (thumbH + 2);
-            roundRect(px, py, thumbW, thumbH, 1.5, COL.parchment);
-            try {
-              // Only embed if it's a data URL (base64)
-              if (src.startsWith('data:image')) {
-                const fmt = src.includes('data:image/png') ? 'PNG' : 'JPEG';
-                doc.addImage(src, fmt, px, py, thumbW, thumbH, '', 'FAST');
-              } else {
-                // External URL — draw placeholder
-                setFont('italic', 6, COL.inkSoft);
-                doc.text('🔗', px + thumbW / 2, py + thumbH / 2, { align: 'center' });
-              }
-            } catch(e) {
-              // Image failed — just leave the placeholder
-            }
-            photoCount++;
-          }
-        }
-      }
-    }
-
-    pageNum++;
-  }
-
-  // ─────────────────────────────────────────────
-  //  LAST PAGE — RÉCAPITULATIF
-  // ─────────────────────────────────────────────
-  doc.addPage();
-  doc.setFillColor(...COL.cream);
-  doc.rect(0, 0, W, H, 'F');
-
-  doc.setFillColor(...COL.ink);
-  doc.rect(0, 0, W, 18, 'F');
-  setFont('bold', 11, COL.cream);
-  doc.text('Récapitulatif des zones', MARGIN, 12);
-  setFont('normal', 8, [180,170,155]);
-  doc.text(`Page ${pageNum} / ${pageNum}`, W - MARGIN, 12, { align: 'right' });
-
-  // Table header
-  let ty = 26;
-  roundRect(MARGIN, ty, CONTENT_W, 8, 1.5, COL.ink);
-  setFont('bold', 8, COL.cream);
-  const cols = [
-    { label: '#',        x: MARGIN + 3,    w: 8 },
-    { label: 'Nom',      x: MARGIN + 13,   w: 55 },
-    { label: 'Catégorie',x: MARGIN + 70,   w: 55 },
-    { label: 'Type',     x: MARGIN + 127,  w: 25 },
-    { label: 'Surface',  x: MARGIN + 154,  w: 25 },
-  ];
-  cols.forEach(c => doc.text(c.label, c.x, ty + 5.5));
-  ty += 10;
-
-  zones.forEach((z, i) => {
-    const rowH = 7;
-    const bg = i % 2 === 0 ? COL.white : COL.cream;
-    roundRect(MARGIN, ty, CONTENT_W, rowH, 0, bg);
-
-    // Color swatch
-    doc.setFillColor(...(z.color ? hexToRgb(z.color) : COL.sage));
-    doc.circle(MARGIN + 4.5, ty + 3.5, 2, 'F');
-
-    setFont('bold', 7.5, COL.ink);
-    doc.text(String(i + 1), MARGIN + 3, ty + 5);
-
-    setFont('normal', 7.5, COL.ink);
-    doc.text(doc.splitTextToSize(z.name || '—', 50)[0], MARGIN + 13, ty + 5);
-
-    setFont('normal', 7, COL.inkSoft);
-    doc.text(doc.splitTextToSize(z.category || '—', 52)[0], MARGIN + 70, ty + 5);
-
-    const typeLabel = z.isLine ? 'Ligne' : z.isCurve ? 'Courbe' : z.isCircle ? 'Cercle' : 'Polygone';
-    doc.text(typeLabel, MARGIN + 127, ty + 5);
-
-    const areaLabel = (z.isLine || z.isCurve) ? '—' : fmtArea(z.area || 0);
-    doc.text(areaLabel, MARGIN + 154, ty + 5);
-
-    ty += rowH;
-    if (ty > H - 20) {
-      doc.addPage();
-      doc.setFillColor(...COL.cream); doc.rect(0,0,W,H,'F');
-      doc.setFillColor(...COL.ink); doc.rect(0,0,W,18,'F');
-      ty = 26;
-    }
-  });
-
-  // Total row
-  roundRect(MARGIN, ty + 2, CONTENT_W, 8, 1.5, COL.sageDark);
-  setFont('bold', 8, COL.cream);
-  doc.text('TOTAL', MARGIN + 13, ty + 7.5);
-  doc.text(fmtArea(zones.reduce((s,z) => s + (z.area||0), 0)), MARGIN + 154, ty + 7.5);
-
-  // ── SAVE ──
-  const filename = 'jardin-rapport-' + new Date().toISOString().slice(0,10) + '.pdf';
-  doc.save(filename);
-  showToast('✅ Rapport PDF exporté !');
-}
-
-function loadScript(src) {
-  return new Promise((resolve, reject) => {
-    if (document.querySelector(`script[src="${src}"]`)) { resolve(); return; }
-    const s = document.createElement('script');
-    s.src = src; s.onload = resolve; s.onerror = reject;
-    document.head.appendChild(s);
-  });
-}
+// Le rapport PDF est généré par report.js

@@ -16,6 +16,8 @@
 <header>
   <h1>🌿 Jardin — <span>Carnet de Projet</span></h1>
   <div class="header-actions">
+    <button class="btn btn-ghost" id="btn-visit" title="Carte + panneau seulement, en lecture seule">🧭 Visite</button>
+    <button class="btn btn-ghost" id="btn-tour" title="Parcours commenté, étape par étape">▶ Visite guidée</button>
     <button class="btn btn-ghost" id="btn-help">❓ Aide</button>
     <button class="btn btn-ghost" id="btn-import">📂 Importer</button>
     <button class="btn btn-ghost" id="btn-export-pdf" title="Exporter un rapport PDF">📄 Rapport PDF</button>
@@ -65,6 +67,31 @@
 <div id="main">
   <div id="map"></div>
 
+  <!-- Commandes du mode visite -->
+  <div id="visit-controls">
+    <button class="btn" id="visit-exit" title="Revenir à l'éditeur (Échap)">✕ Quitter la visite</button>
+    <button class="btn" id="visit-fullscreen" title="Plein écran (F)">⛶ Plein écran</button>
+    <button class="btn" id="visit-panel">⊟ Panneau</button>
+    <button class="btn" id="visit-tour" title="Parcours commenté (← → pour naviguer)">▶ Visite guidée</button>
+  </div>
+
+  <!-- Visite guidée -->
+  <div id="tour-panel">
+    <div class="tour-head">
+      <span id="tour-count"></span>
+      <button class="btn-close" id="tour-close" title="Fermer la visite guidée (Échap)">✕</button>
+    </div>
+    <h3 id="tour-title"></h3>
+    <div class="tour-text" id="tour-text"></div>
+    <div class="tour-photos" id="tour-photos"></div>
+    <div class="tour-zones" id="tour-zones"></div>
+    <div class="tour-nav">
+      <button class="btn btn-ghost" id="tour-prev">◀ Précédent</button>
+      <div class="tour-dots" id="tour-dots"></div>
+      <button class="btn btn-primary" id="tour-next">Suivant ▶</button>
+    </div>
+  </div>
+
   <div id="sidebar">
     <div id="sidebar-header">
       <h2>Zones du jardin</h2>
@@ -76,7 +103,12 @@
       </div>
       <div class="filter-chips" id="filter-categories"></div>
       <div class="filter-chips" id="filter-tags"></div>
-      <button id="filter-clear">✕ Réinitialiser les filtres</button>
+      <div class="filter-footer">
+        <label class="filter-map-toggle" title="Masque aussi sur la carte les zones exclues par les filtres">
+          <input type="checkbox" id="filter-map"> Appliquer à la carte
+        </label>
+        <button id="filter-clear">✕ Réinitialiser les filtres</button>
+      </div>
     </div>
     <div id="zones-list">
       <div class="empty-state" id="empty-state">
@@ -196,6 +228,21 @@
   </div>
 </div>
 
+<!-- ── FICHE (lecture seule, mode visite) ── -->
+<div id="fiche-overlay">
+  <div id="fiche">
+    <div class="fiche-head">
+      <span class="zone-color-badge" id="fiche-color"></span>
+      <h2 id="fiche-title"></h2>
+      <span class="modal-area-badge" id="fiche-area"></span>
+      <button class="btn-close" id="fiche-close">✕</button>
+    </div>
+    <div class="fiche-meta" id="fiche-meta"></div>
+    <div class="fiche-photos" id="fiche-photos"></div>
+    <div class="fiche-notes" id="fiche-notes"></div>
+  </div>
+</div>
+
 <!-- ── LIGHTBOX ── -->
 <div id="lightbox">
   <button id="lightbox-close">✕</button>
@@ -240,7 +287,13 @@
 
       <div>
         <p style="font-family:var(--font-display);font-size:1rem;font-weight:600;margin-bottom:10px">👁 Visibilité des zones</p>
-        <p style="font-size:0.83rem;color:var(--ink-soft);line-height:1.6">Cliquez sur le bouton 👁 de chaque carte dans le panneau pour masquer/afficher la zone sur la carte. Clic droit → Masquer / Afficher fonctionne également. Les zones masquées deviennent semi-transparentes dans le panneau.</p>
+        <p style="font-size:0.83rem;color:var(--ink-soft);line-height:1.6">Cliquez sur le bouton 👁 de chaque carte dans le panneau pour masquer/afficher la zone sur la carte. Clic droit → Masquer / Afficher fonctionne également. Les zones masquées deviennent semi-transparentes dans le panneau. Cochez <strong style="color:var(--ink)">Appliquer à la carte</strong> pour que les filtres (catégorie, étiquette, recherche) masquent aussi les zones sur la carte. Double-clic sur une tuile du panneau = ouvrir sa fiche. Les étiquettes qui se chevauchent sont réduites à leur icône ou masquées : zoomez ou survolez une zone pour voir son nom.</p>
+      </div>
+
+      <div>
+        <p style="font-family:var(--font-display);font-size:1rem;font-weight:600;margin-bottom:10px">🧭 Mode visite</p>
+        <p style="font-size:0.83rem;color:var(--ink-soft);line-height:1.6">Carte + panneau seulement, en lecture seule : un clic sur une zone ouvre sa fiche et ses photos. <strong style="color:var(--ink)">F</strong> = plein écran, <strong style="color:var(--ink)">Échap</strong> = quitter. Lien direct : ajoutez <code style="background:var(--parchment);padding:1px 5px;border-radius:4px">#visite</code> à l'adresse.</p>
+        <p style="font-size:0.83rem;color:var(--ink-soft);line-height:1.6;margin-top:8px"><strong style="color:var(--ink)">▶ Visite guidée</strong> : parcours commenté étape par étape (← → pour avancer). La carte se cadre sur les zones de l'étape et estompe les autres. Le parcours est enregistré dans le champ <code style="background:var(--parchment);padding:1px 5px;border-radius:4px">visite</code> du JSON ; sans lui, la visite suit les zones étiquetées « zone », d'est en ouest. Lien direct : <code style="background:var(--parchment);padding:1px 5px;border-radius:4px">#visite-guidee</code>.</p>
       </div>
 
       <div>
@@ -259,6 +312,7 @@
 <div id="toast"></div>
 
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="report.js"></script>
 <script src="app.js"></script>
 </body>
 </html>
