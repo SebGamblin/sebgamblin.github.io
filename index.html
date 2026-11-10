@@ -18,13 +18,17 @@
   <meta property="og:title" content="Sébastien Gamblin – Enseignant-chercheur en informatique">
   <meta property="og:description" content="Enseignant-chercheur à l'ISEN Yncréa Ouest (Caen) : planification multi-agent, flottes de drones, logique épistémique. Publications, enseignements et CV.">
   <meta property="og:url" content="https://sebgamblin.github.io/">
-  <meta property="og:image" content="https://sebgamblin.github.io/assets/img/my-profile-img.jpg">
+  <meta property="og:image" content="https://sebgamblin.github.io/assets/img/og-card.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Sébastien Gamblin, enseignant-chercheur en informatique, ISEN Yncréa Ouest, Caen">
   <meta property="profile:first_name" content="Sébastien">
   <meta property="profile:last_name" content="Gamblin">
-  <meta name="twitter:card" content="summary">
+  <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Sébastien Gamblin – Enseignant-chercheur en informatique">
   <meta name="twitter:description" content="Enseignant-chercheur à l'ISEN Yncréa Ouest (Caen) : planification multi-agent, drones, logique épistémique.">
-  <meta name="twitter:image" content="https://sebgamblin.github.io/assets/img/my-profile-img.jpg">
+  <meta name="twitter:image" content="https://sebgamblin.github.io/assets/img/og-card.jpg">
+  <meta name="twitter:image:alt" content="Sébastien Gamblin, enseignant-chercheur en informatique, ISEN Yncréa Ouest, Caen">
 
   <!-- Données structurées -->
   <script type="application/ld+json">
@@ -82,7 +86,7 @@
   <!-- Fonts -->
   <link href="https://fonts.googleapis.com" rel="preconnect">
   <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,500;0,700;1,400&family=Poppins:wght@400;500;600&family=Raleway:wght@500;600;700;800&display=swap" rel="stylesheet">
 
   <!-- Vendor CSS Files -->
   <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -104,6 +108,8 @@
 
 <body class="index-page">
 
+  <a class="skip-link" href="#main">Aller au contenu</a>
+
   <header id="header" class="header dark-background d-flex flex-column">
     <i class="header-toggle d-xl-none bi bi-list"></i>
 
@@ -117,21 +123,15 @@
       <h1 class="sitename">Sébastien Gamblin</h1>
     </a>
 
-    <div class="social-links text-center">
-      <!--<a href="#" class="twitter"><i class="bi bi-twitter-x"></i></a>
-      <a href="#" class="facebook"><i class="bi bi-facebook"></i></a>
-      <a href="#" class="instagram"><i class="bi bi-instagram"></i></a>
-      <a href="#" class="google-plus"><i class="bi bi-skype"></i></a>-->
-      <ul>
-      <a href="https://github.com/SebGamblin/" class="github"><i class="bi bi-github"></i></a>
-      <a href="https://www.linkedin.com/in/s%C3%A9bastien-gamblin-386163135/" class="linkedin"><i class="bi bi-linkedin"></i></a>
-      <a href="https://scholar.google.com/citations?user=0d4dWNQAAAAJ&hl=fr&oi=ao" class="google"><i class="bi bi-google"></i></a>
-      <br>
-      <a href="https://dblp.org/pid/246/2981.html" class="earmark"><i class="bi icon-dblp"></i></a>
-      <a href="https://orcid.org/0009-0005-6508-0958" class="orcid"><i class="bi icon-orcid"></i></a>
-      <a href="https://scanr.enseignementsup-recherche.gouv.fr/authors/idref269220291" class="scanr"><i class="bi bi-upc-scan"></i></a>
-      </ul>
-    </div>
+    <ul class="social-links" aria-label="Profils et liens">
+      <li><a href="https://isen-ouest.fr/cv/sebastien-gamblin/" title="Fiche ISEN Ouest" aria-label="Fiche ISEN Ouest" target="_blank" rel="me noopener"><i class="bi bi-person-vcard" aria-hidden="true"></i></a></li>
+      <li><a href="https://github.com/SebGamblin/" title="GitHub" aria-label="GitHub" target="_blank" rel="me noopener"><i class="bi bi-github" aria-hidden="true"></i></a></li>
+      <li><a href="https://www.linkedin.com/in/s%C3%A9bastien-gamblin-386163135/" title="LinkedIn" aria-label="LinkedIn" target="_blank" rel="me noopener"><i class="bi bi-linkedin" aria-hidden="true"></i></a></li>
+      <li><a href="https://scholar.google.com/citations?user=0d4dWNQAAAAJ&amp;hl=fr&amp;oi=ao" title="Google Scholar" aria-label="Google Scholar" target="_blank" rel="me noopener"><i class="bi bi-mortarboard" aria-hidden="true"></i></a></li>
+      <li><a href="https://dblp.org/pid/246/2981.html" title="DBLP" aria-label="DBLP" target="_blank" rel="me noopener"><i class="bi icon-dblp" aria-hidden="true"></i></a></li>
+      <li><a href="https://orcid.org/0009-0005-6508-0958" title="ORCID" aria-label="ORCID" target="_blank" rel="me noopener"><i class="bi icon-orcid" aria-hidden="true"></i></a></li>
+      <li><a href="https://scanr.enseignementsup-recherche.gouv.fr/authors/idref269220291" title="ScanR" aria-label="ScanR" target="_blank" rel="me noopener"><i class="bi bi-upc-scan" aria-hidden="true"></i></a></li>
+    </ul>
     <nav id="navmenu" class="navmenu">
       <ul>
         <li><a href="#hero" class="active"><i class="bi bi-house navicon"></i>Accueil</a></li>
@@ -139,7 +139,7 @@
         <li><a href="#research"><i class="bi bi-lightbulb navicon"></i> Recherche</a></li>
         <li><a href="#enseignement"><i class="bi bi-book navicon"></i> Enseignements</a></li>
         <li><a href="#resume"><i class="bi bi-file-earmark-text navicon"></i> Curriculum Vitae</a></li>
-        <li><a href="projets.html"><i class="bi bi-boxes navicon"></i> Projets</a></li>
+        <li><a href="#projets"><i class="bi bi-boxes navicon"></i> Projets</a></li>
         <!--<li><a href="#portfolio"><i class="bi bi-images navicon"></i> Portfolio</a></li>-->
         <!--<li><a href="#services"><i class="bi bi-hdd-stack navicon"></i> Services</a></li>-->
         <!--<li class="dropdown"><a href="#"><i class="bi bi-menu-button navicon"></i> <span>Dropdown</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
@@ -158,14 +158,14 @@
             <li><a href="#">Dropdown 3</a></li>
             <li><a href="#">Dropdown 4</a></li>
           </ul>
-        </li>-->
-        <li><a href="#contact"><i class="bi bi-envelope navicon"></i> Contact pro</a></li>
+        </li>
+        <li><a href="#contact"><i class="bi bi-envelope navicon"></i> Contact pro</a></li>-->
       </ul>
     </nav>
 
   </header>
 
-  <main class="main">
+  <main class="main" id="main" tabindex="-1">
 
     <!-- Hero Section -->
     <section id="hero" class="hero section dark-background">
@@ -184,7 +184,7 @@
 
       <!-- Section Title -->
       <div class="container section-title" data-aos="fade-up">
-        <h2>À propos</h2>
+        <h2><i class="bi bi-person section-icon" aria-hidden="true"></i>À propos</h2>
         <!--<p>Après des études</p>-->
       </div><!-- End Section Title -->
 
@@ -197,7 +197,7 @@
           <div class="col-lg-8 content">
             <h3>Enseignant-chercheur</h3>
             <p class="py-3">
-              Enseignant-chercheur en informatique à l'ISEN Yncréa Ouest (Caen), je travaille sur la planification et la coordination dans les systèmes multi-agents, en particulier pour des flottes de drones autonomes. Docteur de l'Université de Caen Normandie (GREYC), j'ai consacré ma thèse à la logique épistémique dynamique probabiliste et à sa représentation symbolique. J'enseigne la programmation, l'algorithmique et les structures fondamentales de l'informatique, et je suis responsable du M2 ainsi que du domaine professionnel Développement logiciel.
+              Enseignant-chercheur en informatique à l'ISEN Yncréa Ouest (Caen), je travaille sur la planification et la coordination dans les systèmes multi-agents, en particulier pour des flottes de drones autonomes. Docteur de l'Université de Caen Normandie (GREYC), j'ai consacré ma thèse à la logique épistémique dynamique probabiliste et à sa représentation symbolique. Je travaille maintenant à l'ISEN, école d'ingénieur, où j'enseigne la programmation, l'algorithmique et les structures fondamentales de l'informatique, et où je suis responsable du M2 ainsi que du domaine professionnel Développement logiciel. Je fais aussi partie de l'équipe KLAIM, où j'applique mes thématiques de recherche, au sein du LabISEN.
             </p>
             <div class="row">
               <div class="col-lg-6">
@@ -236,13 +236,13 @@
               </ul>
               <h4 class="mt-4 mb-0"><i class="bi bi-chevron-right"></i> Différents liens</h4>
               <div class="link-tiles">
+                  <a class="link-tile" style="--tile:#0f7b8a" href="https://isen-ouest.fr/cv/sebastien-gamblin/" target="_blank" rel="me noopener"><span class="link-tile-icon"><i class="bi bi-person-vcard" aria-hidden="true"></i></span><span class="link-tile-text"><strong>ISEN Ouest</strong><small>Fiche et CV professionnel</small></span><i class="bi bi-arrow-up-right link-tile-arrow" aria-hidden="true"></i></a>
                   <a class="link-tile" style="--tile:#24292f" href="https://github.com/SebGamblin/" target="_blank" rel="me noopener"><span class="link-tile-icon"><i class="bi bi-github" aria-hidden="true"></i></span><span class="link-tile-text"><strong>GitHub</strong><small>Code et projets</small></span><i class="bi bi-arrow-up-right link-tile-arrow" aria-hidden="true"></i></a>
                   <a class="link-tile" style="--tile:#0a66c2" href="https://www.linkedin.com/in/s%C3%A9bastien-gamblin-386163135/" target="_blank" rel="me noopener"><span class="link-tile-icon"><i class="bi bi-linkedin" aria-hidden="true"></i></span><span class="link-tile-text"><strong>LinkedIn</strong><small>Parcours professionnel</small></span><i class="bi bi-arrow-up-right link-tile-arrow" aria-hidden="true"></i></a>
                   <a class="link-tile" style="--tile:#4285f4" href="https://scholar.google.com/citations?user=0d4dWNQAAAAJ&amp;hl=fr&amp;oi=ao" target="_blank" rel="me noopener"><span class="link-tile-icon"><i class="bi bi-mortarboard" aria-hidden="true"></i></span><span class="link-tile-text"><strong>Google Scholar</strong><small>Publications et citations</small></span><i class="bi bi-arrow-up-right link-tile-arrow" aria-hidden="true"></i></a>
                   <a class="link-tile" style="--tile:#1d5fa8" href="https://dblp.org/pid/246/2981.html" target="_blank" rel="me noopener"><span class="link-tile-icon"><span class="tile-img dblp" aria-hidden="true"></span></span><span class="link-tile-text"><strong>DBLP</strong><small>Bibliographie informatique</small></span><i class="bi bi-arrow-up-right link-tile-arrow" aria-hidden="true"></i></a>
                   <a class="link-tile" style="--tile:#8cb92b" href="https://orcid.org/0009-0005-6508-0958" target="_blank" rel="me noopener"><span class="link-tile-icon"><span class="tile-img orcid" aria-hidden="true"></span></span><span class="link-tile-text"><strong>ORCID</strong><small>Identifiant chercheur</small></span><i class="bi bi-arrow-up-right link-tile-arrow" aria-hidden="true"></i></a>
                   <a class="link-tile" style="--tile:#c0392b" href="https://scanr.enseignementsup-recherche.gouv.fr/authors/idref269220291" target="_blank" rel="me noopener"><span class="link-tile-icon"><i class="bi bi-upc-scan" aria-hidden="true"></i></span><span class="link-tile-text"><strong>ScanR</strong><small>Annuaire de la recherche française</small></span><i class="bi bi-arrow-up-right link-tile-arrow" aria-hidden="true"></i></a>
-                  <a class="link-tile" style="--tile:#0f7b8a" href="https://isen-ouest.fr/cv/sebastien-gamblin/" target="_blank" rel="me noopener"><span class="link-tile-icon"><i class="bi bi-person-vcard" aria-hidden="true"></i></span><span class="link-tile-text"><strong>ISEN Ouest</strong><small>Fiche et CV professionnel</small></span><i class="bi bi-arrow-up-right link-tile-arrow" aria-hidden="true"></i></a>
               </div>
             </div>
           </div>
@@ -261,7 +261,7 @@
 
       <!-- Section Title -->
       <div class="container section-title" data-aos="fade-up">
-        <h2 class="bi bi-lightbulb">Recherche</h2>
+        <h2><i class="bi bi-lightbulb section-icon" aria-hidden="true"></i>Recherche</h2>
         <p>Mes activités de recherche portent sur la conception et l’intégration de méthodes avancées de planification et d’optimisation dans les systèmes multi‑agents. Je m’intéresse particulièrement aux environnements simulés permettant de modéliser et tester des stratégies de décision distribuée avec pour but leur transposition à des cas d’usage réels. Ces travaux mobilisent des approches issues de la planification multi‑agent et de la représentation des connaissances, et se focalisent sur des applications opérationnelles telles que la coordination, la navigation et la prise de décision collaborative entre agents (drones) autonomes. J’explore également l’utilisation de données spatiales, de techniques de cartographie et de Systèmes d’Information Géographique (SIG) pour intégrer des contraintes environnementales, territoriales et logistiques dans les modèles de planification, afin de permettre une prise de décision plus réaliste, contextualisée et informée.</p>
         <ul class="project-tags research-tags" aria-label="Thèmes de recherche"><li>Planification multi-agent</li><li>Flottes de drones</li><li>Logique épistémique</li><li>Model checking symbolique</li><li>Optimisation</li><li>SIG et cartographie</li></ul>
       </div><!-- End Section Title -->
@@ -283,14 +283,14 @@
 
               <p align="justify">Cette thèse porte sur l'étude de la mise en pratique de la logique épistémique dynamique probabiliste, permettant de représenter les connaissances des agents à propos des connaissances des autres agents en utilisant des probabilités. Pour cela, en nous appuyant sur l'état de l'art du model checking symbolique, nous proposons un encodage des structures de Kripke et structures d'événements de notre logique via des fonctions booléennes et fonction pseudo-booléennes. Nous avons implémenté nos définitions en utilisant des structures de données adaptées : les Algebraic Decision Diagrams, qui généralisent les classiques Binary Decision Diagrams en permettant de manipuler des probabilités. Grâce à cette implémentation, nous avons pu mener des expérimentations qui nous ont permis de montrer que notre représentation symbolique passe mieux à l'échelle que la version explicite sur l'exemple du jeu de cartes Hanabi.</p>
               
+              <ul class="project-tags research-tags" aria-label="Thèmes de la thèse"><li>Vérification de modèles (symboliques)</li><li>Compilation</li><li>Logique épistémique (dynamique probabiliste)</li><li>Représentation des connaissances</li><li>Intelligence artificielle</li><li>Diagrammes de décision valués</li></ul>
 
-              <p><strong>Mots clés :</strong> Vérification de modèles (symboliques), compilation, logique épistémique (dynamique probabiliste), représentation des connaissances, intelligence artificielle, diagrammes de décision valués</p>
-              <h5>Matériaux :</h5>
-              <ul>
-                <li><span class="bi bi-link"></span> <a href="https://theses.fr/2022NORMC266"><i class="bi myicon theses"> </i>Thèses.fr</a></li>
-                <li><span class="bi bi-link"></span> <a href="https://theses.hal.science/tel-04075437"><i class="bi myicon hal"> </i>HAL</a></li>
-                <li><span class="bi bi-github"></span> <a href="https://git.unicaen.fr/sebastien.gamblin/symbolic-representation-for-pdel"> <i class="bi myicon unicaen"> </i>Dépôt de ma thèse</a></li>
-              </ul>
+              <h5 class="materials-title"><i class="bi bi-folder2-open" aria-hidden="true"></i> Matériaux</h5>
+              <div class="link-tiles materials-tiles">
+                <a class="link-tile" style="--tile:#2a5ea8" href="https://theses.fr/2022NORMC266" target="_blank" rel="noopener"><span class="link-tile-icon"><span class="tile-img theses" aria-hidden="true"></span></span><span class="link-tile-text"><strong>Thèses.fr</strong><small>Notice de la thèse</small></span><i class="bi bi-arrow-up-right link-tile-arrow" aria-hidden="true"></i></a>
+                <a class="link-tile" style="--tile:#e08a00" href="https://theses.hal.science/tel-04075437" target="_blank" rel="noopener"><span class="link-tile-icon"><span class="tile-img hal" aria-hidden="true"></span></span><span class="link-tile-text"><strong>HAL</strong><small>Texte intégral en archive ouverte</small></span><i class="bi bi-arrow-up-right link-tile-arrow" aria-hidden="true"></i></a>
+                <a class="link-tile" style="--tile:#00669d" href="https://git.unicaen.fr/sebastien.gamblin/symbolic-representation-for-pdel" target="_blank" rel="noopener"><span class="link-tile-icon"><span class="tile-img unicaen" aria-hidden="true"></span></span><span class="link-tile-text"><strong>Dépôt de ma thèse</strong><small>Code source, Université de Caen</small></span><i class="bi bi-arrow-up-right link-tile-arrow" aria-hidden="true"></i></a>
+              </div>
             </div><!-- Edn Resume Item -->
 
 
@@ -349,55 +349,75 @@
 
       <!-- Section Title -->
       <div class="container section-title" data-aos="fade-up">
-        <h2 class="bi bi-book">Enseignements</h2>
+        <h2><i class="bi bi-book section-icon" aria-hidden="true"></i>Enseignements</h2>
         <p>J’enseigne un ensemble de compétences allant de la programmation aux fondements théoriques de l’informatique. Mes cours couvrent les langages et technologies de développement (HTML5/CSS3/JavaScript, Java, Python), les concepts d’algorithmique et d’optimisation, ainsi que la modélisation avec la théorie des graphes. J’interviens aussi sur les patrons de conception et la culture numérique, afin d'accompagner les étudiants vers une compréhension solide des architectures logicielles, des structures fondamentales et des enjeux contemporains du numérique. Mon approche combine rigueur théorique et mise en pratique, pour former des profils capables de concevoir, analyser et optimiser des systèmes logiciels modernes.</p>
       </div>
       <div class="container" data-aos="fade-up" data-aos-delay="100">
         <h3 class="course-category"><i class="bi bi-calendar-check"></i> Courant</h3>
         <div class="course-tiles">
           <div class="course-tile">
+            <span class="course-level" data-level="A1">A1</span>
             <span class="course-tile-icon" style="--c:#e34f26"><i class="bi bi-filetype-html" aria-hidden="true"></i></span>
             <div><h4>Web : HTML5, CSS3, JavaScript</h4><p>Langages et technologies du développement web.</p></div>
           </div>
           <div class="course-tile">
-            <span class="course-tile-icon" style="--c:#e76f00"><i class="bi bi-cup-hot" aria-hidden="true"></i></span>
-            <div><h4>Java</h4><p>Programmation orientée objet.</p></div>
-          </div>
-          <div class="course-tile">
+            <span class="course-level" data-level="A1">A1</span>
             <span class="course-tile-icon" style="--c:#3776ab"><i class="bi bi-filetype-py" aria-hidden="true"></i></span>
             <div><h4>Python</h4><p>Programmation et scripts.</p></div>
           </div>
           <div class="course-tile">
-            <span class="course-tile-icon" style="--c:#6f42c1"><i class="bi bi-cpu" aria-hidden="true"></i></span>
-            <div><h4>Algorithmique et optimisation</h4><p>Concepts algorithmiques et méthodes d’optimisation.</p></div>
-          </div>
-          <div class="course-tile">
+            <span class="course-level" data-level="A3">A3</span>
             <span class="course-tile-icon" style="--c:#198754"><i class="bi bi-diagram-3" aria-hidden="true"></i></span>
             <div><h4>Théorie des graphes</h4><p>Modélisation et algorithmes sur les graphes.</p></div>
           </div>
           <div class="course-tile">
+            <span class="course-level" data-level="A4">A4</span>
+            <span class="course-tile-icon" style="--c:#e76f00"><i class="bi bi-cup-hot" aria-hidden="true"></i></span>
+            <div><h4>Java</h4><p>Programmation orientée objet et Java Swing</p></div>
+          </div>
+          <div class="course-tile">
+            <span class="course-level" data-level="AX">AX</span>
+            <span class="course-tile-icon" style="--c:#e76f00"><i class="bi bi-file-bar-graph" aria-hidden="true"></i></span>
+            <div><h4>Projets</h4><p>Projets en tous genre de programmation/conception, de la 1ère à 5ème année.</p></div>
+          </div>
+          <!-- Pour ajouter un cours, copier un bloc course-tile ci-dessus :
+          <div class="course-tile">
+            <span class="course-level" data-level="M1">M1</span>   (facultatif : pastille de niveau, en haut à droite)
+            <span class="course-tile-icon"><i class="bi bi-book" aria-hidden="true"></i></span>
+            <div><h4>Titre du cours</h4><p>Description courte.</p></div>
+          </div>
+          Niveaux colorés selon la première lettre de data-level : L ou B (licence, bachelor) en vert,
+          M (master) en violet, C (CIR, CSI…) en bleu ; autre : bleu. -->
+        </div>
+        <h3 class="course-category mt-5"><i class="bi bi-clock-history"></i> Passé</h3>
+        <div class="course-tiles">
+         <div class="course-tile">
+          <span class="course-level" data-level="A1">A1</span>
+            <span class="course-tile-icon" style="--c:#0aa2c0"><i class="bi bi-globe2" aria-hidden="true"></i></span>
+            <div><h4>Culture numérique</h4><p>Les bases de l'outil numérique: OS, Hardware, Réseaux, Logiciels, Encodage et fichiers, etc.</p></div>
+          </div>
+         <div class="course-tile">
+             <span class="course-level" data-level="A3">A3</span>
             <span class="course-tile-icon" style="--c:#d63384"><i class="bi bi-puzzle" aria-hidden="true"></i></span>
             <div><h4>Patrons de conception</h4><p>Architectures logicielles et design patterns.</p></div>
           </div>
           <div class="course-tile">
-            <span class="course-tile-icon" style="--c:#0aa2c0"><i class="bi bi-globe2" aria-hidden="true"></i></span>
-            <div><h4>Culture numérique</h4><p>Enjeux contemporains du numérique.</p></div>
+            <span class="course-level" data-level="A4">A4</span>
+            <span class="course-tile-icon" style="--c:#6f42c1"><i class="bi bi-cpu" aria-hidden="true"></i></span>
+            <div><h4>Algorithmique et optimisation</h4><p>Concepts algorithmiques et méthodes d’optimisation.</p></div>
           </div>
-          <!-- Pour ajouter un cours, copier un bloc course-tile ci-dessus :
-          <div class="course-tile"><span class="course-tile-icon"><i class="bi bi-book"></i></span>
-            <div><h4>Titre du cours</h4><p>Description courte.</p></div></div> -->
-        </div>
-        <h3 class="course-category mt-5"><i class="bi bi-clock-history"></i> Passé</h3>
-        <div class="course-tiles">
           <div class="course-tile">
+            <span class="course-level" data-level="A4">A4</span>
             <span class="course-tile-icon" style="--c:#6f42c1"><i class="bi bi-people" aria-hidden="true"></i></span>
             <div><h4>Systèmes multi-agents</h4><p>Agents autonomes, coordination et décision distribuée.</p></div>
           </div>
-          <div class="course-tile">
+           <div class="course-tile">
+            <span class="course-level" data-level="BUT2">BUT2</span>
             <span class="course-tile-icon" style="--c:#00758f"><i class="bi bi-database" aria-hidden="true"></i></span>
             <div><h4>Bases de données relationnelles avec SQL</h4><p>Modélisation relationnelle et requêtes SQL.</p></div>
           </div>
           <div class="course-tile">
+            <span class="course-level" data-level="BUT2">BUT2</span>
             <span class="course-tile-icon" style="--c:#777bb4"><i class="bi bi-filetype-php" aria-hidden="true"></i></span>
             <div><h4>PHP</h4><p>Développement web côté serveur.</p></div>
           </div>
@@ -410,11 +430,43 @@
     <section id="resume" class="resume section">
 
   <div class="container section-title" data-aos="fade-up">
-    <h2>Curriculum Vitae</h2>
-    <p>Voici un résumé de mon parcours académique et professionnel. <a href="https://isen-ouest.fr/cv/sebastien-gamblin/" target="_blank" rel="noopener">Ma fiche complète sur le site de l’ISEN Ouest <i class="bi bi-arrow-up-right"></i></a></p>
+    <h2><i class="bi bi-file-earmark-text section-icon" aria-hidden="true"></i>Curriculum Vitae</h2>
+    <p>Voici un résumé de mon parcours académique et professionnel.</p>
   </div>
 
   <div class="container">
+
+    <div class="tl-wrap" data-aos="fade-up">
+      <div class="tl-scroll">
+        <div class="tl" role="group" aria-label="Frise du parcours : formation, postes, responsabilités et publications">
+          <span class="tl-year" style="--from:1;--to:2">2018</span>
+          <span class="tl-year" style="--from:2;--to:3">2019</span>
+          <span class="tl-year" style="--from:3;--to:4">2020</span>
+          <span class="tl-year" style="--from:4;--to:5">2021</span>
+          <span class="tl-year" style="--from:5;--to:6">2022</span>
+          <span class="tl-year" style="--from:6;--to:7">2023</span>
+          <span class="tl-year" style="--from:7;--to:8">2024</span>
+          <span class="tl-year" style="--from:8;--to:9">2025</span>
+          <span class="tl-year" style="--from:9;--to:10">2026</span>
+          <span class="tl-group" style="--r1:2;--r2:3">Formation</span>
+          <span class="tl-group" style="--r1:3;--r2:5">Postes</span>
+          <span class="tl-group" style="--r1:5;--r2:7">Responsabilités</span>
+          <!--<span class="tl-group" style="--r1:7;--r2:8">Publications</span>-->
+          <span class="tl-bar tl-formation" style="--from:1;--to:5;--row:2" title="Doctorat en informatique et IA, 2018–2022">Doctorat</span>
+          <span class="tl-bar tl-poste" style="--from:1;--to:5;--row:3" title="Doctorant, GREYC, 2018–2022">Doctorant</span>
+          <span class="tl-bar tl-poste" style="--from:6;--to:9;--row:3" title="Enseignant-chercheur, ISEN Yncréa Ouest, 2023–2026">Enseignant-chercheur AutoRob</span>
+          <span class="tl-bar tl-poste" style="--from:9;--to:10;--row:3" title="Enseignant-chercheur, ISEN Yncréa Ouest, 2023–aujourd’hui">KLAIM</span>
+          <span class="tl-bar tl-poste" style="--from:4;--to:6;--row:3" title="ATER, Université de Caen Normandie, 2021–2023">ATER</span>
+          <span class="tl-bar tl-resp" style="--from:6;--to:10;--row:5" title="Responsable Domaine Professionnel Développement Logiciel, 2023–aujourd’hui">Resp. Domaine Professionnel Développement Logiciel</span>
+          <span class="tl-bar tl-resp" style="--from:6;--to:9;--row:6" title="Responsable M1, 2023–2026">Responsable M1</span>
+          <span class="tl-bar tl-resp" style="--from:9;--to:10;--row:6" title="Responsable M2, depuis 2026">M2</span>
+          <span class="tl-pub" style="--from:2;--to:3;--row:3" title="IJCAI 2019 : Hintikka’s World"><i class="tl-dot"></i><small>IJCAI</small></span>
+          <span class="tl-pub" style="--from:5;--to:6;--row:3" title="AAMAS 2022 ; thèse de doctorat 2022"><i class="tl-dot"></i><small>AAMAS</small></span>
+          <span class="tl-pub" style="--from:8;--to:9;--row:3" title="PRIMA 2025 : Graded Dynamic Epistemic Logic"><i class="tl-dot"></i><small>PRIMA</small></span>
+          <span class="tl-pub" style="--from:9;--to:10;--row:3" title="RDPIA 2026 : Partially Observable RL with Epistemic Features"><i class="tl-dot"></i><small>RDPIA</small></span>
+        </div>
+      </div>
+    </div>
 
     <div class="row">
 
@@ -472,21 +524,12 @@
             <li>Recherche : planification multi-agent, optimisation, coordination de flottes de drones autonomes, simulations multi-agents, SIG.</li>
             <li>Membre du laboratoire <a href="https://isen-ouest.fr/labisen-la-recherche/" target="_blank" rel="noopener">L@bISEN</a>, équipe <a href="https://isen-ouest.fr/labisen-la-recherche/equipes-de-recherche/klaim-knowledge-learning-and-information-modeling/" target="_blank" rel="noopener">KLAIM</a>.</li>
           </ul>
-          <div class="career-timeline" role="group" aria-label="Responsabilités à l'ISEN Yncréa Ouest">
-            <h5 class="career-timeline-title">Responsabilités</h5>
-            <div class="career-axis" aria-hidden="true"><span>2023</span><span>2024</span><span>2025</span><span>2026</span></div>
-            <ol class="career-bars">
-              <li class="career-bar career-domain" style="--from:1;--to:5"><strong>Responsable Domaine Professionnel Développement Logiciel</strong><small>De 2023 à aujourd’hui</small></li>
-              <li class="career-bar career-m1" style="--from:1;--to:4"><strong>Responsable M1</strong><small>De 2023 à 2026</small></li>
-              <li class="career-bar career-m2" style="--from:4;--to:5"><strong>Responsable M2</strong><small>À partir de 2026</small></li>
-            </ol>
-          </div>
         </div>
 
         <div class="resume-item">
           <h4>Attaché Temporaire d’Enseignement et de Recherche (ATER)</h4>
           <h5>2021 – 2023</h5>
-          <p><em><a href="https://www.unicaen.fr/" target="_blank" rel="noopener">Université de Caen Normandie</a></em></p>
+          <p><em><a href="https://www.unicaen.fr/" target="_blank" rel="noopener">Université de Caen Normandie</a>, Caen</em></p>
           <ul>
             <li>Enseignements : développement web, Python, algorithmique, modélisation.</li>
             <li>Contribution à la recherche dans l’<a href="https://www.greyc.fr/equipes/mad/" target="_blank" rel="noopener">équipe MAD</a> du <a href="https://www.greyc.fr/" target="_blank" rel="noopener">GREYC</a>.</li>
@@ -530,24 +573,138 @@
 </section>
 
 <!-- Contact Section -->
-    <!-- Projets web (aperçu) -->
+    <!-- Projets -->
     <section id="projets" class="section">
-      <div class="container" data-aos="fade-up">
-        <div class="projects-teaser">
-          <div>
-            <h3>Projets</h3>
-            <p>Projets professionnels (symdd) et personnels (Garden, Scrabble Frame, Hexplore, bientôt PingSim).</p>
-          </div>
-          <a class="btn-project" href="projets.html">Voir les projets <i class="bi bi-arrow-right"></i></a>
-        </div>
-      </div>
-    </section><!-- /Projets web -->
 
-    <section id="contact" class="contact section">
+      <div class="container section-title" data-aos="fade-up">
+        <h2><i class="bi bi-boxes section-icon" aria-hidden="true"></i>Projets</h2>
+        <p>Projets professionnels et personnels, hébergés statiquement ici ou accessibles par leur dépôt Git. Les applications web s'exécutent entièrement dans le navigateur, sans compte ni serveur.</p>
+      </div>
+
+      <div class="container" data-aos="fade-up" data-aos-delay="100">
+
+        <nav class="project-jump" aria-label="Catégories de projets"><a href="#pro"><i class="bi bi-briefcase"></i> Professionnels</a><a href="#perso"><i class="bi bi-person-heart"></i> Personnels</a></nav>
+
+        <h3 class="project-category" id="pro"><i class="bi bi-briefcase"></i> Projets professionnels</h3>
+        <div class="project-grid">
+          <article class="project-card">
+            <div class="project-thumb symdd" aria-hidden="true">
+              <span class="project-badge">Bientôt</span>
+              <i class="bi bi-diagram-2"></i>
+            </div>
+            <div class="project-body">
+              <h4>symdd</h4>
+              <p class="project-subtitle">Diagrammes de décision et model checking symbolique</p>
+              <p>Cadre générique de diagrammes de décision (BDD, ADD, ZDD, SLDD, MTZDD) et model checker symbolique pour la logique épistémique dynamique, issu de mes travaux de thèse.</p>
+              <ul class="project-features">
+                <li><i class="bi bi-check2"></i> Structures de diagrammes de décision génériques</li>
+                <li><i class="bi bi-check2"></i> Model checking symbolique de la logique épistémique dynamique</li>
+              </ul>
+              <ul class="project-tags" aria-label="Technologies">
+                <li>Diagrammes de décision</li><li>Model checking</li><li>Logique épistémique</li>
+              </ul>
+            </div>
+          </article>
+        </div>
+
+        <h3 class="project-category" id="perso"><i class="bi bi-person-heart"></i> Projets personnels</h3>
+        <div class="project-grid">
+          <article class="project-card">
+            <div class="project-thumb garden" aria-hidden="true">
+              <span class="project-badge">En ligne</span>
+              <i class="bi bi-tree"></i>
+            </div>
+            <div class="project-body">
+              <h4>Garden</h4>
+              <p class="project-subtitle">Carnet de projet pour jardin et éco-lieu</p>
+              <p>Cartographiez un terrain par zones (potager, verger, bâti, chemins d'eau), documentez chaque choix d'implantation et partagez le projet sous forme de visite guidée ou de rapport PDF.</p>
+              <ul class="project-features">
+                <li><i class="bi bi-check2"></i> Plan interactif : polygones, cercles, lignes, courbes</li>
+                <li><i class="bi bi-check2"></i> Fiches de zone, moodboard et étiquettes de phasage</li>
+                <li><i class="bi bi-check2"></i> Visite guidée commentée et rapport PDF illustré</li>
+                <li><i class="bi bi-check2"></i> Sauvegarde et import en JSON</li>
+              </ul>
+              <ul class="project-tags" aria-label="Technologies">
+                <li>JavaScript</li><li>Cartographie</li><li>JSON</li><li>PDF</li>
+              </ul>
+            </div>
+            <div class="project-actions">
+              <a class="btn-project" href="garden/index.html"><i class="bi bi-box-arrow-up-right"></i> Ouvrir l'application</a>
+              <a class="btn-project ghost" href="https://github.com/SebGamblin/garden" target="_blank" rel="noopener"><i class="bi bi-github"></i> Code</a>
+            </div>
+          </article>
+          <article class="project-card">
+            <div class="project-thumb frame" aria-hidden="true">
+              <span class="project-badge">En ligne</span>
+              <i class="bi bi-grid-3x3-gap"></i>
+            </div>
+            <div class="project-body">
+              <h4>Scrabble Frame</h4>
+              <p class="project-subtitle">Éditeur de cartes de prénoms à imprimer</p>
+              <p>Composez des mots croisés façon Scrabble à partir de prénoms, choisissez un cadre et imprimez une carte A4 prête à encadrer : idéal pour un cadeau de naissance ou de famille.</p>
+              <ul class="project-features">
+                <li><i class="bi bi-check2"></i> Les lettres communes créent les croisements</li>
+                <li><i class="bi bi-check2"></i> Plusieurs dispositions générées automatiquement</li>
+                <li><i class="bi bi-check2"></i> Cadres Classique, Art déco, Pointillé ou sans cadre</li>
+                <li><i class="bi bi-check2"></i> Impression directe ou export PDF</li>
+              </ul>
+              <ul class="project-tags" aria-label="Technologies">
+                <li>JavaScript</li><li>CSS</li><li>Impression</li>
+              </ul>
+            </div>
+            <div class="project-actions">
+              <a class="btn-project" href="frame/index.html"><i class="bi bi-box-arrow-up-right"></i> Ouvrir l'application</a>
+              <a class="btn-project ghost" href="https://github.com/SebGamblin/frame" target="_blank" rel="noopener"><i class="bi bi-github"></i> Code</a>
+            </div>
+          </article>
+          <article class="project-card">
+            <div class="project-thumb hexplore" aria-hidden="true">
+              <span class="project-badge">Hors ligne</span>
+              <i class="bi bi-hexagon"></i>
+            </div>
+            <div class="project-body">
+              <h4>Hexplore</h4>
+              <p class="project-subtitle">Roguelike tactique sur grille hexagonale</p>
+              <p>Jeu de combat au tour par tour sur grille hexagonale, avec une structure de parcours à la roguelike. Développé avec Godot.</p>
+              <ul class="project-features">
+                <li><i class="bi bi-check2"></i> Combats tactiques (points d'action et de mouvement, portées, zones)</li>
+                <li><i class="bi bi-check2"></i> Sorts alchimiques, glyphes et réactions élémentaires</li>
+              </ul>
+              <ul class="project-tags" aria-label="Technologies">
+                <li>Godot</li><li>GDScript</li><li>Jeu vidéo</li>
+              </ul>
+            </div>
+          </article>
+          <article class="project-card soon">
+            <div class="project-thumb pingsim" aria-hidden="true">
+              <span class="project-badge">Bientôt</span>
+              <i class="bi bi-diagram-3"></i>
+            </div>
+            <div class="project-body">
+              <h4>PingSim</h4>
+              <p class="project-subtitle">Simulateur · en préparation</p>
+              <p>Un simulateur interactif exécuté dans le navigateur. La présentation sera complétée dès la première version publique.</p>
+              <ul class="project-tags" aria-label="Technologies">
+                <li>JavaScript</li><li>Simulation</li>
+              </ul>
+            </div>
+            <div class="project-actions">
+              <span class="btn-project" role="link" aria-disabled="true"><i class="bi bi-hourglass-split"></i> À venir</span>
+            </div>
+          </article>
+        </div>
+
+        <p class="mt-5 mb-0">Les dépôts publics sont sur <a href="https://github.com/SebGamblin" target="_blank" rel="noopener">GitHub</a>.</p>
+      </div>
+
+    </section>
+    <!-- /Projets -->
+
+    <section id="contact" class="contact section" style="display:none">
 
       <!-- Section Title -->
       <div class="container section-title" data-aos="fade-up">
-        <h2>Contact professionnel</h2>
+        <h2><i class="bi bi-envelope section-icon" aria-hidden="true"></i>Contact professionnel</h2>
       
       </div><!-- End Section Title -->
 
@@ -591,13 +748,6 @@
     <div class="container">
       <div class="copyright text-center ">
         <p>© <span>2026</span> <strong class="px-1 sitename">Sébastien Gamblin</strong> – Enseignant-chercheur en informatique, ISEN Yncréa Ouest, Caen</p>
-      </div>
-      <div class="credits">
-        <!-- All the links in the footer should remain intact. -->
-        <!-- You can delete the links only if you've purchased the pro version. -->
-        <!-- Licensing information: https://bootstrapmade.com/license/ -->
-        <!-- Purchase the pro version with working PHP/AJAX contact form: [buy-url] -->
-        Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
       </div>
     </div>
 

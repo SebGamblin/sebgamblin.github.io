@@ -87,6 +87,10 @@ h6 {
   font-family: var(--heading-font);
 }
 
+p {
+  text-align: justifyx; 
+}
+
 /* PHP Email Form Messages
 ------------------------------*/
 .php-email-form .error-message {
@@ -181,28 +185,41 @@ h6 {
   color: var(--heading-color);
 }
 
+/* Badges de liens sous le nom : liste, 4 par ligne, centrés */
 .header .social-links {
-  margin: 0 0 20px 0;
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+  max-width: 220px;
+  margin: 0 auto 20px;
+  padding: 0;
+}
+
+.header .social-links li {
+  margin: 0;
+  padding: 0;
 }
 
 .header .social-links a {
-  font-size: 16px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  background: color-mix(in srgb, var(--default-color), transparent 90%);
-  color: var(--default-color);
-  margin: 0 2px;
-  border-radius: 50%;
-  text-align: center;
   width: 40px;
   height: 40px;
-  transition: 0.3s;
+  font-size: 16px;
+  border-radius: 50%;
+  color: var(--default-color);
+  background: color-mix(in srgb, var(--default-color), transparent 90%);
+  transition: background 0.3s, color 0.3s, transform 0.2s;
 }
 
-.header .social-links a:hover {
+.header .social-links a:hover,
+.header .social-links a:focus-visible {
   color: var(--contrast-color);
   background: var(--accent-color);
+  transform: translateY(-2px);
 }
 
 @media (min-width: 1200px) {
