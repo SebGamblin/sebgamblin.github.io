@@ -1,2 +1,7 @@
 
 do_not_push.md
+
+# Projets publies dans leurs propres depots (SebGamblin/garden, SebGamblin/frame).
+# Les dossiers restent en local mais ne doivent plus etre publies avec ce site.
+/garden/
+/frame/
