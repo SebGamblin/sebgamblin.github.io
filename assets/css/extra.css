@@ -262,8 +262,8 @@
   align-items: center;
   justify-content: center;
   font-size: 21px;
-  color: var(--accent-color);
-  background: color-mix(in srgb, var(--accent-color), transparent 88%);
+  color: var(--c, var(--accent-color));
+  background: color-mix(in srgb, var(--c, var(--accent-color)), transparent 88%);
 }
 
 .course-tile h4 {
@@ -381,3 +381,65 @@
 
 /* Texte aligné à gauche dans les cartes (le template justifie les paragraphes) */
 .project-body p, .project-features li, .career-bar { text-align: left; }
+
+/* ---------- Lisibilité : texte aligné à gauche (le template justifie tout) ---------- */
+body p { text-align: left; }
+
+/* ---------- À propos : sous-titre ---------- */
+.about .content h3 { font-weight: 700; font-size: 24px; }
+
+/* ---------- Thèmes de recherche ---------- */
+.research-tags { margin: 22px 0 0; justify-content: flex-start; }
+.section-title .research-tags li { font-size: 12.5px; padding: 4px 12px; }
+
+/* ---------- Publications ---------- */
+.pub-list { list-style: none; padding: 0; margin: 18px 0 0; display: grid; gap: 14px; }
+
+.pub-item {
+  display: flex;
+  gap: 18px;
+  align-items: flex-start;
+  padding: 16px 18px;
+  background: var(--surface-color);
+  border: 1px solid color-mix(in srgb, var(--default-color), transparent 88%);
+  border-left: 4px solid var(--accent-color);
+  border-radius: 10px;
+  box-shadow: 0 2px 12px rgba(5, 13, 24, 0.05);
+}
+
+.pub-year {
+  flex: 0 0 auto;
+  font-family: var(--heading-font);
+  font-weight: 700;
+  font-size: 18px;
+  color: var(--accent-color);
+  min-width: 52px;
+}
+
+.pub-body { display: flex; flex-direction: column; gap: 3px; min-width: 0; }
+.pub-title { font-family: var(--heading-font); font-size: 16px; color: var(--heading-color); line-height: 1.3; }
+.pub-authors { font-size: 13.5px; color: color-mix(in srgb, var(--default-color), transparent 25%); }
+.pub-venue { font-size: 13.5px; font-style: italic; color: color-mix(in srgb, var(--default-color), transparent 35%); }
+.pub-links { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 6px; font-size: 13.5px; }
+.pub-links a { display: inline-flex; align-items: center; gap: 6px; }
+.pub-links .icon-dblp { width: 14px; height: 14px; }
+
+@media (max-width: 600px) {
+  .pub-item { flex-direction: column; gap: 6px; }
+}
+
+/* ---------- Projets : liens rapides ---------- */
+.project-jump { display: flex; flex-wrap: wrap; gap: 10px; margin: 0 0 28px; }
+.project-jump a {
+  font-family: var(--nav-font);
+  font-size: 13.5px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 16px;
+  border-radius: 999px;
+  border: 1px solid color-mix(in srgb, var(--accent-color), transparent 55%);
+  color: var(--accent-color);
+}
+.project-jump a:hover { background: color-mix(in srgb, var(--accent-color), transparent 90%); }
+.project-category { scroll-margin-top: 24px; }
