@@ -1,15 +1,3 @@
-# GitHub Pages (Jekyll) : fichiers et dossiers non publiés.
-# - md2moodle/examples : leur en-tête (« date: "Ma date" ») fait échouer la construction du site.
-# - forms/ : formulaire PHP inutilisable sur GitHub Pages ; code/ : pages d'essai.
-# - moodle/ : démonstration md2moodle ; exams/ : outil de génération d'examens (node_modules inclus).
+# GitHub Pages (Jekyll) : site statique ; le README n est pas publie.
 exclude:
-  - md2moodle/examples
-  - forms
-  - code
-  - moodle
-  - exams
-  - node_modules
-  - Gemfile
-  - Gemfile.lock
-  - vendor/bundle
   - Readme.md

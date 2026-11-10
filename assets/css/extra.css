@@ -207,24 +207,6 @@
   filter: none;
 }
 
-/* Bandeau « Projets web » sur l'accueil */
-.projects-teaser {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: space-between;
-  gap: 16px;
-  padding: 24px 28px;
-  border-radius: 14px;
-  color: #fff;
-  background: linear-gradient(135deg, #040b14, #0b3a57);
-}
-
-.projects-teaser h3 { color: #fff; margin: 0 0 4px; font-size: 22px; }
-.projects-teaser p { margin: 0; color: #c3ccd6; max-width: 560px; }
-.projects-teaser .btn-project { background: #fff; border-color: #fff; color: #0b3a57; }
-.projects-teaser .btn-project:hover { color: #0b3a57; }
-
 @media (prefers-reduced-motion: reduce) {
   .link-tile, .project-card, .link-tile-arrow { transition: none; }
 }
