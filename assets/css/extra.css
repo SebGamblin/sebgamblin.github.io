@@ -1,0 +1,383 @@
+/*--------------------------------------------------------------
+# Compléments au template iPortfolio : tuiles de liens, cartes projets
+# (partagé entre index.html et projets.html)
+--------------------------------------------------------------*/
+
+/* ---------- Tuiles de liens ---------- */
+.link-tiles {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+  gap: 14px;
+  margin: 14px 0 0;
+}
+
+.link-tile {
+  --tile: var(--accent-color);
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 16px;
+  background: var(--surface-color);
+  color: var(--default-color);
+  border: 1px solid color-mix(in srgb, var(--default-color), transparent 88%);
+  border-left: 4px solid var(--tile);
+  border-radius: 10px;
+  box-shadow: 0 2px 12px rgba(5, 13, 24, 0.05);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.link-tile:hover {
+  color: var(--default-color);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 22px color-mix(in srgb, var(--tile), transparent 78%);
+  border-color: var(--tile);
+}
+
+.link-tile-icon {
+  flex: 0 0 44px;
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  color: var(--tile);
+  background: color-mix(in srgb, var(--tile), transparent 88%);
+}
+
+.link-tile-icon .tile-img {
+  width: 26px;
+  height: 26px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.tile-img.dblp { background-image: url('../img/icons/dblp.svg'); }
+.tile-img.orcid { background-image: url('../img/icons/orcid.svg'); }
+
+.link-tile-text {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  line-height: 1.25;
+}
+
+.link-tile-text strong {
+  font-family: var(--heading-font);
+  color: var(--heading-color);
+  font-size: 15px;
+}
+
+.link-tile-text small {
+  font-size: 12.5px;
+  color: color-mix(in srgb, var(--default-color), transparent 35%);
+}
+
+.link-tile-arrow {
+  margin-left: auto;
+  font-size: 16px;
+  color: color-mix(in srgb, var(--default-color), transparent 55%);
+  transition: transform 0.2s ease, color 0.2s ease;
+}
+
+.link-tile:hover .link-tile-arrow {
+  color: var(--tile);
+  transform: translate(2px, -2px);
+}
+
+/* ---------- Cartes de projets ---------- */
+.project-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+  gap: 24px;
+}
+
+.project-card {
+  background: var(--surface-color);
+  border: 1px solid color-mix(in srgb, var(--default-color), transparent 88%);
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 2px 14px rgba(5, 13, 24, 0.06);
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.project-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 14px 34px rgba(20, 157, 221, 0.18);
+}
+
+.project-card.soon { opacity: 0.88; }
+.project-card.soon:hover { transform: none; box-shadow: 0 2px 14px rgba(5, 13, 24, 0.06); }
+
+.project-thumb {
+  height: 140px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 3.2rem;
+  position: relative;
+}
+
+.project-thumb::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 80% 0%, rgba(255, 255, 255, 0.22), transparent 55%);
+}
+
+.project-thumb i { position: relative; z-index: 1; filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.25)); }
+.project-thumb.garden { background: linear-gradient(135deg, #1f7a4d, #6cc08b); }
+.project-thumb.frame { background: linear-gradient(135deg, #0b6e9c, #3bb4ee); }
+.project-thumb.pingsim { background: linear-gradient(135deg, #3b3f58, #7a6df0); }
+
+.project-badge {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  z-index: 2;
+  font-family: var(--nav-font);
+  font-size: 11px;
+  font-weight: 500;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.92);
+  color: #1b2733;
+}
+
+.project-body { padding: 22px 22px 8px; flex: 1; }
+
+.project-body h3 {
+  text-align: left;
+  font-size: 21px;
+  font-weight: 700;
+  margin: 0 0 2px;
+}
+
+.project-subtitle {
+  margin: 0 0 12px;
+  font-size: 13.5px;
+  color: color-mix(in srgb, var(--default-color), transparent 35%);
+}
+
+.project-features { list-style: none; padding: 0; margin: 12px 0 14px; font-size: 14.5px; }
+.project-features li { display: flex; gap: 8px; margin-bottom: 6px; }
+.project-features i { color: var(--accent-color); flex-shrink: 0; margin-top: 3px; }
+
+.project-tags { list-style: none; padding: 0; margin: 0 0 16px; display: flex; flex-wrap: wrap; gap: 6px; }
+.project-tags li {
+  font-family: var(--nav-font);
+  font-size: 11.5px;
+  padding: 3px 10px;
+  border-radius: 999px;
+  border: 1px solid color-mix(in srgb, var(--default-color), transparent 82%);
+  color: color-mix(in srgb, var(--default-color), transparent 30%);
+}
+
+.project-actions { padding: 12px 22px 22px; display: flex; flex-wrap: wrap; gap: 10px; }
+
+.btn-project {
+  font-family: var(--nav-font);
+  font-size: 13.5px;
+  font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 16px;
+  border-radius: 8px;
+  border: 1px solid var(--accent-color);
+  background: var(--accent-color);
+  color: var(--contrast-color);
+}
+
+.btn-project:hover { color: var(--contrast-color); filter: brightness(1.08); }
+
+.btn-project.ghost { background: transparent; color: var(--accent-color); }
+.btn-project.ghost:hover { background: color-mix(in srgb, var(--accent-color), transparent 90%); color: var(--accent-color); filter: none; }
+
+.btn-project[aria-disabled="true"] {
+  background: transparent;
+  border-color: color-mix(in srgb, var(--default-color), transparent 80%);
+  color: color-mix(in srgb, var(--default-color), transparent 40%);
+  cursor: default;
+  filter: none;
+}
+
+/* Bandeau « Projets web » sur l'accueil */
+.projects-teaser {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 24px 28px;
+  border-radius: 14px;
+  color: #fff;
+  background: linear-gradient(135deg, #040b14, #0b3a57);
+}
+
+.projects-teaser h3 { color: #fff; margin: 0 0 4px; font-size: 22px; }
+.projects-teaser p { margin: 0; color: #c3ccd6; max-width: 560px; }
+.projects-teaser .btn-project { background: #fff; border-color: #fff; color: #0b3a57; }
+.projects-teaser .btn-project:hover { color: #0b3a57; }
+
+@media (prefers-reduced-motion: reduce) {
+  .link-tile, .project-card, .link-tile-arrow { transition: none; }
+}
+
+/* ---------- Tuiles de cours (section Enseignements) ---------- */
+.course-tiles {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 14px;
+}
+
+.course-tile {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  padding: 16px 18px;
+  background: var(--surface-color);
+  border: 1px solid color-mix(in srgb, var(--default-color), transparent 88%);
+  border-radius: 12px;
+  box-shadow: 0 2px 12px rgba(5, 13, 24, 0.05);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.course-tile:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 22px color-mix(in srgb, var(--accent-color), transparent 80%);
+}
+
+.course-tile-icon {
+  flex: 0 0 42px;
+  width: 42px;
+  height: 42px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 21px;
+  color: var(--accent-color);
+  background: color-mix(in srgb, var(--accent-color), transparent 88%);
+}
+
+.course-tile h4 {
+  font-size: 16px;
+  font-weight: 700;
+  margin: 0 0 4px;
+}
+
+.course-tile p {
+  text-align: left;
+  margin: 0;
+  font-size: 13.5px;
+  color: color-mix(in srgb, var(--default-color), transparent 30%);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .course-tile { transition: none; }
+}
+
+/* ---------- Catégories de projets ---------- */
+.project-category {
+  font-size: 22px;
+  font-weight: 700;
+  margin: 8px 0 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.project-category i { color: var(--accent-color); }
+.project-grid + .project-category { margin-top: 48px; }
+.project-body h4 { font-size: 21px; font-weight: 700; margin: 0 0 2px; text-align: left; }
+.project-thumb.symdd { background: linear-gradient(135deg, #14405c, #149ddd); }
+.project-thumb.hexplore { background: linear-gradient(135deg, #7a2e1d, #e08b3b); }
+
+/* ---------- Frise des responsabilités ---------- */
+.career-timeline {
+  margin: 18px 0 8px;
+  padding: 16px 18px 14px;
+  background: var(--surface-color);
+  border: 1px solid color-mix(in srgb, var(--default-color), transparent 88%);
+  border-radius: 12px;
+}
+
+.career-timeline-title {
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin: 0 0 12px;
+  color: color-mix(in srgb, var(--default-color), transparent 35%);
+}
+
+.career-axis,
+.career-bars {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0;
+}
+
+.career-axis {
+  margin-bottom: 8px;
+  border-bottom: 2px solid color-mix(in srgb, var(--default-color), transparent 80%);
+}
+
+.career-axis span {
+  font-family: var(--nav-font);
+  font-size: 12px;
+  padding: 0 0 6px 2px;
+  border-left: 2px solid color-mix(in srgb, var(--default-color), transparent 80%);
+  color: color-mix(in srgb, var(--default-color), transparent 35%);
+}
+
+.career-bars { list-style: none; padding: 0; margin: 0; row-gap: 8px; }
+.career-bars li { list-style: none; }
+
+.career-bar {
+  grid-column: var(--from) / var(--to);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 8px 12px;
+  min-height: 52px;
+  border-radius: 8px;
+  color: #fff;
+  line-height: 1.25;
+  background: var(--bar, var(--accent-color));
+}
+
+.career-bar strong { font-family: var(--heading-font); font-size: 14px; color: #fff; }
+.career-bar small { font-size: 12px; opacity: 0.88; }
+
+.career-domain { --bar: #0b6e9c; }
+.career-m1 { --bar: #149ddd; }
+.career-m2 { --bar: #1f8a5b; border-radius: 8px 20px 20px 8px; }
+.career-domain { border-radius: 8px 20px 20px 8px; }
+
+@media (max-width: 600px) {
+  .career-axis span { font-size: 11px; }
+  .career-bar strong { font-size: 13px; }
+}
+
+/* ---------- Sous-catégories de cours ---------- */
+.course-category {
+  font-size: 20px;
+  font-weight: 700;
+  margin: 0 0 16px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.course-category i { color: var(--accent-color); }
+
+/* Carte sans boutons d'action : garder un bas de carte aéré */
+.project-card .project-body:last-child { padding-bottom: 22px; }
+
+/* Texte aligné à gauche dans les cartes (le template justifie les paragraphes) */
+.project-body p, .project-features li, .career-bar { text-align: left; }

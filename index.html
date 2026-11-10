@@ -4,9 +4,76 @@
 <head>
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
-  <title>Sébastien Gamblin</title>
-  <meta content="" name="description">
-  <meta content="" name="keywords">
+  <title>Sébastien Gamblin – Enseignant-chercheur en informatique (IA, systèmes multi-agents, drones) – ISEN Ouest, Caen</title>
+  <meta name="description" content="Site personnel de Sébastien Gamblin, enseignant-chercheur en informatique à l'ISEN Yncréa Ouest (Caen), L@bISEN, équipe KLAIM. Planification multi-agent, flottes de drones, logique épistémique, publications et enseignements.">
+  <meta name="keywords" content="Sébastien Gamblin, enseignant-chercheur, informatique, intelligence artificielle, systèmes multi-agents, planification, drones, logique épistémique dynamique probabiliste, ISEN Ouest, Caen, GREYC">
+  <meta name="author" content="Sébastien Gamblin">
+  <meta name="robots" content="index, follow, max-image-preview:large">
+  <link rel="canonical" href="https://sebgamblin.github.io/">
+
+  <!-- Open Graph / Twitter -->
+  <meta property="og:type" content="profile">
+  <meta property="og:locale" content="fr_FR">
+  <meta property="og:site_name" content="Sébastien Gamblin">
+  <meta property="og:title" content="Sébastien Gamblin – Enseignant-chercheur en informatique">
+  <meta property="og:description" content="Enseignant-chercheur à l'ISEN Yncréa Ouest (Caen) : planification multi-agent, flottes de drones, logique épistémique. Publications, enseignements et CV.">
+  <meta property="og:url" content="https://sebgamblin.github.io/">
+  <meta property="og:image" content="https://sebgamblin.github.io/assets/img/my-profile-img.jpg">
+  <meta property="profile:first_name" content="Sébastien">
+  <meta property="profile:last_name" content="Gamblin">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Sébastien Gamblin – Enseignant-chercheur en informatique">
+  <meta name="twitter:description" content="Enseignant-chercheur à l'ISEN Yncréa Ouest (Caen) : planification multi-agent, drones, logique épistémique.">
+  <meta name="twitter:image" content="https://sebgamblin.github.io/assets/img/my-profile-img.jpg">
+
+  <!-- Données structurées -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebSite",
+        "@id": "https://sebgamblin.github.io/#website",
+        "url": "https://sebgamblin.github.io/",
+        "name": "Sébastien Gamblin",
+        "inLanguage": "fr",
+        "author": { "@id": "https://sebgamblin.github.io/#person" }
+      },
+      {
+        "@type": "Person",
+        "@id": "https://sebgamblin.github.io/#person",
+        "name": "Sébastien Gamblin",
+        "givenName": "Sébastien",
+        "familyName": "Gamblin",
+        "url": "https://sebgamblin.github.io/",
+        "image": "https://sebgamblin.github.io/assets/img/my-profile-img.jpg",
+        "jobTitle": "Enseignant-chercheur en informatique",
+        "description": "Enseignant-chercheur en informatique (docteur), spécialisé en planification multi-agent, coordination de flottes de drones et logique épistémique dynamique probabiliste.",
+        "email": "mailto:sebastien.gamblin@isen-ouest.yncrea.fr",
+        "worksFor": {
+          "@type": "CollegeOrUniversity",
+          "name": "ISEN Yncréa Ouest",
+          "url": "https://www.isen.fr/",
+          "address": { "@type": "PostalAddress", "addressLocality": "Caen", "addressCountry": "FR" }
+        },
+        "alumniOf": [
+          { "@type": "CollegeOrUniversity", "name": "Université de Caen Normandie", "url": "https://www.unicaen.fr/" }
+        ],
+        "knowsAbout": ["Intelligence artificielle", "Systèmes multi-agents", "Planification", "Logique épistémique", "Model checking symbolique", "Drones autonomes", "Systèmes d'information géographique"],
+        "sameAs": [
+          "https://github.com/SebGamblin",
+          "https://www.linkedin.com/in/s%C3%A9bastien-gamblin-386163135/",
+          "https://scholar.google.com/citations?user=0d4dWNQAAAAJ",
+          "https://dblp.org/pid/246/2981.html",
+          "https://orcid.org/0009-0005-6508-0958",
+          "https://theses.fr/2022NORMC266",
+          "https://theses.hal.science/tel-04075437",
+          "https://scanr.enseignementsup-recherche.gouv.fr/authors/idref269220291"
+        ]
+      }
+    ]
+  }
+  </script>
 
   <!-- Favicons -->
   <link href="assets/img/red-panda-32.png" rel="icon">
@@ -26,6 +93,7 @@
 
   <!-- Main CSS File -->
   <link href="assets/css/main.css" rel="stylesheet">
+  <link href="assets/css/extra.css" rel="stylesheet">
 
   <!-- =======================================================
   * Template Name: iPortfolio
@@ -42,7 +110,7 @@
     <i class="header-toggle d-xl-none bi bi-list"></i>
 
     <div class="profile-img">
-      <img src="assets/img/my-profile-img.jpg" alt="" class="img-fluid rounded-circle">
+      <img src="assets/img/my-profile-img.jpg" alt="Portrait de Sébastien Gamblin, enseignant-chercheur en informatique" class="img-fluid rounded-circle">
     </div>
 
     <a href="index.html" class="logo d-flex align-items-center justify-content-center">
@@ -73,6 +141,7 @@
         <li><a href="#research"><i class="bi bi-lightbulb navicon"></i> Recherche</a></li>
         <li><a href="#enseignement"><i class="bi bi-book navicon"></i> Enseignements</a></li>
         <li><a href="#resume"><i class="bi bi-file-earmark-text navicon"></i> Curriculum Vitae</a></li>
+        <li><a href="projets.html"><i class="bi bi-boxes navicon"></i> Projets</a></li>
         <!--<li><a href="#portfolio"><i class="bi bi-images navicon"></i> Portfolio</a></li>-->
         <!--<li><a href="#services"><i class="bi bi-hdd-stack navicon"></i> Services</a></li>-->
         <!--<li class="dropdown"><a href="#"><i class="bi bi-menu-button navicon"></i> <span>Dropdown</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
@@ -103,7 +172,7 @@
     <!-- Hero Section -->
     <section id="hero" class="hero section dark-background">
 
-      <img src="assets/img/wallpaper.jpg" alt="" data-aos="fade-in" class="">
+      <img src="assets/img/wallpaper.jpg" alt="" role="presentation" data-aos="fade-in" class="">
 
       <div class="container" data-aos="fade-up" data-aos-delay="100">
         <h2>Sébastien Gamblin</h2>
@@ -125,7 +194,7 @@
 
         <div class="row gy-4 justify-content-center">
           <div class="col-lg-4">
-            <img src="assets/img/my-profile-img.jpg" class="img-fluid rounded-circle" alt="">
+            <img src="assets/img/my-profile-img.jpg" class="img-fluid rounded-circle" alt="Sébastien Gamblin">
           </div>
           <div class="col-lg-8 content">
             <h2>Enseignant-chercheur</h2>
@@ -137,7 +206,7 @@
               <div class="col-lg-6">
                 <ul>
                   <li><i class="bi bi-chevron-right"></i> <strong>Naissance:</strong> <span>Gen Y, il paraît</span></li>
-                  <li><i class="bi bi-chevron-right"></i> <strong>Website:</strong> <span><a href="https://sebgamblin.github.io/">https://sebgamblin.github.io/</a></span></li>
+                  <li><i class="bi bi-chevron-right"></i> <strong>Website:</strong> <span><a href="https://sebgamblin.github.io/" rel="me">https://sebgamblin.github.io/</a></span></li>
                   <!--<li><i class="bi bi-chevron-right"></i> <strong>Téléphone:</strong> <span>Non fourni</span></li>-->
                   <li><i class="bi bi-chevron-right"></i> <strong>Ville:</strong> <span>Caen, France</span></li>
                 </ul>
@@ -147,7 +216,7 @@
                   <!--<li><i class="bi bi-chevron-right"></i> <strong>Âge:</strong> <span>Mystère</span></li>-->
                   <li><i class="bi bi-chevron-right"></i> <strong>Diplôme:</strong> <span>Doctorat en informatique</span></li>
                   <li><i class="bi bi-chevron-right"></i> <strong>Email (pro):</strong> <span><a href="mailto:sebastien.gamblin@isen-ouest.yncrea.fr">sebastien.gamblin@isen-ouest.yncrea.fr</a></span></li>
-                  <li><i class="bi bi-chevron-right"></i> <strong>Actuellement:</strong> <span>à l'<a href="https://www.isen.fr/ouest/">ISEN Yncréa-Ouest</a></span></li>
+                  <li><i class="bi bi-chevron-right"></i> <strong>Actuellement:</strong> <span>à l'<a href="https://www.isen.fr/" target="_blank" rel="noopener">ISEN Yncréa-Ouest</a></span></li>
                 </ul>
               </div>
             </div>
@@ -161,32 +230,23 @@
 
             <div class="col-lg">
               <ul>
-                <li><i class="bi bi-chevron-right"></i> <strong>Laboratoire:</strong> <span><a href="https://isen-brest.fr/labisen/">L@bISEN</a></span></li>
-                <li><i class="bi bi-chevron-right"></i> <strong>Équipe:</strong> <span><a href="https://isen-brest.fr/labisen/equipes-de-recherche/equipe-autorob/">AutoROB</a></span></li>
+                <li><i class="bi bi-chevron-right"></i> <strong>Laboratoire:</strong> <span><a href="https://isen-ouest.fr/labisen-la-recherche/" target="_blank" rel="noopener">L@bISEN</a></span></li>
+                <li><i class="bi bi-chevron-right"></i> <strong>Équipe:</strong> <span><a href="https://isen-ouest.fr/labisen-la-recherche/equipes-de-recherche/klaim-knowledge-learning-and-information-modeling/" target="_blank" rel="noopener">KLAIM</a></span></li>
                 <li><i class="bi bi-chevron-right"></i> <strong>Campus:</strong> <span>Caen</span></li>
                 <li><i class="bi bi-chevron-right"></i> <strong>Projet de recherche:</strong> <span>Conception et coordination de flottes de drones autonomes, 
                   hybrides et reconfigurables pour la réalisation des tâches complexes.</span></li>
 
-                  <li><i class="bi bi-chevron-right"></i> <strong>Différents liens:</strong>
-                  
-                    <!--<a href="#" class="twitter"><i class="bi bi-twitter-x"></i></a>
-                    <a href="#" class="facebook"><i class="bi bi-facebook"></i></a>
-                    <a href="#" class="instagram"><i class="bi bi-instagram"></i></a>
-                    <a href="#" class="google-plus"><i class="bi bi-skype"></i></a>-->
-                    <ul><a href="https://github.com/SebGamblin/" class="github"><i class="bi bi-github"></i> Github</a>,
-                    <a href="https://www.linkedin.com/in/s%C3%A9bastien-gamblin-386163135/" class="linkedin"><i class="bi bi-linkedin"></i>Linkedin</a>,
-                    <a href="https://scholar.google.com/citations?user=0d4dWNQAAAAJ&hl=fr&oi=ao" class="google"><i class="bi bi-google"></i>Google scholar</a>,
-                    
-                    <a href="https://dblp.org/pid/246/2981.html" class="earmark"><i class="bi icon-dblp"></i>DBLP</a>,
-                    <a href="https://orcid.org/0009-0005-6508-0958" class="orcid"><i class="bi icon-orcid"></i>Orcid</a>,
-                    <a href="https://scanr.enseignementsup-recherche.gouv.fr/authors/idref269220291" class="scanr"><i class="bi bi-upc-scan"></i>ScanR</a>
-                    </ul>
-                  </li>
-                  
-
-
-                
               </ul>
+              <h4 class="mt-4 mb-0"><i class="bi bi-chevron-right"></i> Différents liens</h4>
+              <div class="link-tiles">
+                  <a class="link-tile" style="--tile:#24292f" href="https://github.com/SebGamblin/" target="_blank" rel="me noopener"><span class="link-tile-icon"><i class="bi bi-github" aria-hidden="true"></i></span><span class="link-tile-text"><strong>GitHub</strong><small>Code et projets</small></span><i class="bi bi-arrow-up-right link-tile-arrow" aria-hidden="true"></i></a>
+                  <a class="link-tile" style="--tile:#0a66c2" href="https://www.linkedin.com/in/s%C3%A9bastien-gamblin-386163135/" target="_blank" rel="me noopener"><span class="link-tile-icon"><i class="bi bi-linkedin" aria-hidden="true"></i></span><span class="link-tile-text"><strong>LinkedIn</strong><small>Parcours professionnel</small></span><i class="bi bi-arrow-up-right link-tile-arrow" aria-hidden="true"></i></a>
+                  <a class="link-tile" style="--tile:#4285f4" href="https://scholar.google.com/citations?user=0d4dWNQAAAAJ&amp;hl=fr&amp;oi=ao" target="_blank" rel="me noopener"><span class="link-tile-icon"><i class="bi bi-mortarboard" aria-hidden="true"></i></span><span class="link-tile-text"><strong>Google Scholar</strong><small>Publications et citations</small></span><i class="bi bi-arrow-up-right link-tile-arrow" aria-hidden="true"></i></a>
+                  <a class="link-tile" style="--tile:#1d5fa8" href="https://dblp.org/pid/246/2981.html" target="_blank" rel="me noopener"><span class="link-tile-icon"><span class="tile-img dblp" aria-hidden="true"></span></span><span class="link-tile-text"><strong>DBLP</strong><small>Bibliographie informatique</small></span><i class="bi bi-arrow-up-right link-tile-arrow" aria-hidden="true"></i></a>
+                  <a class="link-tile" style="--tile:#8cb92b" href="https://orcid.org/0009-0005-6508-0958" target="_blank" rel="me noopener"><span class="link-tile-icon"><span class="tile-img orcid" aria-hidden="true"></span></span><span class="link-tile-text"><strong>ORCID</strong><small>Identifiant chercheur</small></span><i class="bi bi-arrow-up-right link-tile-arrow" aria-hidden="true"></i></a>
+                  <a class="link-tile" style="--tile:#c0392b" href="https://scanr.enseignementsup-recherche.gouv.fr/authors/idref269220291" target="_blank" rel="me noopener"><span class="link-tile-icon"><i class="bi bi-upc-scan" aria-hidden="true"></i></span><span class="link-tile-text"><strong>ScanR</strong><small>Annuaire de la recherche française</small></span><i class="bi bi-arrow-up-right link-tile-arrow" aria-hidden="true"></i></a>
+                  <a class="link-tile" style="--tile:#0f7b8a" href="https://isen-ouest.fr/cv/sebastien-gamblin/" target="_blank" rel="me noopener"><span class="link-tile-icon"><i class="bi bi-person-vcard" aria-hidden="true"></i></span><span class="link-tile-text"><strong>ISEN Ouest</strong><small>Fiche et CV professionnel</small></span><i class="bi bi-arrow-up-right link-tile-arrow" aria-hidden="true"></i></a>
+              </div>
             </div>
           </div>
         </div>
@@ -199,123 +259,7 @@
     </section><!-- /About Section -->
 
 
-    <!-- Stats Section -->
-    <section id="stats" class="stats section" style="display:none;">
-
-      <div class="container" data-aos="fade-up" data-aos-delay="100">
-
-        <div class="row gy-4">
-
-          <div class="col-lg-3 col-md-6">
-            <div class="stats-item">
-              <i class="bi bi-emoji-smile"></i>
-              <span data-purecounter-start="0" data-purecounter-end="232" data-purecounter-duration="1" class="purecounter"></span>
-              <p><strong>Happy Clients</strong> <span>consequuntur quae</span></p>
-            </div>
-          </div><!-- End Stats Item -->
-
-          <div class="col-lg-3 col-md-6">
-            <div class="stats-item">
-              <i class="bi bi-journal-richtext"></i>
-              <span data-purecounter-start="0" data-purecounter-end="521" data-purecounter-duration="1" class="purecounter"></span>
-              <p><strong>Projects</strong> <span>adipisci atque cum quia aut</span></p>
-            </div>
-          </div><!-- End Stats Item -->
-
-          <div class="col-lg-3 col-md-6">
-            <div class="stats-item">
-              <i class="bi bi-headset"></i>
-              <span data-purecounter-start="0" data-purecounter-end="1453" data-purecounter-duration="1" class="purecounter"></span>
-              <p><strong>Hours Of Support</strong> <span>aut commodi quaerat</span></p>
-            </div>
-          </div><!-- End Stats Item -->
-
-          <div class="col-lg-3 col-md-6">
-            <div class="stats-item">
-              <i class="bi bi-people"></i>
-              <span data-purecounter-start="0" data-purecounter-end="32" data-purecounter-duration="1" class="purecounter"></span>
-              <p><strong>Hard Workers</strong> <span>rerum asperiores dolor</span></p>
-            </div>
-          </div><!-- End Stats Item -->
-
-        </div>
-
-      </div>
-    
-    </section><!-- /Stats Section -->
-  
-
-
-    <!-- Skills Section -->
-    <section id="skills" class="skills section light-background" style="display:none;">
-
-      <!-- Section Title -->
-      <div class="container section-title" data-aos="fade-up">
-        <h2>Skills</h2>
-        <p>Necessitatibus eius consequatur ex aliquid fuga eum quidem sint consectetur velit</p>
-      </div><!-- End Section Title -->
-
-      <div class="container" data-aos="fade-up" data-aos-delay="100">
-
-        <div class="row skills-content skills-animation">
-
-          <div class="col-lg-6">
-
-            <div class="progress">
-              <span class="skill"><span>HTML</span> <i class="val">100%</i></span>
-              <div class="progress-bar-wrap">
-                <div class="progress-bar" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
-              </div>
-            </div><!-- End Skills Item -->
-
-            <div class="progress">
-              <span class="skill"><span>CSS</span> <i class="val">90%</i></span>
-              <div class="progress-bar-wrap">
-                <div class="progress-bar" role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100"></div>
-              </div>
-            </div><!-- End Skills Item -->
-
-            <div class="progress">
-              <span class="skill"><span>JavaScript</span> <i class="val">75%</i></span>
-              <div class="progress-bar-wrap">
-                <div class="progress-bar" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
-              </div>
-            </div><!-- End Skills Item -->
-
-          </div>
-
-          <div class="col-lg-6">
-
-            <div class="progress">
-              <span class="skill"><span>PHP</span> <i class="val">80%</i></span>
-              <div class="progress-bar-wrap">
-                <div class="progress-bar" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
-              </div>
-            </div><!-- End Skills Item -->
-
-            <div class="progress">
-              <span class="skill"><span>WordPress/CMS</span> <i class="val">90%</i></span>
-              <div class="progress-bar-wrap">
-                <div class="progress-bar" role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100"></div>
-              </div>
-            </div><!-- End Skills Item -->
-
-            <div class="progress">
-              <span class="skill"><span>Photoshop</span> <i class="val">55%</i></span>
-              <div class="progress-bar-wrap">
-                <div class="progress-bar" role="progressbar" aria-valuenow="55" aria-valuemin="0" aria-valuemax="100"></div>
-              </div>
-            </div><!-- End Skills Item -->
-
-          </div>
-
-        </div>
-
-      </div>
-
-    </section><!-- /Skills Section -->
-
-     <!-- Resume Section -->
+<!-- Resume Section -->
      <section id="research" class="resume section">
 
       <!-- Section Title -->
@@ -378,6 +322,57 @@
         <h2 class="bi bi-boook">Enseignements</h2>
         <p>J’enseigne un ensemble de compétences allant de la programmation aux fondements théoriques de l’informatique. Mes cours couvrent les langages et technologies de développement (HTML5/CSS3/JavaScript, Java, Python), les concepts d’algorithmique et d’optimisation, ainsi que la modélisation avec la théorie des graphes. J’interviens aussi sur les patrons de conception et la culture numérique, afin d'accompagner les étudiants vers une compréhension solide des architectures logicielles, des structures fondamentales et des enjeux contemporains du numérique. Mon approche combine rigueur théorique et mise en pratique, pour former des profils capables de concevoir, analyser et optimiser des systèmes logiciels modernes.</p>
       </div>
+      <div class="container" data-aos="fade-up" data-aos-delay="100">
+        <h3 class="course-category"><i class="bi bi-calendar-check"></i> Courant</h3>
+        <div class="course-tiles">
+          <div class="course-tile">
+            <span class="course-tile-icon"><i class="bi bi-filetype-html" aria-hidden="true"></i></span>
+            <div><h4>Web : HTML5, CSS3, JavaScript</h4><p>Langages et technologies du développement web.</p></div>
+          </div>
+          <div class="course-tile">
+            <span class="course-tile-icon"><i class="bi bi-cup-hot" aria-hidden="true"></i></span>
+            <div><h4>Java</h4><p>Programmation orientée objet.</p></div>
+          </div>
+          <div class="course-tile">
+            <span class="course-tile-icon"><i class="bi bi-filetype-py" aria-hidden="true"></i></span>
+            <div><h4>Python</h4><p>Programmation et scripts.</p></div>
+          </div>
+          <div class="course-tile">
+            <span class="course-tile-icon"><i class="bi bi-cpu" aria-hidden="true"></i></span>
+            <div><h4>Algorithmique et optimisation</h4><p>Concepts algorithmiques et méthodes d’optimisation.</p></div>
+          </div>
+          <div class="course-tile">
+            <span class="course-tile-icon"><i class="bi bi-diagram-3" aria-hidden="true"></i></span>
+            <div><h4>Théorie des graphes</h4><p>Modélisation et algorithmes sur les graphes.</p></div>
+          </div>
+          <div class="course-tile">
+            <span class="course-tile-icon"><i class="bi bi-puzzle" aria-hidden="true"></i></span>
+            <div><h4>Patrons de conception</h4><p>Architectures logicielles et design patterns.</p></div>
+          </div>
+          <div class="course-tile">
+            <span class="course-tile-icon"><i class="bi bi-globe2" aria-hidden="true"></i></span>
+            <div><h4>Culture numérique</h4><p>Enjeux contemporains du numérique.</p></div>
+          </div>
+          <!-- Pour ajouter un cours, copier un bloc course-tile ci-dessus :
+          <div class="course-tile"><span class="course-tile-icon"><i class="bi bi-book"></i></span>
+            <div><h4>Titre du cours</h4><p>Description courte.</p></div></div> -->
+        </div>
+        <h3 class="course-category mt-5"><i class="bi bi-clock-history"></i> Passé</h3>
+        <div class="course-tiles">
+          <div class="course-tile">
+            <span class="course-tile-icon"><i class="bi bi-people" aria-hidden="true"></i></span>
+            <div><h4>Systèmes multi-agents</h4><p>Agents autonomes, coordination et décision distribuée.</p></div>
+          </div>
+          <div class="course-tile">
+            <span class="course-tile-icon"><i class="bi bi-database" aria-hidden="true"></i></span>
+            <div><h4>Bases de données relationnelles avec SQL</h4><p>Modélisation relationnelle et requêtes SQL.</p></div>
+          </div>
+          <div class="course-tile">
+            <span class="course-tile-icon"><i class="bi bi-filetype-php" aria-hidden="true"></i></span>
+            <div><h4>PHP</h4><p>Développement web côté serveur.</p></div>
+          </div>
+        </div>
+      </div>
       </section>
 
 
@@ -401,7 +396,7 @@
         <div class="resume-item">
           <h4>Doctorat en Informatique et Intelligence Artificielle</h4>
           <h5>2018 – 2022</h5>
-          <p><em>Université de Caen Normandie, GREYC, équipe MAD</em></p>
+          <p><em><a href="https://www.unicaen.fr/" target="_blank" rel="noopener">Université de Caen Normandie</a>, <a href="https://www.greyc.fr/" target="_blank" rel="noopener">GREYC</a>, <a href="https://www.greyc.fr/equipes/mad/" target="_blank" rel="noopener">équipe MAD</a></em></p>
           <p>
             Thèse consacrée à la représentation symbolique pour la logique épistémique dynamique probabiliste (PDEL).
             Définition d’un encodage symbolique des structures de Kripke et des structures d’événements via des
@@ -414,7 +409,7 @@
         <div class="resume-item">
           <h4>Master Informatique – Décision et Optimisation (DECIM)</h4>
           <h5>2016 – 2017</h5>
-          <p><em>Université de Caen Normandie</em></p>
+          <p><em><a href="https://www.unicaen.fr/" target="_blank" rel="noopener">Université de Caen Normandie</a></em></p>
           <p>
             Formation mêlant recherche opérationnelle, optimisation, intelligence artificielle, apprentissage
             automatique, fouille de données et planification multi-agents.
@@ -424,7 +419,7 @@
         <div class="resume-item">
           <h4>Licence Informatique</h4>
           <h5>2013 – 2016</h5>
-          <p><em>Université de Caen Normandie</em></p>
+          <p><em><a href="https://www.unicaen.fr/" target="_blank" rel="noopener">Université de Caen Normandie</a></em></p>
           <p>
             Bases théoriques et pratiques de l'informatique : algorithmique, programmation, systèmes, réseaux,
             structures de données et mathématiques pour l’informatique.
@@ -441,28 +436,37 @@
         <div class="resume-item">
           <h4>Enseignant-Chercheur</h4>
           <h5>2023 – Aujourd’hui</h5>
-          <p><em>ISEN Yncréa Ouest, Caen</em></p>
+          <p><em><a href="https://www.isen.fr/" target="_blank" rel="noopener">ISEN Yncréa Ouest</a>, Caen</em></p>
           <ul>
             <li>Enseignements : programmation (Java, Python, Web), algorithmique, design patterns, graphes, optimisation, culture numérique.</li>
             <li>Recherche : planification multi-agent, optimisation, coordination de flottes de drones autonomes, simulations multi-agents, SIG.</li>
-            <li>Membre du laboratoire <a href="https://isen-brest.fr/labisen/">L@bISEN</a>, équipe <a href="https://isen-brest.fr/labisen/equipes-de-recherche/equipe-autorob/">AutoROB</a>.</li>
+            <li>Membre du laboratoire <a href="https://isen-ouest.fr/labisen-la-recherche/" target="_blank" rel="noopener">L@bISEN</a>, équipe <a href="https://isen-ouest.fr/labisen-la-recherche/equipes-de-recherche/klaim-knowledge-learning-and-information-modeling/" target="_blank" rel="noopener">KLAIM</a>.</li>
           </ul>
+          <div class="career-timeline" role="group" aria-label="Responsabilités à l'ISEN Yncréa Ouest">
+            <h5 class="career-timeline-title">Responsabilités</h5>
+            <div class="career-axis" aria-hidden="true"><span>2023</span><span>2024</span><span>2025</span><span>2026</span></div>
+            <ol class="career-bars">
+              <li class="career-bar career-domain" style="--from:1;--to:5"><strong>Responsable Domaine Professionnel Développement Logiciel</strong><small>De 2023 à aujourd’hui</small></li>
+              <li class="career-bar career-m1" style="--from:1;--to:4"><strong>Responsable M1</strong><small>De 2023 à 2026</small></li>
+              <li class="career-bar career-m2" style="--from:4;--to:5"><strong>Responsable M2</strong><small>À partir de 2026</small></li>
+            </ol>
+          </div>
         </div>
 
         <div class="resume-item">
           <h4>Attaché Temporaire d’Enseignement et de Recherche (ATER)</h4>
           <h5>2021 – 2023</h5>
-          <p><em>Université de Caen Normandie</em></p>
+          <p><em><a href="https://www.unicaen.fr/" target="_blank" rel="noopener">Université de Caen Normandie</a></em></p>
           <ul>
             <li>Enseignements : développement web, Python, algorithmique, modélisation.</li>
-            <li>Contribution à la recherche dans l’équipe MAD du GREYC.</li>
+            <li>Contribution à la recherche dans l’<a href="https://www.greyc.fr/equipes/mad/" target="_blank" rel="noopener">équipe MAD</a> du <a href="https://www.greyc.fr/" target="_blank" rel="noopener">GREYC</a>.</li>
           </ul>
         </div>
 
         <div class="resume-item">
           <h4>Doctorant en Informatique</h4>
           <h5>2018 – 2022</h5>
-          <p><em>GREYC, Caen</em></p>
+          <p><em><a href="https://www.greyc.fr/" target="_blank" rel="noopener">GREYC</a>, Caen</em></p>
           <ul>
             <li>Développement d’une représentation symbolique pour la PDEL via ADD.</li>
             <li>Expérimentations : passage à l’échelle sur le jeu Hanabi.</li>
@@ -473,14 +477,14 @@
         <div class="resume-item">
           <h4>Stagiaire R&D – Logiques Épistémiques</h4>
           <h5>2018 - 6 mois</h5>
-          <p><em>GREYC, Caen</em></p>
+          <p><em><a href="https://www.greyc.fr/" target="_blank" rel="noopener">GREYC</a>, Caen</em></p>
           <p>Étude de représentations efficaces pour la planification avec logiques épistémiques.</p>
         </div>
 
         <div class="resume-item">
           <h4>Stagiaire – Projet ETHICAA</h4>
           <h5>2016 - 2 mois</h5>
-          <p><em>GREYC, équipe MAD</em></p>
+          <p><em><a href="https://www.greyc.fr/" target="_blank" rel="noopener">GREYC</a>, <a href="https://www.greyc.fr/equipes/mad/" target="_blank" rel="noopener">équipe MAD</a></em></p>
           <p>
             Participation au projet ETHICAA : modélisation des systèmes multi-agents
             capables de gérer des conflits éthiques individuels ou collectifs.
@@ -495,362 +499,20 @@
 
 </section>
 
-    <!-- Portfolio Section -->
-    <section id="portfolio" class="portfolio section light-background" style="display:none;">
-
-      <!-- Section Title -->
-      <div class="container section-title" data-aos="fade-up">
-        <h2>Portfolio</h2>
-        <p>Magnam dolores commodi suscipit. Necessitatibus eius consequatur ex aliquid fuga eum quidem. Sit sint consectetur velit. Quisquam quos quisquam cupiditate. Et nemo qui impedit suscipit alias ea. Quia fugiat sit in iste officiis commodi quidem hic quas.</p>
-      </div><!-- End Section Title -->
-
-      <div class="container">
-
-        <div class="isotope-layout" data-default-filter="*" data-layout="masonry" data-sort="original-order">
-
-          <ul class="portfolio-filters isotope-filters" data-aos="fade-up" data-aos-delay="100">
-            <li data-filter="*" class="filter-active">All</li>
-            <li data-filter=".filter-app">App</li>
-            <li data-filter=".filter-product">Product</li>
-            <li data-filter=".filter-branding">Branding</li>
-            <li data-filter=".filter-books">Books</li>
-          </ul><!-- End Portfolio Filters -->
-
-          <div class="row gy-4 isotope-container" data-aos="fade-up" data-aos-delay="200">
-
-            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-app">
-              <div class="portfolio-content h-100">
-                <img src="assets/img/portfolio/app-1.jpg" class="img-fluid" alt="">
-                <div class="portfolio-info">
-                  <h4>App 1</h4>
-                  <p>Lorem ipsum, dolor sit amet consectetur</p>
-                  <a href="assets/img/portfolio/app-1.jpg" title="App 1" data-gallery="portfolio-gallery-app" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
-                  <a href="portfolio-details.html" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a>
-                </div>
-              </div>
-            </div><!-- End Portfolio Item -->
-
-            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-product">
-              <div class="portfolio-content h-100">
-                <img src="assets/img/portfolio/product-1.jpg" class="img-fluid" alt="">
-                <div class="portfolio-info">
-                  <h4>Product 1</h4>
-                  <p>Lorem ipsum, dolor sit amet consectetur</p>
-                  <a href="assets/img/portfolio/product-1.jpg" title="Product 1" data-gallery="portfolio-gallery-product" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
-                  <a href="portfolio-details.html" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a>
-                </div>
-              </div>
-            </div><!-- End Portfolio Item -->
-
-            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-branding">
-              <div class="portfolio-content h-100">
-                <img src="assets/img/portfolio/branding-1.jpg" class="img-fluid" alt="">
-                <div class="portfolio-info">
-                  <h4>Branding 1</h4>
-                  <p>Lorem ipsum, dolor sit amet consectetur</p>
-                  <a href="assets/img/portfolio/branding-1.jpg" title="Branding 1" data-gallery="portfolio-gallery-branding" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
-                  <a href="portfolio-details.html" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a>
-                </div>
-              </div>
-            </div><!-- End Portfolio Item -->
-
-            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-books">
-              <div class="portfolio-content h-100">
-                <img src="assets/img/portfolio/books-1.jpg" class="img-fluid" alt="">
-                <div class="portfolio-info">
-                  <h4>Books 1</h4>
-                  <p>Lorem ipsum, dolor sit amet consectetur</p>
-                  <a href="assets/img/portfolio/books-1.jpg" title="Branding 1" data-gallery="portfolio-gallery-book" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
-                  <a href="portfolio-details.html" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a>
-                </div>
-              </div>
-            </div><!-- End Portfolio Item -->
-
-            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-app">
-              <div class="portfolio-content h-100">
-                <img src="assets/img/portfolio/app-2.jpg" class="img-fluid" alt="">
-                <div class="portfolio-info">
-                  <h4>App 2</h4>
-                  <p>Lorem ipsum, dolor sit amet consectetur</p>
-                  <a href="assets/img/portfolio/app-2.jpg" title="App 2" data-gallery="portfolio-gallery-app" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
-                  <a href="portfolio-details.html" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a>
-                </div>
-              </div>
-            </div><!-- End Portfolio Item -->
-
-            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-product">
-              <div class="portfolio-content h-100">
-                <img src="assets/img/portfolio/product-2.jpg" class="img-fluid" alt="">
-                <div class="portfolio-info">
-                  <h4>Product 2</h4>
-                  <p>Lorem ipsum, dolor sit amet consectetur</p>
-                  <a href="assets/img/portfolio/product-2.jpg" title="Product 2" data-gallery="portfolio-gallery-product" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
-                  <a href="portfolio-details.html" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a>
-                </div>
-              </div>
-            </div><!-- End Portfolio Item -->
-
-            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-branding">
-              <div class="portfolio-content h-100">
-                <img src="assets/img/portfolio/branding-2.jpg" class="img-fluid" alt="">
-                <div class="portfolio-info">
-                  <h4>Branding 2</h4>
-                  <p>Lorem ipsum, dolor sit amet consectetur</p>
-                  <a href="assets/img/portfolio/branding-2.jpg" title="Branding 2" data-gallery="portfolio-gallery-branding" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
-                  <a href="portfolio-details.html" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a>
-                </div>
-              </div>
-            </div><!-- End Portfolio Item -->
-
-            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-books">
-              <div class="portfolio-content h-100">
-                <img src="assets/img/portfolio/books-2.jpg" class="img-fluid" alt="">
-                <div class="portfolio-info">
-                  <h4>Books 2</h4>
-                  <p>Lorem ipsum, dolor sit amet consectetur</p>
-                  <a href="assets/img/portfolio/books-2.jpg" title="Branding 2" data-gallery="portfolio-gallery-book" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
-                  <a href="portfolio-details.html" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a>
-                </div>
-              </div>
-            </div><!-- End Portfolio Item -->
-
-            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-app">
-              <div class="portfolio-content h-100">
-                <img src="assets/img/portfolio/app-3.jpg" class="img-fluid" alt="">
-                <div class="portfolio-info">
-                  <h4>App 3</h4>
-                  <p>Lorem ipsum, dolor sit amet consectetur</p>
-                  <a href="assets/img/portfolio/app-3.jpg" title="App 3" data-gallery="portfolio-gallery-app" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
-                  <a href="portfolio-details.html" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a>
-                </div>
-              </div>
-            </div><!-- End Portfolio Item -->
-
-            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-product">
-              <div class="portfolio-content h-100">
-                <img src="assets/img/portfolio/product-3.jpg" class="img-fluid" alt="">
-                <div class="portfolio-info">
-                  <h4>Product 3</h4>
-                  <p>Lorem ipsum, dolor sit amet consectetur</p>
-                  <a href="assets/img/portfolio/product-3.jpg" title="Product 3" data-gallery="portfolio-gallery-product" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
-                  <a href="portfolio-details.html" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a>
-                </div>
-              </div>
-            </div><!-- End Portfolio Item -->
-
-            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-branding">
-              <div class="portfolio-content h-100">
-                <img src="assets/img/portfolio/branding-3.jpg" class="img-fluid" alt="">
-                <div class="portfolio-info">
-                  <h4>Branding 3</h4>
-                  <p>Lorem ipsum, dolor sit amet consectetur</p>
-                  <a href="assets/img/portfolio/branding-3.jpg" title="Branding 2" data-gallery="portfolio-gallery-branding" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
-                  <a href="portfolio-details.html" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a>
-                </div>
-              </div>
-            </div><!-- End Portfolio Item -->
-
-            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-books">
-              <div class="portfolio-content h-100">
-                <img src="assets/img/portfolio/books-3.jpg" class="img-fluid" alt="">
-                <div class="portfolio-info">
-                  <h4>Books 3</h4>
-                  <p>Lorem ipsum, dolor sit amet consectetur</p>
-                  <a href="assets/img/portfolio/books-3.jpg" title="Branding 3" data-gallery="portfolio-gallery-book" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
-                  <a href="portfolio-details.html" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a>
-                </div>
-              </div>
-            </div><!-- End Portfolio Item -->
-
-          </div><!-- End Portfolio Container -->
-
-        </div>
-
-      </div>
-
-    </section><!-- /Portfolio Section -->
-
-    <!-- Services Section -->
-    <section id="services" class="services section" style="display:none;">
-
-      <!-- Section Title -->
-      <div class="container section-title" data-aos="fade-up">
-        <h2>Services</h2>
-        <p>Magnam dolores commodi suscipit. Necessitatibus eius consequatur ex aliquid fuga eum quidem. Sit sint consectetur velit. Quisquam quos quisquam cupiditate. Et nemo qui impedit suscipit alias ea. Quia fugiat sit in iste officiis commodi quidem hic quas.</p>
-      </div><!-- End Section Title -->
-
-      <div class="container">
-
-        <div class="row gy-4">
-
-          <div class="col-lg-4 col-md-6 service-item d-flex" data-aos="fade-up" data-aos-delay="100">
-            <div class="icon flex-shrink-0"><i class="bi bi-briefcase"></i></div>
-            <div>
-              <h4 class="title"><a href="service-details.html" class="stretched-link">Lorem Ipsum</a></h4>
-              <p class="description">Voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident</p>
-            </div>
+<!-- Contact Section -->
+    <!-- Projets web (aperçu) -->
+    <section id="projets" class="section">
+      <div class="container" data-aos="fade-up">
+        <div class="projects-teaser">
+          <div>
+            <h3>Projets</h3>
+            <p>Projets professionnels (symdd) et personnels (Garden, Scrabble Frame, Hexplore, bientôt PingSim).</p>
           </div>
-          <!-- End Service Item -->
-
-          <div class="col-lg-4 col-md-6 service-item d-flex" data-aos="fade-up" data-aos-delay="200">
-            <div class="icon flex-shrink-0"><i class="bi bi-card-checklist"></i></div>
-            <div>
-              <h4 class="title"><a href="service-details.html" class="stretched-link">Dolor Sitema</a></h4>
-              <p class="description">Minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat tarad limino ata</p>
-            </div>
-          </div><!-- End Service Item -->
-
-          <div class="col-lg-4 col-md-6 service-item d-flex" data-aos="fade-up" data-aos-delay="300">
-            <div class="icon flex-shrink-0"><i class="bi bi-bar-chart"></i></div>
-            <div>
-              <h4 class="title"><a href="service-details.html" class="stretched-link">Sed ut perspiciatis</a></h4>
-              <p class="description">Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur</p>
-            </div>
-          </div><!-- End Service Item -->
-
-          <div class="col-lg-4 col-md-6 service-item d-flex" data-aos="fade-up" data-aos-delay="400">
-            <div class="icon flex-shrink-0"><i class="bi bi-binoculars"></i></div>
-            <div>
-              <h4 class="title"><a href="service-details.html" class="stretched-link">Magni Dolores</a></h4>
-              <p class="description">Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</p>
-            </div>
-          </div><!-- End Service Item -->
-
-          <div class="col-lg-4 col-md-6 service-item d-flex" data-aos="fade-up" data-aos-delay="500">
-            <div class="icon flex-shrink-0"><i class="bi bi-brightness-high"></i></div>
-            <div>
-              <h4 class="title"><a href="service-details.html" class="stretched-link">Nemo Enim</a></h4>
-              <p class="description">At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque</p>
-            </div>
-          </div><!-- End Service Item -->
-
-          <div class="col-lg-4 col-md-6 service-item d-flex" data-aos="fade-up" data-aos-delay="600">
-            <div class="icon flex-shrink-0"><i class="bi bi-calendar4-week"></i></div>
-            <div>
-              <h4 class="title"><a href="service-details.html" class="stretched-link">Eiusmod Tempor</a></h4>
-              <p class="description">Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi</p>
-            </div>
-          </div><!-- End Service Item -->
-
+          <a class="btn-project" href="projets.html">Voir les projets <i class="bi bi-arrow-right"></i></a>
         </div>
-
       </div>
+    </section><!-- /Projets web -->
 
-    </section><!-- /Services Section -->
-
-    <!-- Testimonials Section -->
-    <section id="testimonials" class="testimonials section light-background" style="display:none;">
-
-      <!-- Section Title -->
-      <div class="container section-title" data-aos="fade-up">
-        <h2>Testimonials</h2>
-        <p>Necessitatibus eius consequatur ex aliquid fuga eum quidem sint consectetur velit</p>
-      </div><!-- End Section Title -->
-
-      <div class="container" data-aos="fade-up" data-aos-delay="100">
-
-        <div class="swiper init-swiper">
-          <script type="application/json" class="swiper-config">
-            {
-              "loop": true,
-              "speed": 600,
-              "autoplay": {
-                "delay": 5000
-              },
-              "slidesPerView": "auto",
-              "pagination": {
-                "el": ".swiper-pagination",
-                "type": "bullets",
-                "clickable": true
-              },
-              "breakpoints": {
-                "320": {
-                  "slidesPerView": 1,
-                  "spaceBetween": 40
-                },
-                "1200": {
-                  "slidesPerView": 3,
-                  "spaceBetween": 1
-                }
-              }
-            }
-          </script>
-          <div class="swiper-wrapper">
-
-            <div class="swiper-slide">
-              <div class="testimonial-item">
-                <p>
-                  <i class="bi bi-quote quote-icon-left"></i>
-                  <span>Proin iaculis purus consequat sem cure digni ssim donec porttitora entum suscipit rhoncus. Accusantium quam, ultricies eget id, aliquam eget nibh et. Maecen aliquam, risus at semper.</span>
-                  <i class="bi bi-quote quote-icon-right"></i>
-                </p>
-                <img src="assets/img/testimonials/testimonials-1.jpg" class="testimonial-img" alt="">
-                <h3>Saul Goodman</h3>
-                <h4>Ceo &amp; Founder</h4>
-              </div>
-            </div><!-- End testimonial item -->
-
-            <div class="swiper-slide">
-              <div class="testimonial-item">
-                <p>
-                  <i class="bi bi-quote quote-icon-left"></i>
-                  <span>Export tempor illum tamen malis malis eram quae irure esse labore quem cillum quid malis quorum velit fore eram velit sunt aliqua noster fugiat irure amet legam anim culpa.</span>
-                  <i class="bi bi-quote quote-icon-right"></i>
-                </p>
-                <img src="assets/img/testimonials/testimonials-2.jpg" class="testimonial-img" alt="">
-                <h3>Sara Wilsson</h3>
-                <h4>Designer</h4>
-              </div>
-            </div><!-- End testimonial item -->
-
-            <div class="swiper-slide">
-              <div class="testimonial-item">
-                <p>
-                  <i class="bi bi-quote quote-icon-left"></i>
-                  <span>Enim nisi quem export duis labore cillum quae magna enim sint quorum nulla quem veniam duis minim tempor labore quem eram duis noster aute amet eram fore quis sint minim.</span>
-                  <i class="bi bi-quote quote-icon-right"></i>
-                </p>
-                <img src="assets/img/testimonials/testimonials-3.jpg" class="testimonial-img" alt="">
-                <h3>Jena Karlis</h3>
-                <h4>Store Owner</h4>
-              </div>
-            </div><!-- End testimonial item -->
-
-            <div class="swiper-slide">
-              <div class="testimonial-item">
-                <p>
-                  <i class="bi bi-quote quote-icon-left"></i>
-                  <span>Fugiat enim eram quae cillum dolore dolor amet nulla culpa multos export minim fugiat dolor enim duis veniam ipsum anim magna sunt elit fore quem dolore labore illum veniam.</span>
-                  <i class="bi bi-quote quote-icon-right"></i>
-                </p>
-                <img src="assets/img/testimonials/testimonials-4.jpg" class="testimonial-img" alt="">
-                <h3>Matt Brandon</h3>
-                <h4>Freelancer</h4>
-              </div>
-            </div><!-- End testimonial item -->
-
-            <div class="swiper-slide">
-              <div class="testimonial-item">
-                <p>
-                  <i class="bi bi-quote quote-icon-left"></i>
-                  <span>Quis quorum aliqua sint quem legam fore sunt eram irure aliqua veniam tempor noster veniam sunt culpa nulla illum cillum fugiat legam esse veniam culpa fore nisi cillum quid.</span>
-                  <i class="bi bi-quote quote-icon-right"></i>
-                </p>
-                <img src="assets/img/testimonials/testimonials-5.jpg" class="testimonial-img" alt="">
-                <h3>John Larson</h3>
-                <h4>Entrepreneur</h4>
-              </div>
-            </div><!-- End testimonial item -->
-
-          </div>
-          <div class="swiper-pagination"></div>
-        </div>
-
-      </div>
-
-    </section><!-- /Testimonials Section -->
-
-    <!-- Contact Section -->
     <section id="contact" class="contact section">
 
       <!-- Section Title -->
@@ -941,7 +603,7 @@
 
     <div class="container">
       <div class="copyright text-center ">
-        <p>© <span>Copyright</span> <strong class="px-1 sitename">iPortfolio</strong> <span>All Rights Reserved</span></p>
+        <p>© <span>2026</span> <strong class="px-1 sitename">Sébastien Gamblin</strong> – Enseignant-chercheur en informatique, ISEN Yncréa Ouest, Caen</p>
       </div>
       <div class="credits">
         <!-- All the links in the footer should remain intact. -->
