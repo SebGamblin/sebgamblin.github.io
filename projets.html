@@ -4,8 +4,8 @@
 <head>
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
-  <title>Projets web – Sébastien Gamblin</title>
-  <meta name="description" content="Outils web statiques et projets annexes de Sébastien Gamblin : carnet de projet de jardin (Garden), éditeur de cartes de prénoms imprimables (Scrabble Frame) et simulateur PingSim (à venir).">
+  <title>Projets – Sébastien Gamblin</title>
+  <meta name="description" content="Projets de Sébastien Gamblin : projet professionnel (symdd, diagrammes de décision et model checking) et projets personnels (Garden, Scrabble Frame, Hexplore, PingSim).">
   <meta name="author" content="Sébastien Gamblin">
   <meta name="robots" content="index, follow, max-image-preview:large">
   <link rel="canonical" href="https://sebgamblin.github.io/projets.html">
@@ -13,8 +13,8 @@
   <meta property="og:type" content="website">
   <meta property="og:locale" content="fr_FR">
   <meta property="og:site_name" content="Sébastien Gamblin">
-  <meta property="og:title" content="Projets web – Sébastien Gamblin">
-  <meta property="og:description" content="Outils web statiques et projets annexes : Garden, Scrabble Frame, PingSim.">
+  <meta property="og:title" content="Projets – Sébastien Gamblin">
+  <meta property="og:description" content="Projets professionnels et personnels : symdd, Garden, Scrabble Frame, Hexplore, PingSim.">
   <meta property="og:url" content="https://sebgamblin.github.io/projets.html">
   <meta property="og:image" content="https://sebgamblin.github.io/assets/img/my-profile-img.jpg">
   <meta name="twitter:card" content="summary">
@@ -38,7 +38,7 @@
   {
     "@context": "https://schema.org",
     "@type": "CollectionPage",
-    "name": "Projets web – Sébastien Gamblin",
+    "name": "Projets – Sébastien Gamblin",
     "url": "https://sebgamblin.github.io/projets.html",
     "inLanguage": "fr",
     "author": { "@type": "Person", "name": "Sébastien Gamblin", "url": "https://sebgamblin.github.io/" },
@@ -90,7 +90,7 @@
         <li><a href="index.html#research"><i class="bi bi-lightbulb navicon"></i> Recherche</a></li>
         <li><a href="index.html#enseignement"><i class="bi bi-book navicon"></i> Enseignements</a></li>
         <li><a href="index.html#resume"><i class="bi bi-file-earmark-text navicon"></i> Curriculum Vitae</a></li>
-        <li><a href="projets.html" class="active"><i class="bi bi-boxes navicon"></i> Projets web</a></li>
+        <li><a href="projets.html" class="active"><i class="bi bi-boxes navicon"></i> Projets</a></li>
         <!--<li><a href="index.html#portfolio"><i class="bi bi-images navicon"></i> Portfolio</a></li>-->
         <!--<li><a href="index.html#services"><i class="bi bi-hdd-stack navicon"></i> Services</a></li>-->
         <!--<li class="dropdown"><a href="index.html#"><i class="bi bi-menu-button navicon"></i> <span>Dropdown</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
@@ -121,20 +121,43 @@
     <section id="projets" class="section">
 
       <div class="container section-title" data-aos="fade-up">
-        <h2>Projets web</h2>
-        <p>Petites applications statiques réalisées en HTML, CSS et JavaScript. Elles s'exécutent entièrement dans le navigateur : pas de compte, pas de serveur, vos données restent chez vous.</p>
+        <h2>Projets</h2>
+        <p>Projets professionnels et personnels. Les applications web sont statiques : elles s'exécutent entièrement dans le navigateur, sans compte ni serveur, et vos données restent chez vous.</p>
       </div>
 
       <div class="container" data-aos="fade-up" data-aos-delay="100">
-        <div class="project-grid">
 
+        <h3 class="project-category"><i class="bi bi-briefcase"></i> Projets professionnels</h3>
+        <div class="project-grid">
+          <article class="project-card">
+            <div class="project-thumb symdd" aria-hidden="true">
+              <span class="project-badge">Hors ligne</span>
+              <i class="bi bi-diagram-2"></i>
+            </div>
+            <div class="project-body">
+              <h4>symdd</h4>
+              <p class="project-subtitle">Diagrammes de décision et model checking symbolique</p>
+              <p>Cadre générique de diagrammes de décision (BDD, ADD, ZDD, SLDD, MTZDD) et model checker symbolique pour la logique épistémique dynamique, issu de mes travaux de thèse.</p>
+              <ul class="project-features">
+                <li><i class="bi bi-check2"></i> Structures de diagrammes de décision génériques</li>
+                <li><i class="bi bi-check2"></i> Model checking symbolique de la logique épistémique dynamique</li>
+              </ul>
+              <ul class="project-tags" aria-label="Technologies">
+                <li>Diagrammes de décision</li><li>Model checking</li><li>Logique épistémique</li>
+              </ul>
+            </div>
+          </article>
+        </div>
+
+        <h3 class="project-category"><i class="bi bi-person-heart"></i> Projets personnels</h3>
+        <div class="project-grid">
           <article class="project-card">
             <div class="project-thumb garden" aria-hidden="true">
-              <span class="project-badge">Disponible</span>
+              <span class="project-badge">En ligne</span>
               <i class="bi bi-tree"></i>
             </div>
             <div class="project-body">
-              <h3>Garden</h3>
+              <h4>Garden</h4>
               <p class="project-subtitle">Carnet de projet pour jardin et éco-lieu</p>
               <p>Cartographiez un terrain par zones (potager, verger, bâti, chemins d'eau), documentez chaque choix d'implantation et partagez le projet sous forme de visite guidée ou de rapport PDF.</p>
               <ul class="project-features">
@@ -149,17 +172,16 @@
             </div>
             <div class="project-actions">
               <a class="btn-project" href="garden/index.html"><i class="bi bi-box-arrow-up-right"></i> Ouvrir l'application</a>
-              <a class="btn-project ghost" href="garden/index.html#visite-guidee"><i class="bi bi-signpost-2"></i> Visite guidée</a>
+              <a class="btn-project ghost" href="https://github.com/SebGamblin/garden" target="_blank" rel="noopener"><i class="bi bi-github"></i> Code</a>
             </div>
           </article>
-
           <article class="project-card">
             <div class="project-thumb frame" aria-hidden="true">
-              <span class="project-badge">Disponible</span>
+              <span class="project-badge">En ligne</span>
               <i class="bi bi-grid-3x3-gap"></i>
             </div>
             <div class="project-body">
-              <h3>Scrabble Frame</h3>
+              <h4>Scrabble Frame</h4>
               <p class="project-subtitle">Éditeur de cartes de prénoms à imprimer</p>
               <p>Composez des mots croisés façon Scrabble à partir de prénoms, choisissez un cadre et imprimez une carte A4 prête à encadrer : idéal pour un cadeau de naissance ou de famille.</p>
               <ul class="project-features">
@@ -174,16 +196,34 @@
             </div>
             <div class="project-actions">
               <a class="btn-project" href="frame/index.html"><i class="bi bi-box-arrow-up-right"></i> Ouvrir l'application</a>
+              <a class="btn-project ghost" href="https://github.com/SebGamblin/frame" target="_blank" rel="noopener"><i class="bi bi-github"></i> Code</a>
             </div>
           </article>
-
-          <article class="project-card soon" aria-label="PingSim, bientôt disponible">
+          <article class="project-card">
+            <div class="project-thumb hexplore" aria-hidden="true">
+              <span class="project-badge">Hors ligne</span>
+              <i class="bi bi-hexagon"></i>
+            </div>
+            <div class="project-body">
+              <h4>Hexplore</h4>
+              <p class="project-subtitle">Roguelike tactique sur grille hexagonale</p>
+              <p>Jeu de combat au tour par tour sur grille hexagonale, avec une structure de parcours à la roguelike. Développé avec Godot.</p>
+              <ul class="project-features">
+                <li><i class="bi bi-check2"></i> Combats tactiques (points d'action et de mouvement, portées, zones)</li>
+                <li><i class="bi bi-check2"></i> Sorts alchimiques, glyphes et réactions élémentaires</li>
+              </ul>
+              <ul class="project-tags" aria-label="Technologies">
+                <li>Godot</li><li>GDScript</li><li>Jeu vidéo</li>
+              </ul>
+            </div>
+          </article>
+          <article class="project-card soon">
             <div class="project-thumb pingsim" aria-hidden="true">
               <span class="project-badge">Bientôt</span>
               <i class="bi bi-diagram-3"></i>
             </div>
             <div class="project-body">
-              <h3>PingSim</h3>
+              <h4>PingSim</h4>
               <p class="project-subtitle">Simulateur · en préparation</p>
               <p>Un simulateur interactif exécuté dans le navigateur. La présentation sera complétée dès la première version publique.</p>
               <ul class="project-tags" aria-label="Technologies">
@@ -194,10 +234,9 @@
               <span class="btn-project" role="link" aria-disabled="true"><i class="bi bi-hourglass-split"></i> À venir</span>
             </div>
           </article>
-
         </div>
 
-        <p class="mt-5 mb-0">Le code de ces projets est disponible sur <a href="https://github.com/SebGamblin/sebgamblin.github.io">GitHub</a>.
+        <p class="mt-5 mb-0">Les dépôts publics sont sur <a href="https://github.com/SebGamblin">GitHub</a>.
           Pour mes travaux de recherche et mes enseignements, retournez à l'<a href="index.html">accueil</a>.</p>
       </div>
 

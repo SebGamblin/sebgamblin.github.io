@@ -282,3 +282,102 @@
 @media (prefers-reduced-motion: reduce) {
   .course-tile { transition: none; }
 }
+
+/* ---------- Catégories de projets ---------- */
+.project-category {
+  font-size: 22px;
+  font-weight: 700;
+  margin: 8px 0 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.project-category i { color: var(--accent-color); }
+.project-grid + .project-category { margin-top: 48px; }
+.project-body h4 { font-size: 21px; font-weight: 700; margin: 0 0 2px; text-align: left; }
+.project-thumb.symdd { background: linear-gradient(135deg, #14405c, #149ddd); }
+.project-thumb.hexplore { background: linear-gradient(135deg, #7a2e1d, #e08b3b); }
+
+/* ---------- Frise des responsabilités ---------- */
+.career-timeline {
+  margin: 18px 0 8px;
+  padding: 16px 18px 14px;
+  background: var(--surface-color);
+  border: 1px solid color-mix(in srgb, var(--default-color), transparent 88%);
+  border-radius: 12px;
+}
+
+.career-timeline-title {
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin: 0 0 12px;
+  color: color-mix(in srgb, var(--default-color), transparent 35%);
+}
+
+.career-axis,
+.career-bars {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0;
+}
+
+.career-axis {
+  margin-bottom: 8px;
+  border-bottom: 2px solid color-mix(in srgb, var(--default-color), transparent 80%);
+}
+
+.career-axis span {
+  font-family: var(--nav-font);
+  font-size: 12px;
+  padding: 0 0 6px 2px;
+  border-left: 2px solid color-mix(in srgb, var(--default-color), transparent 80%);
+  color: color-mix(in srgb, var(--default-color), transparent 35%);
+}
+
+.career-bars { list-style: none; padding: 0; margin: 0; row-gap: 8px; }
+.career-bars li { list-style: none; }
+
+.career-bar {
+  grid-column: var(--from) / var(--to);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 8px 12px;
+  min-height: 52px;
+  border-radius: 8px;
+  color: #fff;
+  line-height: 1.25;
+  background: var(--bar, var(--accent-color));
+}
+
+.career-bar strong { font-family: var(--heading-font); font-size: 14px; color: #fff; }
+.career-bar small { font-size: 12px; opacity: 0.88; }
+
+.career-domain { --bar: #0b6e9c; }
+.career-m1 { --bar: #149ddd; }
+.career-m2 { --bar: #1f8a5b; border-radius: 8px 20px 20px 8px; }
+.career-domain { border-radius: 8px 20px 20px 8px; }
+
+@media (max-width: 600px) {
+  .career-axis span { font-size: 11px; }
+  .career-bar strong { font-size: 13px; }
+}
+
+/* ---------- Sous-catégories de cours ---------- */
+.course-category {
+  font-size: 20px;
+  font-weight: 700;
+  margin: 0 0 16px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.course-category i { color: var(--accent-color); }
+
+/* Carte sans boutons d'action : garder un bas de carte aéré */
+.project-card .project-body:last-child { padding-bottom: 22px; }
+
+/* Texte aligné à gauche dans les cartes (le template justifie les paragraphes) */
+.project-body p, .project-features li, .career-bar { text-align: left; }
